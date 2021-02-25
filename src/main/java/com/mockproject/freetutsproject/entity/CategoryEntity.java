@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity (name = "CategoryTbl")
+@Entity
+@Table (name = "categories")
 public class CategoryEntity extends BaseEntity {
 	
 	@Column
@@ -32,11 +34,28 @@ public class CategoryEntity extends BaseEntity {
 	@OneToMany (mappedBy = "category")
 	private List<CourseEntity> courses = new ArrayList<CourseEntity>();
 
+	@OneToMany (mappedBy = "category")
+	private List<PostEntity> posts = new ArrayList<PostEntity>();
+	
 	/**
 	 * @return the name
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return the posts
+	 */
+	public List<PostEntity> getPosts() {
+		return posts;
+	}
+
+	/**
+	 * @param posts the posts to set
+	 */
+	public void setPosts(List<PostEntity> posts) {
+		this.posts = posts;
 	}
 
 	/**

@@ -6,8 +6,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity (name = "StudentTbl")
+@Entity
+@Table (name = "students")
 public class StudentEntity extends BaseEntity {
 	
 	@Column

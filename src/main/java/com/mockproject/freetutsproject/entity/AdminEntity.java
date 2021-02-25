@@ -6,8 +6,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-@Entity (name = "AdminTbl")
+@Entity
+@Table (name = "admins")
 public class AdminEntity extends BaseEntity {
 
 	@Column
@@ -24,6 +26,23 @@ public class AdminEntity extends BaseEntity {
 	
 	@OneToMany (mappedBy = "creator")
 	private List<CourseEntity> createdCourses = new ArrayList<CourseEntity>();
+	
+	@OneToMany (mappedBy = "creator")
+	private List<PostEntity> createdPosts = new ArrayList<PostEntity>();
+
+	/**
+	 * @return the createdPosts
+	 */
+	public List<PostEntity> getCreatedPosts() {
+		return createdPosts;
+	}
+
+	/**
+	 * @param createdPosts the createdPosts to set
+	 */
+	public void setCreatedPosts(List<PostEntity> createdPosts) {
+		this.createdPosts = createdPosts;
+	}
 
 	/**
 	 * @return the username

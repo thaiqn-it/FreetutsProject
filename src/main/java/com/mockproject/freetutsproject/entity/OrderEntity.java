@@ -8,8 +8,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity (name = "OrderTbl")
+@Entity
+@Table (name = "orders")
 public class OrderEntity extends BaseEntity {
 	
 	@ManyToOne
@@ -21,7 +23,7 @@ public class OrderEntity extends BaseEntity {
 	private StudentEntity student;
 	
 	@ManyToMany 
-	@JoinTable (name = "OrderDetailTbl", 
+	@JoinTable (name = "orderDetails", 
 				joinColumns = @JoinColumn(name = "order_id"), 
 				inverseJoinColumns = @JoinColumn(name = "course_id"))
 	private List<CourseEntity> courses = new ArrayList<CourseEntity>();

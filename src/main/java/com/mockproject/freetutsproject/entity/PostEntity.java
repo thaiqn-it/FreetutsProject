@@ -1,18 +1,20 @@
 package com.mockproject.freetutsproject.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
-@Table (name = "courses")
-public class CourseEntity extends BaseEntity{
+@Table (name = "posts")
+public class PostEntity extends BaseEntity {
 	
 	@Column
 	private String name;
@@ -21,16 +23,10 @@ public class CourseEntity extends BaseEntity{
 	private String description;
 	
 	@Column
+	private Date createdDate;
+	
+	@Column
 	private String thumbnail;
-	
-	@Column
-	private String learnMethod;
-	
-	@Column
-	private String courseLink;
-	
-	@Column
-	private Long price;
 	
 	@ManyToOne
 	@JoinColumn (name = "created_by")
@@ -40,8 +36,11 @@ public class CourseEntity extends BaseEntity{
 	@JoinColumn (name = "category")
 	private CategoryEntity category;
 	
-	@ManyToMany (mappedBy = "courses")
-	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	@OneToMany (mappedBy = "post")
+	private List<ContentEntity> contents = new ArrayList<ContentEntity>();
+	
+	@OneToMany (mappedBy = "post")
+	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 
 	/**
 	 * @return the name
@@ -72,6 +71,20 @@ public class CourseEntity extends BaseEntity{
 	}
 
 	/**
+	 * @return the createdDate
+	 */
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	/**
 	 * @return the thumbnail
 	 */
 	public String getThumbnail() {
@@ -83,48 +96,6 @@ public class CourseEntity extends BaseEntity{
 	 */
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
-	}
-
-	/**
-	 * @return the learnMethod
-	 */
-	public String getLearnMethod() {
-		return learnMethod;
-	}
-
-	/**
-	 * @param learnMethod the learnMethod to set
-	 */
-	public void setLearnMethod(String learnMethod) {
-		this.learnMethod = learnMethod;
-	}
-
-	/**
-	 * @return the courseLink
-	 */
-	public String getCourseLink() {
-		return courseLink;
-	}
-
-	/**
-	 * @param courseLink the courseLink to set
-	 */
-	public void setCourseLink(String courseLink) {
-		this.courseLink = courseLink;
-	}
-
-	/**
-	 * @return the price
-	 */
-	public Long getPrice() {
-		return price;
-	}
-
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(Long price) {
-		this.price = price;
 	}
 
 	/**
@@ -156,18 +127,16 @@ public class CourseEntity extends BaseEntity{
 	}
 
 	/**
-	 * @return the orders
+	 * @return the contents
 	 */
-	public List<OrderEntity> getOrders() {
-		return orders;
+	public List<ContentEntity> getContents() {
+		return contents;
 	}
 
 	/**
-	 * @param orders the orders to set
+	 * @param contents the contents to set
 	 */
-	public void setOrders(List<OrderEntity> orders) {
-		this.orders = orders;
+	public void setContents(List<ContentEntity> contents) {
+		this.contents = contents;
 	}
-	
-	
 }
