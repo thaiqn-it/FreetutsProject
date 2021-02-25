@@ -13,10 +13,10 @@ import javax.persistence.Table;
 public class CommentEntity extends BaseEntity {
 	
 	@Column
-	private String name;
+	private String commenterName;
 	
 	@Column
-	private String email;
+	private String commenterEmail;
 	
 	@Column
 	private Date date;
@@ -26,31 +26,31 @@ public class CommentEntity extends BaseEntity {
 	private PostEntity post;
 
 	/**
-	 * @return the name
+	 * @return the commenterName
 	 */
-	public String getName() {
-		return name;
+	public String getCommenterName() {
+		return commenterName;
 	}
 
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setCommenterEmail(String name) {
+		this.commenterName = name;
 	}
 
 	/**
-	 * @return the email
+	 * @return the commenterEmail
 	 */
-	public String getEmail() {
-		return email;
+	public String getCommenterEmail() {
+		return commenterEmail;
 	}
 
 	/**
 	 * @param email the email to set
 	 */
-	public void setEmail(String email) {
-		this.email = email;
+	public void setCommenterEmail(String email) {
+		this.commenterEmail = email;
 	}
 
 	/**
