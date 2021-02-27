@@ -35,7 +35,7 @@ public class CommentEntity extends BaseEntity {
 	/**
 	 * @param name the name to set
 	 */
-	public void setCommenterEmail(String name) {
+	public void setCommenterName(String name) {
 		this.commenterName = name;
 	}
 

@@ -9,7 +9,7 @@ import com.mockproject.freetutsproject.entity.ContentEntity;
 public class ContentMapper implements GenericMapper<ContentEntity, ContentDTO >{
 
 	@Override
-	public ContentDTO  toDTO(ContentEntity entity) {
+	public ContentDTO toDTO(ContentEntity entity) {
 		// TODO Auto-generated method stub
 		return null;
 	}
