@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Học lập trình online miễn phí - Freetuts</title>
+</head>
+<style>
+    #topbar {
+        background-color: #e6e1f6;
+    }
+    #header {
+        background-color: #017686;
+    }
+
+    .navbar {
+        background-color: #315062;
+        padding: 0px 200px;
+    }
+
+    .navbar a {
+        font-size: 16px;
+        text-align: center;
+        padding: 10px 10px;
+        text-decoration: none;
+
+    }
+
+    .nav-link{
+        color: #ffffff;
+        font-size: 18px !important;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .nav-link:hover{
+        background-color: white;
+    }
+
+    .navbar-collapse {
+        padding: 16px 0px !important;
+    }
+
+    /* Dropdown Columns */
+    div.dropdown-multicol2{
+        width: auto;
+    }
+    div.dropdown-multicol2>div.dropdown-col{
+        display:inline-block;
+        width: auto;
+    }
+</style>
+<body>
+<div class="container-fluid p-2" id="topbar">
+    <div class="container">
+        <a class="text-dark col-sm-3" href="https://tinohost.com/cloud-hosting/?php=213">Hosting từ 9k/tháng</a>
+        <a class="text-dark" href="https://tinohost.com/servers/cloud-vps/?php=213">VPS từ 139k/tháng</a>
+    </div>
+</div>
+    <div class="navbar navbar-expand-md" role="navigation" id="header">
+        <div class="collapse navbar-collapse p-3">
+            <div class="container">
+                    <div class="navbar-brand">
+                        <a href="#"><img src="https://freetuts.net/public/logo/logo.png?rand=5" class="rounded" width="120" height="40"></a>
+                    </div>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control" type="text" placeholder="Search..." aria-label="Search">
+                        <button class="form-control" type="submit"><i class="fas fa-search"></i></button>
+                        <a class="nav-link" href=""><i class="fab fa-facebook-square"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-skype"></i></a>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home"><i class="fas fa-home"></i></a>
+                </li>
+                <!-- Multicolumn dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Multi - Column
+                    </a>
+                    <div class="dropdown-menu dropdown-multicol2" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-col">
+                            <a class="dropdown-item" href="#">Oranges</a>
+                            <a class="dropdown-item" href="#">Bananas</a>
+                            <a class="dropdown-item" href="#">Apples</a>
+                        </div><div class="dropdown-col">
+                            <a class="dropdown-item" href="#">aasdads</a>
+                            <a class="dropdown-item" href="#">v</a>
+                            <a class="dropdown-item" href="#">c</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Single Coloumn Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <a class="dropdown-item" href="#">Oranges</a>
+                        <a class="dropdown-item" href="#">Bananas</a>
+                        <a class="dropdown-item" href="#">Apples</a>
+                        <a class="dropdown-item" href="#">aasdads</a>
+                        <a class="dropdown-item" href="#">v</a>
+                        <a class="dropdown-item" href="#">c</a>
+                    </div>
+                </li>
+            </ul>
+    </nav>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const $dropdown = $(".dropdown");
+    const $dropdownToggle = $(".dropdown-toggle");
+    const $dropdownMenu = $(".dropdown-menu");
+    const showClass = "show";
+
+    $(window).on("load resize", function() {
+        if (this.matchMedia("(min-width: 768px)").matches) {
+            $dropdown.hover(
+                function() {
+                    const $this = $(this);
+                    $this.addClass(showClass);
+                    $this.find($dropdownToggle).attr("aria-expanded", "true");
+                    $this.find($dropdownMenu).addClass(showClass);
+                },
+                function() {
+                    const $this = $(this);
+                    $this.removeClass(showClass);
+                    $this.find($dropdownToggle).attr("aria-expanded", "false");
+                    $this.find($dropdownMenu).removeClass(showClass);
+                }
+            );
+        } else {
+            $dropdown.off("mouseenter mouseleave");
+        }
+    });
+</script>
+</body>
+</html>
