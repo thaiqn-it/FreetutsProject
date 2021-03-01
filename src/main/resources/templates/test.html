@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		th:replace="~{layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #main-content},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<th:block id="styles">
+	</th:block>
+    <title>Test</title>
+</head>
+<body>
+	<div id="main-content">
+		<h1>Tét đê</h1>
+		ancjasdjasd
+	</div>
+	<th:block id="scripts">
+	</th:block>
+</body>
+</html>

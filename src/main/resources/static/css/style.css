@@ -1,0 +1,44 @@
+#topbar {
+    background-color: #e6e1f6;
+}
+
+#header {
+	background-color: #017686;
+}
+
+.navbar {
+	background-color: #315062;
+	padding: 0px 200px;
+}
+
+.navbar a {
+	font-size: 16px;
+	text-align: center;
+	padding: 10px 10px;
+	text-decoration: none;
+}
+
+.nav-link {
+	color: #ffffff;
+	font-size: 18px !important;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.nav-link:hover {
+	background-color: white;
+}
+
+.navbar-collapse {
+	padding: 16px 0px !important;
+}
+
+/* Dropdown Columns */
+div.dropdown-multicol2 {
+	width: auto;
+}
+
+div.dropdown-multicol2>div.dropdown-col {
+	display: inline-block;
+	width: auto;
+}
