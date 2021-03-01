@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class DiscountEntity extends BaseEntity {
 	
 	@Column
-	private int percent;
+	private int discountPercent;
 	
 	@Column
 	private String discountWebsite;
@@ -18,17 +18,17 @@ public class DiscountEntity extends BaseEntity {
 	private boolean available;
 
 	/**
-	 * @return the percent
+	 * @return the discountPercent
 	 */
-	public int getPercent() {
-		return percent;
+	public int getDiscountPercent() {
+		return discountPercent;
 	}
 
 	/**
-	 * @param percent the percent to set
+	 * @param discountPercent the discountPercent to set
 	 */
-	public void setPercent(int percent) {
-		this.percent = percent;
+	public void setDiscountPercent(int discountPercent) {
+		this.discountPercent = discountPercent;
 	}
 
 	/**
