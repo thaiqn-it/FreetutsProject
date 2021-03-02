@@ -5,29 +5,30 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "categories")
+@Table (name = "category")
 public class CategoryEntity extends BaseEntity {
 	
-	@Column
+	@Column(columnDefinition="nvarchar(50)")
 	private String name;
 	
 	@Column
 	private String thumbnail;
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "parent_id")
 	private CategoryEntity parent;
 	
-	@OneToMany (mappedBy = "parent")
+	@OneToMany (mappedBy = "parent", fetch = FetchType.EAGER)
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
 	

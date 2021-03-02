@@ -34,41 +34,44 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#home"><i class="fas fa-home"></i></a>
                 </li>
+                
                 <!-- Multicolumn dropdown -->
+                <th:block th:each="category : ${#request.getAttribute('CATEGORIES')}">
                 <li class="nav-item dropdown">
-                    <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Multi - Column
-                    </a>
-                    <div class="dropdown-menu dropdown-multicol2" aria-labelledby="dropdownMenuButton">
-                        <div class="dropdown-col">
-                            <a class="dropdown-item" href="#">Oranges</a>
-                            <a class="dropdown-item" href="#">Bananas</a>
-                            <a class="dropdown-item" href="#">Apples</a>
-                        </div><div class="dropdown-col">
-                            <a class="dropdown-item" href="#">aasdads</a>
-                            <a class="dropdown-item" href="#">v</a>
-                            <a class="dropdown-item" href="#">c</a>
-                        </div>
+                    <a class="nav-link" type="button" th:id="'dropdownMenuButton' + ${category.id}" data-toggle="dropdown"
+                     aria-haspopup="true" aria-expanded="false" th:text="${category.name}"></a>
+                    <div class="dropdown-menu dropdown-lv1 dropdown-multicol2" th:attr="aria-labelledby='dropdownMenuButton' + ${category.id}">
+                        <th:block th:each="subCate : ${category.subCategories}">
+	                        <div class="dropdown-col">
+	                            <a class="dropdown-item" href="#" th:text="${subCate.name}"></a>
+	                            <th:block th:each="subCateChild : ${subCate.subCategories}">
+							    	<a class="dropdown-item" href="" th:text="${subCateChild.name}"></a>
+							    </th:block>
+	                        </div>
+                        </th:block>
                     </div>
                 </li>
+                </th:block>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Single Coloumn Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                        <a class="dropdown-item" href="#">Oranges</a>
-                        <a class="dropdown-item" href="#">Bananas</a>
-                        <a class="dropdown-item" href="#">Apples</a>
-                        <a class="dropdown-item" href="#">aasdads</a>
-                        <a class="dropdown-item" href="#">v</a>
-                        <a class="dropdown-item" href="#">c</a>
-                    </div>
-                </li>
+				<!-- Multilevel dropdown -->
+                <th:block th:each="category : ${#request.getAttribute('CATEGORIES')}">
+				<li class="nav-item dropdown">
+				    <a class="nav-link" href="#" data-toggle="dropdown" th:text="${category.name}"></a>
+				    <ul class="dropdown-menu dropdown-lv1">
+					  <th:block th:each="subCate : ${category.subCategories}">
+					  <li><a class="dropdown-item" href="#" th:text="${subCate.name}"></a>
+						 <ul class="submenu dropdown-menu">
+						 	<th:block th:each="subCateChild : ${subCate.subCategories}">
+						    	<li><a class="dropdown-item" href="" th:text="${subCateChild.name}"></a></li>
+						    </th:block>
+						 </ul>
+					  </li>
+					  </th:block>
+				    </ul>
+				</li>
+				</th:block>
             </ul>
     </nav>
-    
-    <p th:text="${param.q}">Test</p>
 </div>
 </body>
 </html>
