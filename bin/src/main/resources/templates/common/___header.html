@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Học lập trình online miễn phí - Freetuts</title>
+</head>
+<body>
+<div th:fragment="header" id="header-main">
+	<div class="container-fluid p-2" id="topbar">
+	    <div class="container">
+	        <a class="text-dark col-sm-3" href="https://tinohost.com/cloud-hosting/?php=213">Hosting từ 9k/tháng</a>
+	        <a class="text-dark" href="https://tinohost.com/servers/cloud-vps/?php=213">VPS từ 139k/tháng</a>
+	    </div>
+	</div>
+    <div class="navbar navbar-expand-md" role="navigation" id="header">
+        <div class="collapse navbar-collapse p-3">
+            <div class="container">
+                    <div class="navbar-brand">
+                        <a href="#"><img src="https://freetuts.net/public/logo/logo.png?rand=5" class="rounded" width="120" height="40"></a>
+                    </div>
+                    <form class="form-inline mt-2 mt-md-0">
+                        <input class="form-control" type="text" placeholder="Search..." aria-label="Search">
+                        <button class="form-control" type="submit"><i class="fas fa-search"></i></button>
+                        <a class="nav-link" href=""><i class="fab fa-facebook-square"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-twitter"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-youtube"></i></a>
+                        <a class="nav-link" href=""><i class="fab fa-skype"></i></a>
+                    </form>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#home"><i class="fas fa-home"></i></a>
+                </li>
+                <!-- Multicolumn dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Multi - Column
+                    </a>
+                    <div class="dropdown-menu dropdown-multicol2" aria-labelledby="dropdownMenuButton">
+                        <div class="dropdown-col">
+                            <a class="dropdown-item" href="#">Oranges</a>
+                            <a class="dropdown-item" href="#">Bananas</a>
+                            <a class="dropdown-item" href="#">Apples</a>
+                        </div><div class="dropdown-col">
+                            <a class="dropdown-item" href="#">aasdads</a>
+                            <a class="dropdown-item" href="#">v</a>
+                            <a class="dropdown-item" href="#">c</a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Single Coloumn Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                        <a class="dropdown-item" href="#">Oranges</a>
+                        <a class="dropdown-item" href="#">Bananas</a>
+                        <a class="dropdown-item" href="#">Apples</a>
+                        <a class="dropdown-item" href="#">aasdads</a>
+                        <a class="dropdown-item" href="#">v</a>
+                        <a class="dropdown-item" href="#">c</a>
+                    </div>
+                </li>
+            </ul>
+    </nav>
+    
+    <p th:text="${param.q}">Test</p>
+</div>
+</body>
+</html>
