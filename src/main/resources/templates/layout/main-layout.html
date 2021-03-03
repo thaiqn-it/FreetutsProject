@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:fragment="main-fragment(title, styles, mainContent, scripts)">
+	th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, commentFrame, widget1, widget2, scripts)">
 <head>
 <meta charset="UTF-8">
 <title th:replace="${title}">Title</title>
@@ -16,15 +16,40 @@
 		<h1>Header</h1>
 	</header>
 	
-	<div th:replace="${mainContent} ?: ~{}">Main Content</div>
+	<div class="container">	
+		<!-- Breadcrumb -->
+		<div th:replace="/common/___breadcrumb :: breadcrumb"></div>
+		
+		<!-- Sub-categories Navbar -->
+		<div th:replace="${subCategoriesNav} ?: ~{}">Sub-category navbar</div>
+		
+		<!-- Body -->	
+		<div class="row">
+			<!-- Post Content -->
+			<div class="col-lg-8 border">
+				<div th:replace="${mainContent} ?: ~{}">Main Content</div>
+				
+				<!-- Comment frame -->
+				<div th:replace="${commentFrame} ?: ~{}">comment Frame</div>
+			</div>
+			
+			<!-- Right-side Widgets -->
+			<div class="col-lg-4">
+				<div th:replace="${widget1} ?: ~{}"></div>
+				<div th:replace="${widget2} ?: ~{}"></div>
+				<div th:replace="/common/___widgets :: discount-widget"></div>
+			</div>
+		</div>
+	</div>
 	
 	<footer th:replace="/common/___footer :: footer">
 		<p>Footer</p>
 	</footer>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script type="text/javascript" th:src="@{/js/header-script.js}"></script>
-	<!-- <th:block th:replace="${scripts} ?: ~{}"></th:block> -->
+	=<th:block th:replace="${scripts} ?: ~{}"></th:block>
 </body>
 </html>
