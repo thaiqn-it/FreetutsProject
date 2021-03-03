@@ -1,3 +1,7 @@
+.container {
+	padding: 0px;
+}
+
 /* HEADER STYLE*/
 #header-main #topbar {
 	background-color: #e6e1f6;
@@ -35,29 +39,38 @@
 	padding: 16px 0px !important;
 }
 
-.dropdown-menu .dropdown-toggle:after{
-		border-top: .3em solid transparent;
-	    border-right: 0;
-	    border-bottom: .3em solid transparent;
-	    border-left: .3em solid;
+.dropdown-menu .dropdown-toggle:after {
+	border-top: .3em solid transparent;
+	border-right: 0;
+	border-bottom: .3em solid transparent;
+	border-left: .3em solid;
 }
-.dropdown-menu .dropdown-menu{
-	margin-left:0; margin-right: 0;
+
+.dropdown-menu .dropdown-menu {
+	margin-left: 0;
+	margin-right: 0;
 }
-.dropdown-menu li{
+
+.dropdown-menu li {
 	position: relative;
 }
-.nav-item .submenu{ 
+
+.nav-item .submenu {
 	display: none;
 	position: absolute;
-	left:100%; top:-7px;
+	left: 100%;
+	top: -7px;
 }
-.dropdown-menu > li:hover{ background-color: #f1f1f1 }
-.dropdown-menu > li:hover > .submenu{
+
+.dropdown-menu>li:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown-menu>li:hover>.submenu {
 	display: block;
 }
 
-nav-item > nav-link:hover > drop-lv1 {
+nav-item>nav-link:hover>drop-lv1 {
 	display: block;
 }
 
@@ -72,6 +85,7 @@ nav-item > nav-link:hover > drop-lv1 {
 	width: 18%;
 	margin: 0 1%;
 }
+
 div.dropdown-col>a:first-child {
 	font-weight: bold;
 	color: #4a525e;
@@ -81,8 +95,8 @@ div.dropdown-col>a {
 	border-bottom: 1px solid #eae6e6;
 }
 
-.dropdown-item:hover{
-	color: orange!important;
+.dropdown-item:hover {
+	color: orange !important;
 }
 
 /* FOOTER STYLE */
@@ -128,4 +142,39 @@ div.dropdown-col>a {
 
 #footer .text-pink {
 	color: pink;
+}
+
+#footer {
+	margin-top: 30px;
+}
+
+/* Breadcrumb */
+#breadcrumb {
+	margin: 20px 0px;
+}
+
+/* Sub-categories nav*/
+#categoryNavbar .navbar li {
+	list-style-type: none;
+}
+
+#categoryNavbar .navbar li a {
+	color: #000000;
+}
+
+#categoryNavbar .navbar li:hover {
+	background-color: #ffffff;
+}
+
+#categoryNavbar .navbar {
+	background-color: #ededed;
+}
+
+.border-left {
+	border-left: 5px solid #2f6e91 !important;
+}
+
+a:active, a:after, a:before, a:focus, a:link, a:visited {
+	outline: 0;
+	text-decoration: none;
 }
