@@ -1,29 +1,25 @@
 package com.mockproject.freetutsproject.dto;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import com.mockproject.freetutsproject.entity.CategoryEntity;
 
 public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	// Add more fields which use to show on frontend
-	private Long id;
 	private String name;
 	private String thumbnail;
-	private CategoryEntity parent;
-	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
-	
+	private Long parentId;
+	private List<CategoryDTO> subCategories;
+
 	/**
-	 * @return the id
+	 * @return the subCategories
 	 */
-	public Long getId() {
-		return id;
+	public List<CategoryDTO> getSubCategories() {
+		return subCategories;
 	}
 	/**
-	 * @param id the id to set
+	 * @param subCategories the subCategories to set
 	 */
-	public void setId(long id) {
-		this.id = id;
+	public void setSubCategories(List<CategoryDTO> subCategories) {
+		this.subCategories = subCategories;
 	}
 	/**
 	 * @return the name
@@ -50,29 +46,15 @@ public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 		this.thumbnail = thumbnail;
 	}
 	/**
-	 * @return the parent
+	 * @return the parentId
 	 */
-	public CategoryEntity getParent() {
-		return parent;
+	public Long getParentId() {
+		return parentId;
 	}
 	/**
-	 * @param parent the parent to set
+	 * @param parentId the parentId to set
 	 */
-	public void setParent(CategoryEntity parent) {
-		this.parent = parent;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
-	/**
-	 * @return the subCategories
-	 */
-	public List<CategoryEntity> getSubCategories() {
-		return subCategories;
-	}
-	/**
-	 * @param subCategories the subCategories to set
-	 */
-	public void setSubCategories(List<CategoryEntity> subCategories) {
-		this.subCategories = subCategories;
-	}
-	
-	
 }

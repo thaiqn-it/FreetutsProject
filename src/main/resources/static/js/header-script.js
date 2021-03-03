@@ -1,6 +1,6 @@
-const $dropdown = $(".dropdown");
+const $dropdown = $(".nav-item");
 const $dropdownToggle = $(".dropdown-toggle");
-const $dropdownMenu = $(".dropdown-menu");
+const $dropdownMenu = $(".dropdown-lv1");
 const showClass = "show";
 
 $(window).on("load resize", function() {
