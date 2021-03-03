@@ -13,6 +13,9 @@ public class ContentEntity extends BaseEntity {
 	@Column
 	private String contentFile;
 	
+	@Column
+	private String name;
+	
 	@ManyToOne
 	@JoinColumn (name = "post_id")
 	private PostEntity post;

@@ -21,6 +21,9 @@ public class CategoryEntity extends BaseEntity {
 	@Column
 	private String thumbnail;
 	
+	@Column (columnDefinition = "text")
+	private String description;
+	
 	@ManyToOne (fetch = FetchType.LAZY)
 	@JoinColumn (name = "parent_id")
 	private CategoryEntity parent;
@@ -38,6 +41,20 @@ public class CategoryEntity extends BaseEntity {
 	@OneToMany (mappedBy = "category")
 	private List<PostEntity> posts = new ArrayList<PostEntity>();
 	
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	/**
 	 * @return the name
 	 */

@@ -21,10 +21,28 @@ public class CommentEntity extends BaseEntity {
 	@Column
 	private Date date;
 	
+	@Column (columnDefinition = "text")
+	private String comment;
+
 	@ManyToOne
 	@JoinColumn (name = "post_id")
 	private PostEntity post;
 
+
+	/**
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+	
 	/**
 	 * @return the commenterName
 	 */
