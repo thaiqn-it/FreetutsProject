@@ -11,10 +11,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <th:block id="styles">
 </th:block>
-<title ></title>
+<title>{Post.name}</title>
 </head>
 <body>
-	<div class="container" id="main-content" th:object="${post}"> 
+	<div class="container" id="main-content">
 		<!-- I.BreadcrumbList -->
 		<div></div>
 
@@ -24,42 +24,51 @@
 			<div class="col-lg-8 border">
 
 				<!-- Title -->
-				<h1 class="mt-4" th:text="*{name}">  </h1> 
+				<h1 class="mt-4">{Post.name}</h1>
 
 				<p class="lead">
 					Đăng bởi:
 					<!-- Author -->
-					<span th:text="*{creator.fullname}"></span> -
+					<span> {Author.name} </span> -
 					<!-- Date/Time -->
-					<span> Vào ngày: </span><span th:text="*{createdDate}"></span> 
+					<span> Vào ngày: {Post.date} </span>
 				</p>
 
 
 				<hr>
 
 				<!-- 1. Preface -->
-				<p th:text="*{description}"></p>
+				<p>{Post.description}</p>
 
 				<!-- 2. Table Of Content -->
 				<div class="card md-4 border">
 					<h5 class="card-header">Table of Content</h5>
 					<ul class="go-to-detail" style="margin-bottom: 0px;">
-						<li class="list-goto-0" style="text-align: left;" th:each="content : ${contents}">
-						<a href="#goto-content-0" th:utext="${content.id}"> </a>
-						</li>
+						<li class="list-goto-0" style="text-align: left;"><a
+							href="#goto-content-0"> {ContentA.name} </a></li>
+						<li class="list-goto-1" style="text-align: left;"><a
+							href="#goto-content-1"> {ContentB.name} </a></li>
 					</ul>
 				</div>
 				<!-- 3. Post Content -->
-				<div th:each="content : ${contents}">
+				<div id="goto-content-0">
 
 					<hr>
-					<h2>{Content.name}</h2>
+					<h2>{ContentA.name}</h2>
 					<hr>
-					
-					<!-- <iframe th:src="@{'/contents/' + ${content.contentFile}}"></iframe> -->
-					<div th:attr="include-html='/contents/' + ${content.contentFile}"></div>
+
+					<p>{ContentA.file}</p>
 				</div>
-				
+
+				<div id="goto-content-1">
+
+					<hr>
+					<h2>{ContentB.name}</h2>
+					<hr>
+
+					<p>{ContentB.file}</p>
+				</div>
+
 				<hr>
 
 				<!-- 4.Comments -->
@@ -165,37 +174,6 @@
 		<!-- /.end -->
 	</div>
 	<th:block id="scripts">
-	<script>
-		function includeHTML() {
-		  var z, i, elmnt, file, xhttp;
-		  /* Loop through a collection of all HTML elements: */
-		  z = document.getElementsByTagName("*");
-		  for (i = 0; i < z.length; i++) {
-		    elmnt = z[i];
-		    /*search for elements with a certain atrribute:*/
-		    file = elmnt.getAttribute("include-html");
-		    if (file) {
-		      /* Make an HTTP request using the attribute value as the file name: */
-		      xhttp = new XMLHttpRequest();
-		      xhttp.onreadystatechange = function() {
-		        if (this.readyState == 4) {
-		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
-		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
-		          /* Remove the attribute, and call this function once more: */
-		          elmnt.removeAttribute("include-html");
-		          includeHTML();
-		        }
-		      }
-		      xhttp.open("GET", file, true);
-		      xhttp.send();
-		      /* Exit the function: */
-		      return;
-		    }
-		  }
-		}
-		
-		includeHTML();
-	</script>
 	</th:block>
 </body>
 </html>
