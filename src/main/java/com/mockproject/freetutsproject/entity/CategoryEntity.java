@@ -21,7 +21,7 @@ public class CategoryEntity extends BaseEntity {
 	@Column
 	private String thumbnail;
 	
-	@Column (columnDefinition = "text")
+	@Column (columnDefinition = "ntext")
 	private String description;
 	
 	@ManyToOne (fetch = FetchType.LAZY)

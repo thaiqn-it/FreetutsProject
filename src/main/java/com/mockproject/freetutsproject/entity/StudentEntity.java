@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table (name = "students")
 public class StudentEntity extends BaseEntity {
 	
-	@Column
+	@Column(columnDefinition = "nvarchar(50)")
 	private String name;
 	
 	@Column

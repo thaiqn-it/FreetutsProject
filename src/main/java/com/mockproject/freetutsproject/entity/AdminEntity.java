@@ -18,7 +18,7 @@ public class AdminEntity extends BaseEntity {
 	@Column
 	private String password;
 	
-	@Column
+	@Column (columnDefinition = "nvarchar(50)")
 	private String fullname;
 	
 	@OneToMany (mappedBy = "creator")

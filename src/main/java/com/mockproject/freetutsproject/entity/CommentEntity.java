@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table (name = "comments")
 public class CommentEntity extends BaseEntity {
 	
-	@Column
+	@Column (columnDefinition = "nvarchar(50)")
 	private String commenterName;
 	
 	@Column
@@ -21,7 +21,7 @@ public class CommentEntity extends BaseEntity {
 	@Column
 	private Date date;
 	
-	@Column (columnDefinition = "text")
+	@Column (columnDefinition = "ntext")
 	private String comment;
 
 	@ManyToOne

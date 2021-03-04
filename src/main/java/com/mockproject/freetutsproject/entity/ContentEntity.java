@@ -13,7 +13,7 @@ public class ContentEntity extends BaseEntity {
 	@Column
 	private String contentFile;
 	
-	@Column
+	@Column (columnDefinition = "nvarchar(50)")
 	private String name;
 	
 	@ManyToOne
