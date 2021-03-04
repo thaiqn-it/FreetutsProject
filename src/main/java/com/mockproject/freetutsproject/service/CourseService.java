@@ -1,5 +1,9 @@
 package com.mockproject.freetutsproject.service;
 
-public interface CourseService {
+import com.mockproject.freetutsproject.dto.CourseDTO;
 
+import java.util.List;
+
+public interface CourseService {
+    List<CourseDTO> loadCourses();
 }
