@@ -2,9 +2,11 @@ package com.mockproject.freetutsproject.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
@@ -30,5 +32,15 @@ public class CategoryServiceImpl implements CategoryService {
 			result.add(categoryMapper.toDTO(entity));
 		});
 		return result;
+	}
+
+	@Override
+	public CategoryDTO findCategory(Long id) {
+		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
+		
+		if (entity != null) {
+			return categoryMapper.toDTO(entity);
+		}
+		return null;
 	}
 }

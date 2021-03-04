@@ -1,5 +1,7 @@
 package com.mockproject.freetutsproject.mapper;
 
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mockproject.freetutsproject.dto.PostDTO ;
@@ -8,16 +10,19 @@ import com.mockproject.freetutsproject.entity.PostEntity;
 @Component
 public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Override
 	public PostDTO toDTO(PostEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		PostDTO dto = modelMapper.map(entity, PostDTO.class);
+		return dto;
 	}
 
 	@Override
 	public PostEntity toEntity(PostDTO  dto) {
-		// TODO Auto-generated method stub
-		return null;
+		PostEntity entity = modelMapper.map(dto, PostEntity.class);
+		return entity;
 	}
 
 }

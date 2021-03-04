@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block id="styles">
+<style>
+	.subcate-box {
+		background-color: #ededed; 
+		margin: 8px 4px;
+		padding: 10px;
+	}	
+	
+	.subcate-item a{
+		color: #000;
+	}
+	
+	.subcate-item{
+		padding: 10px;
+	}
+	
+	.subcate-item img {
+		width: 30px;
+		height: 30px;
+	}
+</style>
+</th:block>
+<title>Test</title>
+</head>
+<body>
+	<!-- Sub-categories Navbar (if need) -->
+	<div id="sub-categories-nav" th:replace="/common/___subcate-nav :: subcate-nav"></div>
+
+	<!-- Post Content (populate content here) -->
+	<div id="main-content">
+
+		<!-- Title -->
+		<h2 class="mt-4" th:text="${category.name}"></h2>
+
+		<hr>
+
+		<!-- 1. Preface -->
+		<p th:text="${category.description}"></p>
+
+
+		<!-- Subcategory has child -->
+		<div th:if="${!category.subCategories.empty}" class="row">
+			<th:block th:each="subCate : ${category.subCategories}">	
+				<div th:if="${!subCate.subCategories.empty}" class="col-12 mb-3">
+					<h2 th:text="${subCate.name}"></h2>
+					<div class="subcate-box row">
+						<div th:each="subCateChild : ${subCate.subCategories}" class='subcate-item col-6'>
+							<img th:src="@{'/images/' + ${subCateChild.thumbnail}}"/>
+							<a th:href="@{'/category/' + ${subCateChild.id}}" th:text="${subCateChild.name}"></a>
+						</div>
+					</div>
+				</div>
+			</th:block>
+		</div>
+
+		<!-- Subcategory doesnt has child -->		
+		<div th:if="${!category.subCategories.empty}" class="subcate-box row">
+			<th:block th:each="subCate : ${category.subCategories}">
+				<div th:if="${subCate.subCategories.empty}" class="subcate-item col-6">
+					<img th:src="@{'/images/' + ${subCate.thumbnail}}"/>
+					<a th:href="@{'/category/' + ${subCate.id}}" th:text="${subCate.name}"></a>
+				</div>
+			</th:block>
+		</div>
+
+	</div>
+	
+	<th:block id="scripts">
+	</th:block>
+</body>
+</html>

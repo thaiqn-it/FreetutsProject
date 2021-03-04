@@ -5,10 +5,62 @@ import java.util.List;
 public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	// Add more fields which use to show on frontend
 	private String name;
+	private String description;
 	private String thumbnail;
 	private Long parentId;
 	private List<CategoryDTO> subCategories;
-
+	private String createdBy;
+	private List<PostDTO> posts;
+	private List<CourseDTO> courses;
+	
+	/**
+	 * @return the createdBy
+	 */
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	/**
+	 * @param createdBy the createdBy to set
+	 */
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	/**
+	 * @return the posts
+	 */
+	public List<PostDTO> getPosts() {
+		return posts;
+	}
+	/**
+	 * @param posts the posts to set
+	 */
+	public void setPosts(List<PostDTO> posts) {
+		this.posts = posts;
+	}
+	/**
+	 * @return the courses
+	 */
+	public List<CourseDTO> getCourses() {
+		return courses;
+	}
+	/**
+	 * @param courses the courses to set
+	 */
+	public void setCourses(List<CourseDTO> courses) {
+		this.courses = courses;
+	}
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	/**
 	 * @return the subCategories
 	 */
