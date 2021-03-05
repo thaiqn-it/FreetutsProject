@@ -15,8 +15,22 @@
 	            </span>
 	
 	    >
-	
-	    <span itemprop="name">Lambda Expressions trong Java 8</span>
+		
+		<th:block th:each="item : ${breadcrumb}">
+			<th:block th:if="${item.id != category.id}">
+		    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+	                <a itemprop="item" th:href="@{'/category/' +  ${item.id} + '?page=1&limit=5'}">
+	                    <span itemprop="name" style="color: #F09217" th:text="${item.name}"></span>
+	                </a>
+	            </span>
+	            >
+            </th:block>
+            <th:block th:if="${item.id == category.id}">
+		    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+	                <span itemprop="name" th:text="${item.name}"></span>
+	            </span>     
+            </th:block>
+	    </th:block>
 	</div>
 </div>
 </body>

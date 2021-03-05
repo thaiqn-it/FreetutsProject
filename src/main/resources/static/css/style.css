@@ -178,3 +178,15 @@ a:active, a:after, a:before, a:focus, a:link, a:visited {
 	outline: 0;
 	text-decoration: none;
 }
+
+/* Button */
+.btn {
+    border-radius: 20px;
+    background-color: #00A5E3 !important;
+    box-shadow: 3px 3px 5px 0px #666;
+    transition: all .2s linear;
+}
+
+.btn:hover {
+    background-color: #F09217 !important;
+}

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, commentFrame, widget1, widget2, scripts) -->
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{layout/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #styles},
                                                 ~{:: #sub-categories-nav},
                                                 ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
                                                 ~{:: #comment-frame},
                                                 ~{:: #widget-1},
                                                 ~{:: #widget-2},
