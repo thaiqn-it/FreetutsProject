@@ -17,7 +17,7 @@ public class CourseEntity extends BaseEntity{
 	@Column
 	private String name;
 	
-	@Column
+	@Column(columnDefinition = "text")
 	private String description;
 	
 	@Column

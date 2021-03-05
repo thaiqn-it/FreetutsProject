@@ -44,8 +44,8 @@
 				<div class="card md-4 border">
 					<h5 class="card-header">Table of Content</h5>
 					<ul class="go-to-detail" style="margin-bottom: 0px;">
-						<li class="list-goto-0" style="text-align: left;" th:each="content : ${contents}">
-						<a href="#goto-content-0" th:utext="${content.id}"> </a>
+						<li class="#" style="text-align: left;" th:each="content : ${contents}">
+						<a href="#" th:utext="${content.name}"> </a>
 						</li>
 					</ul>
 				</div>
@@ -53,10 +53,9 @@
 				<div th:each="content : ${contents}">
 
 					<hr>
-					<h2>{Content.name}</h2>
+					<h2 th:utext="${content.name}"></h2>
 					<hr>
 					
-					<!-- <iframe th:src="@{'/contents/' + ${content.contentFile}}"></iframe> -->
 					<div th:attr="include-html='/contents/' + ${content.contentFile}"></div>
 				</div>
 				
@@ -80,22 +79,16 @@
 				</div>
 
 				<!-- 4.2.Single Comment -->
-				<div class="media mb-4">
+				<div class="media mb-4" th:each="comment : ${comments}">
 					<img class="d-flex mr-3 rounded-circle"
 						src="http://placehold.it/50x50" alt="">
 					<div class="media-body">
-						<h5 class="mt-0">{Commenter.name}</h5>
-						<p>{Comment.comment}</p>
+						<h5 class="mt-0" th:utext="${comment.commenterName}"></h5>
+						<p th:utext="${comment.comment}"></p>
 					</div>
 				</div>
-				<div class="media mb-4">
-					<img class="d-flex mr-3 rounded-circle"
-						src="http://placehold.it/50x50" alt="">
-					<div class="media-body">
-						<h5 class="mt-0">{Commenter.name}</h5>
-						<p>{Comment.comment}</p>
-					</div>
-				</div>
+				
+				<!-- /. -->
 			</div>
 
 			<!-- III.Sidebar Widgets Column -->

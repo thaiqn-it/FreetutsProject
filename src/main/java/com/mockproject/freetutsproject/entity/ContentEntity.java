@@ -13,9 +13,26 @@ public class ContentEntity extends BaseEntity {
 	@Column
 	private String contentFile;
 	
+	@Column
+	private String name;
+	
 	@ManyToOne
 	@JoinColumn (name = "post_id")
 	private PostEntity post;
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * @return the contentFile

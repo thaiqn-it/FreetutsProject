@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mockproject.freetutsproject.entity.CommentEntity;
 import com.mockproject.freetutsproject.entity.ContentEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
+import com.mockproject.freetutsproject.repository.CommentRepository;
 import com.mockproject.freetutsproject.repository.ContentRepository;
 import com.mockproject.freetutsproject.repository.PostRepository;
 
@@ -22,6 +24,9 @@ public class PostController {
 	
 	@Autowired
 	ContentRepository contentRepository;
+	
+	@Autowired
+	CommentRepository commentRepository;
 	/*
 	@RequestMapping (value = "/demo-post", method = RequestMethod.GET)
 	public String loadDemoPost() {
@@ -33,9 +38,11 @@ public class PostController {
 	public String loadPost(@PathVariable("name") String name, Model model) {
 		PostEntity post = this.postRepository.findByName(name);
 		List<ContentEntity> contents = this.contentRepository.findByPost(post);
+		List<CommentEntity> comments = this.commentRepository.findByPost(post);
 		
 		model.addAttribute("post", post);
 		model.addAttribute("contents", contents);
+		model.addAttribute("comments", comments);
 		return "demo-post";
 	}
 
