@@ -1,48 +1,25 @@
 package com.mockproject.freetutsproject.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mockproject.freetutsproject.entity.CommentEntity;
-import com.mockproject.freetutsproject.entity.ContentEntity;
-import com.mockproject.freetutsproject.entity.PostEntity;
-import com.mockproject.freetutsproject.repository.CommentRepository;
-import com.mockproject.freetutsproject.repository.ContentRepository;
-import com.mockproject.freetutsproject.repository.PostRepository;
+import com.mockproject.freetutsproject.dto.PostDTO;
+import com.mockproject.freetutsproject.service.PostService;
 
 @Controller
 public class PostController {
 	@Autowired
-	PostRepository postRepository;
-	
-	@Autowired
-	ContentRepository contentRepository;
-	
-	@Autowired
-	CommentRepository commentRepository;
-	/*
-	@RequestMapping (value = "/demo-post", method = RequestMethod.GET)
-	public String loadDemoPost() {
-		return "demo-post";
-	}
-	*/
+	private PostService postService;
 
-	@RequestMapping (value = "post/{name}", method = RequestMethod.GET)
+	@RequestMapping(value = "post/{name}", method = RequestMethod.GET)
 	public String loadPost(@PathVariable("name") String name, Model model) {
-		PostEntity post = this.postRepository.findByName(name);
-		List<ContentEntity> contents = this.contentRepository.findByPost(post);
-		List<CommentEntity> comments = this.commentRepository.findByPost(post);
-		
-		model.addAttribute("post", post);
-		model.addAttribute("contents", contents);
-		model.addAttribute("comments", comments);
+		PostDTO post_dto = this.postService.loadPostInfo(name);
+
+		model.addAttribute("post", post_dto);
 		return "demo-post";
 	}
 

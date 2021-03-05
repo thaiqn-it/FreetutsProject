@@ -44,13 +44,13 @@
 				<div class="card md-4 border">
 					<h5 class="card-header">Table of Content</h5>
 					<ul class="go-to-detail" style="margin-bottom: 0px;">
-						<li class="#" style="text-align: left;" th:each="content : ${contents}">
+						<li class="#" style="text-align: left;" th:each="content : *{contents}">
 						<a href="#" th:utext="${content.name}"> </a>
 						</li>
 					</ul>
 				</div>
 				<!-- 3. Post Content -->
-				<div th:each="content : ${contents}">
+				<div th:each="content : *{contents}">
 
 					<hr>
 					<h2 th:utext="${content.name}"></h2>
@@ -79,7 +79,7 @@
 				</div>
 
 				<!-- 4.2.Single Comment -->
-				<div class="media mb-4" th:each="comment : ${comments}">
+				<div class="media mb-4" th:each="comment : *{comments}">
 					<img class="d-flex mr-3 rounded-circle"
 						src="http://placehold.it/50x50" alt="">
 					<div class="media-body">
@@ -90,7 +90,7 @@
 				
 				<!-- /. -->
 			</div>
-
+ 			
 			<!-- III.Sidebar Widgets Column -->
 			<div class="col-lg-4">
 				<!-- 1.Search Widget -->

@@ -1,5 +1,7 @@
 package com.mockproject.freetutsproject.service;
 
-public interface PostService {
+import com.mockproject.freetutsproject.dto.PostDTO;
 
+public interface PostService {
+	PostDTO loadPostInfo(String name);
 }
