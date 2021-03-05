@@ -6,4 +6,5 @@ import com.mockproject.freetutsproject.dto.CategoryDTO;
 
 public interface CategoryService {
 	List<CategoryDTO> loadCategories();
+	CategoryDTO findCategory(Long id);
 }

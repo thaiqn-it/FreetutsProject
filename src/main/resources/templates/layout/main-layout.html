@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, commentFrame, widget1, widget2, scripts)">
+	th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts)">
 <head>
 <meta charset="UTF-8">
 <title th:replace="${title}">Title</title>
@@ -25,15 +25,23 @@
 		
 		<!-- Body -->	
 		<div class="row">
-			<!-- Post Content -->
-			<div class="col-lg-8 border">
-				<div th:replace="${mainContent} ?: ~{}">Main Content</div>
+		
+			<!-- Left frame -->	
+			<div class="col-lg-8">
+				<!-- Post Content -->
+				<div class="col-12 border" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
-				<div th:replace="${commentFrame} ?: ~{}">comment Frame</div>
+				<div class="col-12 border" th:insert="${commentFrame} ?: ~{}"></div>
+				
+				<!-- Course List frame -->
+				<div th:insert="${courseList} ?: ~{}"></div>
+				
+				<!-- Post List frame -->
+				<div th:insert="${postList} ?: ~{}"></div>
 			</div>
 			
-			<!-- Right-side Widgets -->
+			<!-- Right frame: Widgets -->
 			<div class="col-lg-4">
 				<div th:replace="${widget1} ?: ~{}"></div>
 				<div th:replace="${widget2} ?: ~{}"></div>

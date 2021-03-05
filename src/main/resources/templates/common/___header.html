@@ -39,13 +39,13 @@
 	                <!-- Multicolumn dropdown -->
 	                 <li class="nav-item dropdown" th:if="${category.name == 'Lập trình'}">
 	                    <a class="nav-link" type="button" th:id="'dropdownMenuButton' + ${category.id}" data-toggle="dropdown"
-	                     aria-haspopup="true" aria-expanded="false" th:text="${category.name}"></a>
+	                     aria-haspopup="true" aria-expanded="false" th:text="${category.name}" href="#"></a>
 	                    <div class="dropdown-menu dropdown-lv1 dropdown-multicol2" th:attr="aria-labelledby='dropdownMenuButton' + ${category.id}">
 	                        <th:block th:each="subCate : ${category.subCategories}">
 		                        <div class="dropdown-col">
-		                            <a class="dropdown-item" href="#" th:text="${subCate.name}"></a>
+		                            <a class="dropdown-item" th:href="@{'/category/' + ${subCate.id} +'?page=1&limit=5'}" th:text="${subCate.name}"></a>
 		                            <th:block th:each="subCateChild : ${subCate.subCategories}">
-								    	<a class="dropdown-item" href="" th:text="${subCateChild.name}"></a>
+								    	<a class="dropdown-item" th:href="@{'/category/' + ${subCateChild.id}} + '?page=1&limit=5'" th:text="${subCateChild.name}"></a>
 								    </th:block>
 		                        </div>
 	                        </th:block>
@@ -54,13 +54,13 @@
 	                
 	                <!-- Multilevel dropdown -->
 					<li class="nav-item dropdown" th:if="${category.name != 'Lập trình'}">
-					    <a class="nav-link" href="#" data-toggle="dropdown" th:text="${category.name}"></a>
+					    <a class="nav-link" th:href="@{'/category/' + ${category.id} + '?page=1&limit=5'}" data-toggle="dropdown" th:text="${category.name}"></a>
 					    <ul class="dropdown-menu dropdown-lv1">
 						  <th:block th:each="subCate : ${category.subCategories}">
-						  <li><a class="dropdown-item" href="#" th:text="${subCate.name}"></a>
+						  <li><a class="dropdown-item" th:href="@{'/category/' + ${subCate.id}} + '?page=1&limit=5'" th:text="${subCate.name}"></a>
 							 <ul class="submenu dropdown-menu" th:if="${subCate.subCategories != null and !subCate.subCategories.empty}">
 							 	<th:block th:each="subCateChild : ${subCate.subCategories}">
-							    	<li><a class="dropdown-item" href="" th:text="${subCateChild.name}"></a></li>
+							    	<li><a class="dropdown-item" h:href="@{'/category/' + ${subCateChild.id}} + '?page=1&limit=5'" th:text="${subCateChild.name}"></a></li>
 							    </th:block>
 							 </ul>
 						  </li>

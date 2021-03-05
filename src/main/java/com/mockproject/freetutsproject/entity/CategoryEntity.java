@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table (name = "category")
 public class CategoryEntity extends BaseEntity {
@@ -24,21 +27,24 @@ public class CategoryEntity extends BaseEntity {
 	@Column (columnDefinition = "ntext")
 	private String description;
 	
-	@ManyToOne (fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn (name = "parent_id")
 	private CategoryEntity parent;
 	
-	@OneToMany (mappedBy = "parent", fetch = FetchType.EAGER)
+	@OneToMany (mappedBy = "parent")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
 	
-	@ManyToOne (fetch = FetchType.EAGER)
+	@ManyToOne
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
 	
 	@OneToMany (mappedBy = "category")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CourseEntity> courses = new ArrayList<CourseEntity>();
 
 	@OneToMany (mappedBy = "category")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PostEntity> posts = new ArrayList<PostEntity>();
 	
 	/**
