@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+</head>
+<style>
+    #main-content ul{
+        list-style-type: none;
+    }
+
+    #main-content ul li{
+        margin-top: 20px;
+    }
+
+    #main-content .font-weight-light{
+        font-size: 12px !important;
+        color: #c6c6c6;
+    }
+
+    #main-content .btn {
+        background: #3498db;
+        color: #fff;
+        border-radius: 30px;
+    }
+
+    #main-content .btn:hover {
+        color: #000000;
+    }
+
+    #main-content #link-course{
+        color: #F09217;
+    }
+
+    #main-content #link-course:hover{
+        color: #000000;
+    }
+
+    a:active, a:after, a:before, a:focus, a:link, a:visited {
+        outline: 0;
+        text-decoration: none;
+    }
+</style>
+<body>
+    <div class="container border border-dark" id="main-content">
+        <div>
+            <ul>
+                <li>
+                    <h2>Thành thạo tin học văn phòng (MS Office / Internet / Windows)</h2>
+                </li>
+                <li>
+                    <span class="font-weight-light">Đăng bởi: Administrator - Vào ngày: 02-08-2020 - View: 9</span>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-8">
+                            <p>Đây là khóa học "tin học văn phòng A-Z", bạn sẽ được học online trên website fedu.vn, thuộc chuyên mục khóa học tin học.</p>
+                            <p> Bạn có thể tham khảo đề cương khóa học ở phần nội dung khóa học, hoặc truy cập vào link gốc mà mình đã cung cấp dưới đây</p>
+                        </div>
+                        <div class="col-4">
+                            <img src="https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=5.0.153" alt="">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="m-4">
+            <h2 class="mb-4 border-bottom">Giới thiệu</h2>
+            <table class="w-100 table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Khóa học</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hình thức học</td>
+                        <td>Online</td>
+                    </tr>
+                    <tr>
+                        <td>Giá gốc</td>
+                        <td class="font-weight-bold">299,000đ</td>
+                    </tr>
+                    <tr>
+                        <td>Link khóa học</td>
+                        <td><a id="link-course" href="fedu.vn">fedu.vn</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4" style="background-color: #d7edf5;border-color: #bddde9;">
+            <ul class="m-4 p-4">
+                <li>
+                    <h2>Đăng ký ngay hôm nay để được giảm giá</h2>
+                </li>
+                <li>
+                    <h2>Cơ hội mua khóa học này chỉ với 192,000đ khi đăng ký tại freetuts.net</h2>
+                </li>
+                <li>
+                    <p>Freetuts.net là đại lý cung cấp khóa học online và offline với giá rẻ nhất, giảm lên đến 51% cho khóa học này, nhanh tay đăng ký nhé bạn.</p>
+                </li>
+                <li class="text-center">
+                    <a class="btn btn-primary" href="#form_register">ĐĂNG KÝ NGAY</a>
+                </li>
+            </ul>
+        </div>
+        <div id="form_register" style=" background: #34495e;  margin: 20px auto" class="m-5 p-4">
+            <h2 class="text-center text-light">ĐĂNG KÝ KHÓA HỌC</h2>
+            <p class="text-center text-light">###########################</p>
+            <div  style="margin-bottom: 0px;">
+                <div>
+                    <div></div>
+                    <form id="form-course" action="" method="post">
+                        <div style="display: none;">
+                            <input type="hidden" name="ci_csrf_token" value="">
+                            <input type="hidden" id="add_course" name="add_course" value="">
+                        </div>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Tên của bạn <span style="color: red">*</span></label><br>
+                            <input class="form-control" type="text" required="true" id="name" value="" size="40" placeholder="Tên của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Điện thoại của bạn <span style="color: red">*</span></label> <br>
+                            <input class="form-control" type="text" required="true" id="phone" value="" size="40" placeholder="Điện thoại của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Email của bạn  <span style="color: red">*</span></label> <br>
+                            <input class="form-control" type="email" required="true" id="email" value="" size="40" placeholder="Email của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Link facebook</label> <br>
+                            <input class="form-control" type="text" id="facebook" value="" size="40" placeholder="Facebook của bạn">
+                            <br>
+                        </p>
+                        <p style="text-align: center; padding: 10px; display: none">
+                            <input type="radio" name="option" value="0" id="option1"> <label for="option1" style="font-weight: bold; color: #fff; margin-right: 20px">Cần tư vấn</label>
+                            <input type="radio" name="option" checked="" value="1" id="option2"> <label for="option2" style="font-weight: bold; color: #fff">Thanh toán ngay</label>
+                        </p>
+                        <div id="order_form_bank" style="background: #fff; padding: 20px; margin: 15px 0px 20px 0px; ">
+                            <h4 style="text-align: center">CHỌN HÌNH THỨC THANH TOÁN</h4>  <br>
+                            <div>
+                                <div>
+                                    <p><strong> <input checked="" type="radio" name="payment_type" value="2"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
+                                    <div class="paylist p-2" style="display: block; background-color: #d3f4e1">
+                                        <ul style="margin-top: 15px">
+                                            <li>
+                                                <strong>VIETCOMBANK </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 0251002704529  <br>
+                                                Chi nhánh: Bình Tây, Q6, TP HCM                                    </li>
+                                            <li>
+                                                <strong>SACOMBANK </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 050053235619  <br>
+                                                Chi nhánh: Cưkuin Đăklăk                                    </li>
+                                            <li>
+                                                <strong>VIB </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 410704060192515  <br>
+                                                Chi nhánh: Buôn Ma Thuột - ĐăkLăk                                    </li>
+                                        </ul>
+                                        <p><span class="ml-3" style="color: red">Số tiền: <strong style="font-size: 18px">192,000đ</strong></span></p>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input type="radio" name="payment_type" id="pay_for_post_office" class="paycheck" value="1"> <label for="pay_for_post_office">THANH TOÁN QUA BƯU ĐIỆN</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Bạn phải nhập đúng địa chỉ bên dưới vì mình sẽ gửi mã kích hoạt qua đường bưu điện, thanh toán tận nhà.</p>
+                                        <p>
+                                            <input class="form-control" style="margin-top: 10px" type="text" id="address" value="" size="40" placeholder="Địa chỉ của bạn">
+                                            <br>
+                                        </p>
+                                        <p>
+                                            <span style="color: red">Số tiền: <strong style="font-size: 18px">217,000đ</strong></span>.
+                                            Trong đó 25,000đ là phí gửi bưu điện
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input type="radio" name="payment_type" id="pay_for_post_paypal" class="paycheck" value="4"> <label for="pay_for_post_paypal">THANH TOÁN QUA PAYPAL</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Gửi $ đến địa chỉ paypal: cuongwriter@gmail.com.</p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px">9.6$</strong> giá đã bao gồm phí giao dịch paypal</span></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input type="radio" name="payment_type" value="3" class="paycheck" id="pay_for_momo"> <label for="pay_for_momo">THANH TOÁN QUA VÍ MOMO</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Thanh toán qua ví với số điện thoại: 0979306603.</p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px">192,000đ</strong></span></p>
+                                    </div>
+                                </div>
+
+                                <div><br>
+                                    <p><strong>Lưu ý: </strong>Nội dung gửi tiền là <strong>[SĐT]</strong> mà bạn đã nhập ở trên.</p>
+                                </div>
+                            </div>
+                            <input type="hidden" id="course_id" value="163">
+                            <input type="hidden" id="order_type" value="1">
+                            <input type="hidden" id="course_title" value="Thiết kế hiệu ứng với Javascript và illustrator">
+                            <input type="hidden" id="course_ref" value="">
+                            <input type="hidden" id="url_post" value="https://freetuts.net/khoa-hoc/thiet-ke-hieu-ung-voi-javascript-va-illustrator-163.html">
+                        </div>
+                        <p style="text-align: center">
+                            <input type="submit" class="btn" style="background: #2ecc71" value="GỬI THÔNG TIN" id="send_message">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    window.onload = function(){
+        jQuery('.paycheck').click(function(){
+            jQuery('.paylist').hide();
+            jQuery(this).parent().parent().parent().find('.paylist').show();
+        });
+    };
+</script>
+</html>

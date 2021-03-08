@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject;
 
+import com.mockproject.freetutsproject.entity.CategoryEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,5 +17,6 @@ public class FreetutsprojectApplication {
     public ModelMapper modelMapper() {
     	return new ModelMapper();
     }
+
 
 }
