@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table (name = "admins")
 public class AdminEntity extends BaseEntity {
@@ -22,12 +25,15 @@ public class AdminEntity extends BaseEntity {
 	private String fullname;
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CategoryEntity> createdCategories = new ArrayList<CategoryEntity>();
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CourseEntity> createdCourses = new ArrayList<CourseEntity>();
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PostEntity> createdPosts = new ArrayList<PostEntity>();
 
 	/**

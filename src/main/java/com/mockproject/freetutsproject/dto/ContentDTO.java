@@ -1,19 +1,13 @@
 package com.mockproject.freetutsproject.dto;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
-import com.mockproject.freetutsproject.entity.PostEntity;
-
 public class ContentDTO extends AbstractDTO<ContentDTO> {
 	private String contentFile;
 	private String name;
-	private PostEntity post;
+	private PostDTO post;
 	public ContentDTO() {
 		super();
 	}
-	public ContentDTO(String contentFile, String name, PostEntity post) {
+	public ContentDTO(String contentFile, String name, PostDTO post) {
 		super();
 		this.contentFile = contentFile;
 		this.name = name;
@@ -31,10 +25,10 @@ public class ContentDTO extends AbstractDTO<ContentDTO> {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public PostEntity getPost() {
+	public PostDTO getPost() {
 		return post;
 	}
-	public void setPost(PostEntity post) {
+	public void setPost(PostDTO post) {
 		this.post = post;
 	}
 	

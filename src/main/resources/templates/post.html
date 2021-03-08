@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block id="styles">
+</th:block>
+<title th:text="${post.name}"></title>
+</head>
+<body>
+	<div class="container" id="main-content" th:object="${post}">
+				<!-- Title -->
+				<h1 class="mt-4" th:text="*{name}">  </h1> 
+
+				<p class="lead">
+					Đăng bởi:
+					<!-- Author -->
+					<span th:text="*{creator.fullname}"></span> -
+					<!-- Date/Time -->
+					<span> Vào ngày: </span><span th:text="*{createdDate}"></span> 
+				</p>
+
+
+				<hr>
+
+				<!-- 1. Preface -->
+				<p th:text="*{description}"></p>
+
+				<!-- 2. Table Of Content -->
+				<div class="card md-4 border">
+					<h5 class="card-header">Table of Content</h5>
+					<ul class="go-to-detail" style="margin-bottom: 0px;">
+						<li class="#" style="text-align: left;" th:each="content : *{contents}">
+						<a th:href="'#' + ${content.id}" th:utext="${content.name}"> </a>
+						</li>
+					</ul>
+				</div>
+				<!-- 3. Post Content -->
+				<div th:each="content : *{contents}" th:id="${content.id}">
+
+					<hr>
+					<h2 th:utext="${content.name}"></h2>
+					<hr>
+					
+					<div th:attr="include-html='/contents/' + ${content.contentFile}"></div>
+				</div>
+				
+				<hr>
+			</div>		
+	</div>
+	
+	<!-- Comment Frame (if need) -->
+	<div id="comment-frame" th:replace="/common/___comment-frame :: comment-frame"></div>
+	
+	<th:block id="scripts">
+	<script>
+		function includeHTML() {
+		  var z, i, elmnt, file, xhttp;
+		  /* Loop through a collection of all HTML elements: */
+		  z = document.getElementsByTagName("*");
+		  for (i = 0; i < z.length; i++) {
+		    elmnt = z[i];
+		    /*search for elements with a certain atrribute:*/
+		    file = elmnt.getAttribute("include-html");
+		    if (file) {
+		      /* Make an HTTP request using the attribute value as the file name: */
+		      xhttp = new XMLHttpRequest();
+		      xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		          /* Remove the attribute, and call this function once more: */
+		          elmnt.removeAttribute("include-html");
+		          includeHTML();
+		        }
+		      }
+		      xhttp.open("GET", file, true);
+		      xhttp.send();
+		      /* Exit the function: */
+		      return;
+		    }
+		  }
+		}
+		
+		includeHTML();
+	</script>
+	</th:block>
+</body>
+</html>

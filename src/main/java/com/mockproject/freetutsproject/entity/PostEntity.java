@@ -11,6 +11,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 
 @Entity
 @Table (name = "posts")
@@ -19,11 +22,7 @@ public class PostEntity extends BaseEntity {
 	@Column (columnDefinition = "nvarchar(50)")
 	private String name;
 	
-<<<<<<< HEAD
 	@Column (columnDefinition = "ntext")
-=======
-	@Column (columnDefinition = "text")
->>>>>>> d2b11e8650cd9684823a6d29acee415b58ec7322
 	private String description;
 	
 	@Column
@@ -41,10 +40,26 @@ public class PostEntity extends BaseEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<ContentEntity> contents = new ArrayList<ContentEntity>();
 	
 	@OneToMany (mappedBy = "post")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
+
+	/**
+	 * @return the comments
+	 */
+	public List<CommentEntity> getComments() {
+		return comments;
+	}
+
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<CommentEntity> comments) {
+		this.comments = comments;
+	}
 
 	/**
 	 * @return the name

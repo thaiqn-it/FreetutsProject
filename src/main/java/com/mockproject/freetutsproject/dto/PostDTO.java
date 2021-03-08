@@ -10,7 +10,7 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	private Date createdDate;
 	private String thumbnail;
 	private AdminDTO creator;
-	private CategoryDTO category;	
+	private Long categoryId;	
 	private List<ContentDTO> contents;
 	private List<CommentDTO> comments;
 	/**
@@ -74,16 +74,16 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 		this.creator = creator;
 	}
 	/**
-	 * @return the category
+	 * @return the categoryId
 	 */
-	public CategoryDTO getCategory() {
-		return category;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 	/**
-	 * @param category the category to set
+	 * @param categoryId the categoryId to set
 	 */
-	public void setCategory(CategoryDTO category) {
-		this.category = category;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 	/**
 	 * @return the contents

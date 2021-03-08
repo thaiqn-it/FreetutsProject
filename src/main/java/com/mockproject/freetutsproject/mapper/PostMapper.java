@@ -1,10 +1,14 @@
 package com.mockproject.freetutsproject.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 
+import com.mockproject.freetutsproject.dto.CommentDTO;
+import com.mockproject.freetutsproject.dto.ContentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO ;
 import com.mockproject.freetutsproject.entity.PostEntity;
 
@@ -14,9 +18,38 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Autowired
+	private AdminMapper adminMapper;
+	
+	@Autowired
+	private ContentMapper contentMapper;
+	
+	@Autowired
+	private CommentMapper commentMapper;
+	
 	@Override
 	public PostDTO toDTO(PostEntity entity) {
 		PostDTO dto = modelMapper.map(entity, PostDTO.class);
+		
+		if (entity.getCategory() != null) {
+			dto.setCategoryId(entity.getCategory().getId());
+		}
+		
+		if (entity.getCreator() != null) {
+			dto.setCreator(adminMapper.toDTO(entity.getCreator()));
+		}
+		
+		if (entity.getContents() != null) {
+			List<ContentDTO> contentList = new ArrayList<>();
+			entity.getContents().forEach(content -> contentList.add(contentMapper.toDTO(content)));
+			dto.setContents(contentList);
+		}
+		
+		if (entity.getComments() != null) {
+			List<CommentDTO> commentList = new ArrayList<>();
+			entity.getComments().forEach(comment -> commentList.add(commentMapper.toDTO(comment)));
+			dto.setComments(commentList);
+		}
 		return dto;
 	}
 
