@@ -1,12 +1,18 @@
 package com.mockproject.freetutsproject.dto;
 
 import java.util.Date;
-
+import java.util.List;
 public class PostDTO extends AbstractDTO<PostDTO> {
+
+	// Add more fields which use to show on frontend
 	private String name;
 	private String description;
 	private Date createdDate;
 	private String thumbnail;
+	private AdminDTO creator;
+	private CategoryDTO category;	
+	private List<ContentDTO> contents;
+	private List<CommentDTO> comments;
 	/**
 	 * @return the name
 	 */
@@ -55,6 +61,53 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
-	
+	/**
+	 * @return the creator
+	 */
+	public AdminDTO getCreator() {
+		return creator;
+	}
+	/**
+	 * @param creator the creator to set
+	 */
+	public void setCreator(AdminDTO creator) {
+		this.creator = creator;
+	}
+	/**
+	 * @return the category
+	 */
+	public CategoryDTO getCategory() {
+		return category;
+	}
+	/**
+	 * @param category the category to set
+	 */
+	public void setCategory(CategoryDTO category) {
+		this.category = category;
+	}
+	/**
+	 * @return the contents
+	 */
+	public List<ContentDTO> getContents() {
+		return contents;
+	}
+	/**
+	 * @param contents the contents to set
+	 */
+	public void setContents(List<ContentDTO> contents) {
+		this.contents = contents;
+	}
+	/**
+	 * @return the comments
+	 */
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<CommentDTO> comments) {
+		this.comments = comments;
+	}
 	
 }

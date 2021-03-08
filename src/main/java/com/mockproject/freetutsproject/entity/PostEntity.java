@@ -19,7 +19,11 @@ public class PostEntity extends BaseEntity {
 	@Column (columnDefinition = "nvarchar(50)")
 	private String name;
 	
+<<<<<<< HEAD
 	@Column (columnDefinition = "ntext")
+=======
+	@Column (columnDefinition = "text")
+>>>>>>> d2b11e8650cd9684823a6d29acee415b58ec7322
 	private String description;
 	
 	@Column

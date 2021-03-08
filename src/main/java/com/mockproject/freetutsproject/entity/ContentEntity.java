@@ -12,7 +12,7 @@ public class ContentEntity extends BaseEntity {
 	
 	@Column
 	private String contentFile;
-	
+
 	@Column (columnDefinition = "nvarchar(50)")
 	private String name;
 	

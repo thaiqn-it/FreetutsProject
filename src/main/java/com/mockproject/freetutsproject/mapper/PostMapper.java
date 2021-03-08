@@ -3,6 +3,7 @@ package com.mockproject.freetutsproject.mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import com.mockproject.freetutsproject.dto.PostDTO ;
 import com.mockproject.freetutsproject.entity.PostEntity;

@@ -35,7 +35,7 @@ public class CategoryEntity extends BaseEntity {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
 	
