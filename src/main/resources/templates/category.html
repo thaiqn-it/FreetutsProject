@@ -118,13 +118,13 @@
              <tbody>
                  <tr th:each="course : ${category.courses}">
                      <td class="text-center">
-                         <a href="">
+                         <a th:href="'/course/' + ${course.id}">
                              <img style="max-width: 100px; max-height: 75px;" 
                              th:src="@{'/images/' + ${course.thumbnail}}">
                          </a>
                      </td>
                      <td>
-                         <a href="">
+                         <a th:href="'/course/' + ${course.id}">
                              <h6 th:text="${course.name}"></h6>
                              <p> Giá <span style="color: red" th:text="${course.price}"></span> </p>
                          </a>

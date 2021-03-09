@@ -1,14 +1,18 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.ContentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
+import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
+import com.mockproject.freetutsproject.mapper.CategoryMapper;
 import com.mockproject.freetutsproject.mapper.PostMapper;
 import com.mockproject.freetutsproject.repository.PostRepository;
 import com.mockproject.freetutsproject.service.CommentService;
@@ -19,32 +23,33 @@ import com.mockproject.freetutsproject.service.PostService;
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepository;
-
+	
 	@Autowired
-	private ContentService contentService;
-	@Autowired
-	private CommentService commentService;
+	private CategoryMapper categoryMapper;
 	
 	@Autowired
 	private PostMapper postMapper;
 	
 	public PostDTO loadPostInfo(String name) {
 		//1.Post
-		PostDTO result = new PostDTO();
 		PostEntity entity = this.postRepository.findByName(name);
-			//Entity -> DTO
-			result = postMapper.toDTO(entity);
-			
-		//2.Contents
-		List<ContentDTO> contents = this.contentService.loadContentsByPost(entity);
-			//Add contents
-		result.setContents(contents);
-		
-		//3.Comments
-		List<CommentDTO> comments = this.commentService.loadCommentsByPost(entity);
-			//Add comments
-		result.setComments(comments);
+		//Entity -> DTO
+		PostDTO result = postMapper.toDTO(entity);
 		
 		return result;
+	}
+
+	@Override
+	public List<PostDTO> findPostByCategory(CategoryDTO category) {
+		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
+		List<PostEntity> entityList = postRepository.findByCategory(categoryEntity);
+		
+		if (entityList != null) {
+			List<PostDTO> dtoList = new ArrayList<PostDTO>();
+			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
+			return dtoList;
+		}
+		
+		return null;
 	}
 }

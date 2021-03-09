@@ -15,6 +15,8 @@
 				</div>
 				<input type="text" name="txtName" placeholder="Name (required)">
 				<input type="text" name="txtEmail" placeholder="Email (required)">
+				<input th:if="${post != null}" type="hidden" name="postId" th:value="${post.id}">
+				<input th:if="${course != null}" type="hidden" name="courseId" th:value="${course.id}">
 				<button type="submit" class="btn btn-primary">Đăng Bình
 					Luận</button>
 			</form>
@@ -22,13 +24,26 @@
 	</div>
 
 	<!-- 2.Single Comments -->
-	<div class="media mb-4" th:each="comment : ${post.comments}">
-		<img class="d-flex mr-3 rounded-circle"
-			src="http://placehold.it/50x50" alt="">
-		<div class="media-body">
-			<h5 class="mt-0" th:utext="${comment.commenterName}"></h5>
-			<p th:utext="${comment.comment}"></p>
+	<th:block th:if="${post != null}">
+		<div class="media mb-4" th:each="comment : ${post.comments}">
+			<img class="d-flex mr-3 rounded-circle"
+				src="http://placehold.it/50x50" alt="">
+			<div class="media-body">
+				<h5 class="mt-0" th:utext="${comment.commenterName}"></h5>
+				<p th:utext="${comment.comment}"></p>
+			</div>
 		</div>
-	</div>
+	</th:block>
+	
+	<!-- <th:block th:if="${course != null}">
+		<div class="media mb-4" th:each="comment : ${course.comments}">
+			<img class="d-flex mr-3 rounded-circle"
+				src="http://placehold.it/50x50" alt="">
+			<div class="media-body">
+				<h5 class="mt-0" th:utext="${comment.commenterName}"></h5>
+				<p th:utext="${comment.comment}"></p>
+			</div>
+		</div>
+	</th:block> -->
 </body>
 </html>

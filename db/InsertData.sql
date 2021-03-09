@@ -51,21 +51,21 @@ SET IDENTITY_INSERT [dbo].[category] OFF
 UPDATE category SET thumbnail='learn.png', [description]='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
 SET IDENTITY_INSERT [dbo].[courses] ON 
-INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (1, N'youtube.com', N'aa', N'aa', N'Thiết kế Javascript và illustrator', 111, 'post.jpeg', 37, null)
-INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (2, N'youtube.com', N'aa', N'bb', N'Thành thạo học văn phòng (MS Office / Internet / Windows)', 222, 'post.jpeg', 36, null)
-INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (3, N'youtube.com', N'aa', N'aa', N'Khóa học test trong thiết kế UI/UX (HP 6.4)', 333, 'post.jpeg', 37, null)
+INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (1, N'youtube.com', N'aa', N'aa', N'Thiết kế Javascript và illustrator', 111, 'post.jpeg', 37, 1)
+INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (2, N'youtube.com', N'aa', N'bb', N'Thành thạo học văn phòng (MS Office / Internet / Windows)', 222, 'post.jpeg', 36, 1)
+INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [name], [price], [thumbnail], [category], [created_by]) VALUES (3, N'youtube.com', N'aa', N'aa', N'Khóa học test trong thiết kế UI/UX (HP 6.4)', 333, 'post.jpeg', 37, 1)
 SET IDENTITY_INSERT [dbo].[courses] OFF
 
 SET IDENTITY_INSERT [dbo].[posts] ON 
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (1, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Test', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (2, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Post 1', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (3, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'bb', N'Post 2', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (4, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'cc', N'Post 3', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (5, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'đd', N'Post 4', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (6, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ee', N'Post 5', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (7, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ff', N'Post 6', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (8, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'gg', N'Post 7', 'post.jpeg', 37, null)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (9, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'hh', N'Post 8', 'post.jpeg', 37, null)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (1, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Test', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (2, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Post 1', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (3, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'bb', N'Post 2', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (4, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'cc', N'Post 3', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (5, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'đd', N'Post 4', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (6, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ee', N'Post 5', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (7, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ff', N'Post 6', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (8, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'gg', N'Post 7', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (9, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'hh', N'Post 8', 'post.jpeg', 37, 1)
 SET IDENTITY_INSERT [dbo].[posts] OFF
 
 

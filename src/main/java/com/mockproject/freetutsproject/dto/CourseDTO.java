@@ -1,12 +1,53 @@
 package com.mockproject.freetutsproject.dto;
 
+import java.util.Date;
+
 public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private String name;
 	private String description;
 	private String thumbnail;
 	private String learnMethod;
 	private String courseLink;
+	private AdminDTO creator;
+	private Date createdDate;
+	private Long categoryId;
 	
+	/**
+	 * @return the categoryId
+	 */
+	public Long getCategoryId() {
+		return categoryId;
+	}
+	/**
+	 * @param categoryId the categoryId to set
+	 */
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	/**
+	 * @return the creator
+	 */
+	public AdminDTO getCreator() {
+		return creator;
+	}
+	/**
+	 * @param creator the creator to set
+	 */
+	public void setCreator(AdminDTO creator) {
+		this.creator = creator;
+	}
+	/**
+	 * @return the createdDate
+	 */
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 	/**
 	 * @return the name
 	 */

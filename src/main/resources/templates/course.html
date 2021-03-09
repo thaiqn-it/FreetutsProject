@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/main-layout :: main-fragment(  
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <title th:text="${course.name}"></title>
 </head>
+
+<th:block id="styles">
 <style>
-    #main-content ul{
-        list-style-type: none;
-    }
 
     #main-content ul li{
         margin-top: 20px;
@@ -43,28 +53,29 @@
         text-decoration: none;
     }
 </style>
+</th:block>
 <body>
-    <div class="container border border-dark" id="main-content">
-        <div>
-            <ul>
-                <li>
-                    <h2>Thành thạo tin học văn phòng (MS Office / Internet / Windows)</h2>
-                </li>
-                <li>
-                    <span class="font-weight-light">Đăng bởi: Administrator - Vào ngày: 02-08-2020 - View: 9</span>
-                </li>
-                <li>
+    <div id="main-content">
+        <div class="mt-2 p-2">
+                <div>
+                    <h2 th:text="${course.name}"></h2>
+                </div>
+                <div>
+                    <span class="font-weight-light">Đăng bởi: <span th:text="${course.creator.fullname}"/> - 
+                    <!-- Vào ngày: <span thtext="${course.createdDate}"></span> -->
+                    </span>
+                </div>
+                <div>
                     <div class="row">
                         <div class="col-8">
-                            <p>Đây là khóa học "tin học văn phòng A-Z", bạn sẽ được học online trên website fedu.vn, thuộc chuyên mục khóa học tin học.</p>
-                            <p> Bạn có thể tham khảo đề cương khóa học ở phần nội dung khóa học, hoặc truy cập vào link gốc mà mình đã cung cấp dưới đây</p>
+                            <p th:text="${course.description}"></p>
+                            <p>Bạn có thể tham khảo đề cương khóa học ở phần nội dung khóa học, hoặc truy cập vào link gốc mà mình đã cung cấp dưới đây</p>
                         </div>
                         <div class="col-4">
-                            <img src="https://dictionary.cambridge.org/vi/images/thumb/book_noun_001_01679.jpg?version=5.0.153" alt="">
+                            <img th:src="@{'/images/' + ${course.thumbnail}}" width="200px" >
                         </div>
                     </div>
-                </li>
-            </ul>
+                </div>
         </div>
         <div class="m-4">
             <h2 class="mb-4 border-bottom">Giới thiệu</h2>
@@ -72,40 +83,40 @@
                 <thead>
                     <tr>
                         <th>Khóa học</th>
-                        <th></th>
+                        <th th:text="${course.name}"></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Hình thức học</td>
-                        <td>Online</td>
+                        <td th:text="${course.learnMethod}"></td>
                     </tr>
                     <tr>
-                        <td>Giá gốc</td>
-                        <td class="font-weight-bold">299,000đ</td>
+                        <td>Giá</td>
+                        <td class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 0, 'POINT')}"></td>
                     </tr>
                     <tr>
                         <td>Link khóa học</td>
-                        <td><a id="link-course" href="fedu.vn">fedu.vn</a></td>
+                        <td><a id="link-course" th:href="${course.courseLink}">Click here!</a></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="mt-4" style="background-color: #d7edf5;border-color: #bddde9;">
-            <ul class="m-4 p-4">
-                <li>
+            <div class="m-4 p-4">
+                <div>
                     <h2>Đăng ký ngay hôm nay để được giảm giá</h2>
-                </li>
-                <li>
-                    <h2>Cơ hội mua khóa học này chỉ với 192,000đ khi đăng ký tại freetuts.net</h2>
-                </li>
-                <li>
+                </div>
+                <div>
+                    <h2>Cơ hội mua khóa học này chỉ với <span th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></span> khi đăng ký tại freetuts.net</h2>
+                </div>
+                <div>
                     <p>Freetuts.net là đại lý cung cấp khóa học online và offline với giá rẻ nhất, giảm lên đến 51% cho khóa học này, nhanh tay đăng ký nhé bạn.</p>
-                </li>
-                <li class="text-center">
+                </div>
+                <div class="text-center">
                     <a class="btn btn-primary" href="#form_register">ĐĂNG KÝ NGAY</a>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
         <div id="form_register" style=" background: #34495e;  margin: 20px auto" class="m-5 p-4">
             <h2 class="text-center text-light">ĐĂNG KÝ KHÓA HỌC</h2>
@@ -146,26 +157,29 @@
                             <h4 style="text-align: center">CHỌN HÌNH THỨC THANH TOÁN</h4>  <br>
                             <div>
                                 <div>
-                                    <p><strong> <input checked="" type="radio" name="payment_type" value="2"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
+                                    <p><strong> <input checked="" type="radio" name="payment_type" value="2" class="paycheck"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
                                     <div class="paylist p-2" style="display: block; background-color: #d3f4e1">
                                         <ul style="margin-top: 15px">
                                             <li>
                                                 <strong>VIETCOMBANK </strong> <br>
                                                 Chủ tài khoản: Nguyễn Văn Cường  <br>
                                                 Số tài khoản: 0251002704529  <br>
-                                                Chi nhánh: Bình Tây, Q6, TP HCM                                    </li>
+                                                Chi nhánh: Bình Tây, Q6, TP HCM                                    
+                                            </li>
                                             <li>
                                                 <strong>SACOMBANK </strong> <br>
                                                 Chủ tài khoản: Nguyễn Văn Cường  <br>
                                                 Số tài khoản: 050053235619  <br>
-                                                Chi nhánh: Cưkuin Đăklăk                                    </li>
+                                                Chi nhánh: Cưkuin Đăklăk                                    
+                                            </li>
                                             <li>
                                                 <strong>VIB </strong> <br>
                                                 Chủ tài khoản: Nguyễn Văn Cường  <br>
                                                 Số tài khoản: 410704060192515  <br>
-                                                Chi nhánh: Buôn Ma Thuột - ĐăkLăk                                    </li>
+                                                Chi nhánh: Buôn Ma Thuột - ĐăkLăk                                    
+                                            </li>
                                         </ul>
-                                        <p><span class="ml-3" style="color: red">Số tiền: <strong style="font-size: 18px">192,000đ</strong></span></p>
+                                        <p><span class="ml-3" style="color: red">Số tiền: <strong style="font-size: 18px" th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong></span></p>
 
                                     </div>
                                 </div>
@@ -178,7 +192,9 @@
                                             <br>
                                         </p>
                                         <p>
-                                            <span style="color: red">Số tiền: <strong style="font-size: 18px">217,000đ</strong></span>.
+                                            <span style="color: red">Số tiền: 
+                                            <strong style="font-size: 18px" th:with="price=${course.price + 25000}" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+                                            </span>.
                                             Trong đó 25,000đ là phí gửi bưu điện
                                         </p>
                                     </div>
@@ -187,14 +203,14 @@
                                     <p><strong> <input type="radio" name="payment_type" id="pay_for_post_paypal" class="paycheck" value="4"> <label for="pay_for_post_paypal">THANH TOÁN QUA PAYPAL</label></strong></p>
                                     <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
                                         <p>Gửi $ đến địa chỉ paypal: cuongwriter@gmail.com.</p>
-                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px">9.6$</strong> giá đã bao gồm phí giao dịch paypal</span></p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px" th:with="price=(${course.price} / 23000.0)" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 2, 'POINT') + '$'}"></strong> giá đã bao gồm phí giao dịch paypal</span></p>
                                     </div>
                                 </div>
                                 <div>
                                     <p><strong> <input type="radio" name="payment_type" value="3" class="paycheck" id="pay_for_momo"> <label for="pay_for_momo">THANH TOÁN QUA VÍ MOMO</label></strong></p>
                                     <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
                                         <p>Thanh toán qua ví với số điện thoại: 0979306603.</p>
-                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px">192,000đ</strong></span></p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px"  th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong></span></p>
                                     </div>
                                 </div>
 
@@ -216,10 +232,12 @@
             </div>
         </div>
     </div>
+    
+    <!-- Comment Frame (if need) -->
+	<div id="comment-frame" th:replace="/common/___comment-frame :: comment-frame"></div>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<th:block id="scripts">
 <script>
     window.onload = function(){
         jQuery('.paycheck').click(function(){
@@ -228,4 +246,5 @@
         });
     };
 </script>
+</th:block>
 </html>

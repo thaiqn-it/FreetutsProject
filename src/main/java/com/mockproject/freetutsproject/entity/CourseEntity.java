@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.entity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -32,6 +33,9 @@ public class CourseEntity extends BaseEntity{
 	@Column
 	private Long price;
 	
+	@Column
+	private Date createdDate;
+	
 	@ManyToOne
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
@@ -42,6 +46,21 @@ public class CourseEntity extends BaseEntity{
 	
 	@ManyToMany (mappedBy = "courses")
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+
+	
+	/**
+	 * @return the createdDate
+	 */
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	/**
+	 * @param createdDate the createdDate to set
+	 */
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
 	/**
 	 * @return the name

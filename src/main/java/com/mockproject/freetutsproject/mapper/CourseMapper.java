@@ -13,10 +13,21 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	@Autowired
+	private AdminMapper adminMapper;
 
 	@Override
 	public CourseDTO toDTO(CourseEntity entity) {
 		CourseDTO dto = modelMapper.map(entity, CourseDTO.class);
+		
+		if (entity.getCreator() != null) {
+			dto.setCreator(adminMapper.toDTO(entity.getCreator()));
+		}
+		
+		if (entity.getCategory() != null) {
+			dto.setCategoryId(entity.getCategory().getId());
+		}
 		return dto;
 	}
 
