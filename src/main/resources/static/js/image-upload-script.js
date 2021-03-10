@@ -19,6 +19,8 @@ btnUpload.on("change", function(e){
 $(".file_remove").on("click", function(e){
     $("#uploaded_view").removeClass("show");
     $("#uploaded_view").find("img").remove();
+    $("#upload_file").val(null);
     btnOuter.removeClass("file_uploading");
     btnOuter.removeClass("file_uploaded");
+
 });
