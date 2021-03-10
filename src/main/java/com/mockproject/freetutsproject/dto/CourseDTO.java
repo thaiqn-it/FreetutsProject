@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private String name;
@@ -11,7 +12,20 @@ public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private AdminDTO creator;
 	private Date createdDate;
 	private Long categoryId;
+	private List<CommentDTO> comments;
 	
+	/**
+	 * @return the comments
+	 */
+	public List<CommentDTO> getComments() {
+		return comments;
+	}
+	/**
+	 * @param comments the comments to set
+	 */
+	public void setComments(List<CommentDTO> comments) {
+		this.comments = comments;
+	}
 	/**
 	 * @return the categoryId
 	 */
