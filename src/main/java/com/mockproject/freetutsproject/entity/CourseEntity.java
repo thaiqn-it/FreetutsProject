@@ -9,13 +9,17 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table (name = "courses")
 public class CourseEntity extends BaseEntity{
 	
-	@Column(columnDefinition = "nvarchar(50)")
+	@Column(columnDefinition = "nvarchar(255)")
 	private String name;
 	
 	@Column(columnDefinition = "ntext")
@@ -45,9 +49,28 @@ public class CourseEntity extends BaseEntity{
 	private CategoryEntity category;
 	
 	@ManyToMany (mappedBy = "courses")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
+	
+	@OneToMany (mappedBy = "course")
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<CommentEntity> comment = new ArrayList<CommentEntity>();
 
 	
+	/**
+	 * @return the comment
+	 */
+	public List<CommentEntity> getComment() {
+		return comment;
+	}
+
+	/**
+	 * @param comment the comment to set
+	 */
+	public void setComment(List<CommentEntity> comment) {
+		this.comment = comment;
+	}
+
 	/**
 	 * @return the createdDate
 	 */

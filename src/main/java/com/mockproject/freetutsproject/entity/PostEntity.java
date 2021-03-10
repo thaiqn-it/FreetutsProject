@@ -19,7 +19,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Table (name = "posts")
 public class PostEntity extends BaseEntity {
 	
-	@Column (columnDefinition = "nvarchar(50)")
+	@Column (columnDefinition = "nvarchar(255)")
 	private String name;
 	
 	@Column (columnDefinition = "ntext")

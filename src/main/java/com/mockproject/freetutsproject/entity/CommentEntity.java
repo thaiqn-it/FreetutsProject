@@ -27,7 +27,26 @@ public class CommentEntity extends BaseEntity {
 	@ManyToOne
 	@JoinColumn (name = "post_id")
 	private PostEntity post;
+	
+	@ManyToOne
+	@JoinColumn (name = "course_id")
+	private CourseEntity course;
 
+
+	
+	/**
+	 * @return the course
+	 */
+	public CourseEntity getCourse() {
+		return course;
+	}
+
+	/**
+	 * @param course the course to set
+	 */
+	public void setCourse(CourseEntity course) {
+		this.course = course;
+	}
 
 	/**
 	 * @return the comment
