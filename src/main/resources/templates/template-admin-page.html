@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/image-upload-style.css}">
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <ul class="nav nav-tabs col-11">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#menu1">Discount code</a>
+                </li>
+            </ul>
+            <a class="btn btn-danger col-1" href="/logout">Logout</a>
+        </div>
+        <div class="tab-content">
+            <div id="home" class="container tab-pane active"><br>
+                <h3>POST</h3>
+                <form class="mt-5 mb-3" id="form-post">
+                    <input class="form-control mb-2" type="text" value="" placeholder="Name">
+                    <select class="form-control mb-2">
+                        <option>23131</option>
+                        <option>23131</option>
+                        <option>23131</option>
+                        <option>23131</option>
+                        <option>23131</option>
+                    </select>
+                    <textarea class="form-control mb-2" placeholder="Description" rows="5"></textarea>
+
+                    <div class="panel">
+                        <div class="button_outer">
+                            <div class="btn_upload">
+                                <input type="file" id="upload_file" name="thumbnail">
+                                Upload Thumbnail
+                            </div>
+                            <div class="processing_bar"></div>
+                        </div>
+                    </div>
+                    <div class="error_msg"></div>
+                    <div class="uploaded_file_view" id="uploaded_view">
+                        <span class="file_remove">X</span>
+                    </div>
+                </form>
+
+                <!-- content form -->
+                <form class="mt-5 mb-3">
+     <!--               <div class="row mb-3">
+                        <div class="col-11">
+                            <input class="form-control" type="text" name="txtContentName" placeholder="Content Name">
+                        </div>
+                        <div class="col-1 p-0">
+                            <button class="btn btn-primary btn-show-hide" type="button"><i class="far fa-eye"></i></button>
+                            <button class="btn btn-danger btn-delete" type="button"><i class="fas fa-times"></i></button>
+                        </div>
+                    </div>-->
+                    <div class="content-editor">
+                        <textarea name="content" id="editor">
+
+                        </textarea>
+                    </div>
+                </form>
+                <div id="btn-group" class="float-right">
+                    <!--<input id="btn-new-content" class="btn btn-success" type="button" value="New Content">-->
+                    <input id="btn-submit" class="btn btn-primary" type="button" value="Submit">
+                </div>
+            </div>
+            <div id="menu1" class="container tab-pane fade"><br>
+                <h3>Menu 1</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+<script th:src="@{/js/image-upload-script.js}"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'undo',
+                    'redo',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'imageUpload',
+                    'imageInsert',
+                    'mediaEmbed',
+                    '|',
+                    'blockQuote',
+                    'insertTable',
+                    'fontBackgroundColor',
+                    'fontFamily',
+                    'highlight',
+                    'fontColor',
+                    'fontSize',
+                    'MathType',
+                    'ChemType',
+                    'pageBreak',
+                    '|',
+                    'codeBlock',
+                ]
+            },
+            language: 'vi',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side',
+                    'linkImage'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            licenseKey: '',
+
+
+        })
+        .then(editor => {
+            window.editor = editor;
+
+        })
+        .catch(error => {
+            console.error('Oops, something went wrong!');
+            console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+            console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+            console.error(error);
+        });
+    /*let numb = 1;
+    $(document).ready(function () {
+        ClassicEditor
+            .create(document.querySelector('#editor' + numb++), {
+
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'undo',
+                        'redo',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'outdent',
+                        'indent',
+                        '|',
+                        'imageUpload',
+                        'imageInsert',
+                        'mediaEmbed',
+                        '|',
+                        'blockQuote',
+                        'insertTable',
+                        'fontBackgroundColor',
+                        'fontFamily',
+                        'highlight',
+                        'fontColor',
+                        'fontSize',
+                        'MathType',
+                        'ChemType',
+                        'pageBreak',
+                        '|',
+                        'codeBlock',
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                        'linkImage'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+
+            })
+            .then(editor => {
+                window.editor = editor;
+
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+                console.error(error);
+            });
+
+        $("#btn-new-content").click(function () {
+            $(".content-editor").hide();
+            $("<form class=\"mt-5 mb-3\">\n" +
+                "                    <div class=\"row mb-3\">\n" +
+                "                        <div class=\"col-11\">\n" +
+                "                            <input class=\"form-control\" type=\"text\" name=\"txtContentName\" placeholder=\"Content Name\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"col-1 p-0\">\n" +
+                "                            <button class=\"btn btn-primary btn-show-hide\" type=\"button\"><i class=\"far fa-eye\"></i></button>" +
+                "                            <button class=\"btn btn-danger btn-delete\" type=\"button\"><i class=\"fas fa-times\"></i></button>" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"content-editor\">\n" +
+                "                       <textarea name=\"content\" id=\"editor" + numb + "\">\n" +
+                "\n" +
+                "                    </textarea></div>\n" +
+                "                </form>").insertBefore("#btn-group");
+            ClassicEditor
+                .create(document.querySelector('#editor' + numb++), {
+
+                    toolbar: {
+                        items: [
+                            'heading',
+                            '|',
+                            'bold',
+                            'italic',
+                            'link',
+                            'undo',
+                            'redo',
+                            'bulletedList',
+                            'numberedList',
+                            '|',
+                            'outdent',
+                            'indent',
+                            '|',
+                            'imageUpload',
+                            'imageInsert',
+                            'mediaEmbed',
+                            '|',
+                            'blockQuote',
+                            'insertTable',
+                            'fontBackgroundColor',
+                            'fontFamily',
+                            'highlight',
+                            'fontColor',
+                            'fontSize',
+                            'MathType',
+                            'ChemType',
+                            'pageBreak',
+                            '|',
+                            'codeBlock'
+                        ]
+                    },
+                    language: 'vi',
+                    image: {
+                        toolbar: [
+                            'imageTextAlternative',
+                            'imageStyle:full',
+                            'imageStyle:side',
+                            'linkImage'
+                        ]
+                    },
+                    table: {
+                        contentToolbar: [
+                            'tableColumn',
+                            'tableRow',
+                            'mergeTableCells'
+                        ]
+                    },
+                    licenseKey: '',
+
+
+                })
+                .then(editor => {
+                    window.editor = editor;
+
+                })
+                .catch(error => {
+                    console.error('Oops, something went wrong!');
+                    console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                    console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+                    console.error(error);
+                });
+            addBtnShowHideEvent();
+            addBtnDeleteEvent();
+        });
+        addBtnShowHideEvent();
+        addBtnDeleteEvent();
+
+        $("#btn-submit").click(function (e) {
+            var forms = $("#home").find("form");
+
+            // id = form-post {
+            //      form.submit(function (e){
+            //          e.preventDefault();
+            //              ajax {}
+            //      })
+            // }
+            // id ko co dar
+        })
+    });*/
+
+   /* function addBtnShowHideEvent() {
+        $(".btn-show-hide").click(function () {
+            $(".content-editor").hide();
+            $(this).parent().parent().parent().find(".content-editor").show();
+        });
+    }
+
+    function addBtnDeleteEvent() {
+        $(".btn-delete").click(function () {
+            $(this).parent().parent().parent().remove();
+        });
+    }*/
+</script>
+</body>
+</html>

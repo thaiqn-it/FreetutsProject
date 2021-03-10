@@ -6,7 +6,7 @@ USE DBMockFreetuts
 
 SET IDENTITY_INSERT [dbo].[admins] ON 
 INSERT admins (id, fullname, [password], username)
-VALUES (1, 'Administrator', '123', 'admin')
+VALUES (1, 'Administrator', '$2a$10$ddMpp822Jzi2rl3I61GOZOpn2S4VJXfqGkFyA1YLy/Zve66gmvAR6', 'admin')
 SET IDENTITY_INSERT [dbo].[admins] OFF
 
 SET IDENTITY_INSERT [dbo].[category] ON
