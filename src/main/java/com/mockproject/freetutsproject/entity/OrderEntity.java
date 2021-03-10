@@ -3,6 +3,7 @@ package com.mockproject.freetutsproject.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,9 +19,17 @@ public class OrderEntity extends BaseEntity {
 	@JoinColumn (name = "payment_method")
 	private PaymentMethodEntity paymentMethod;
 	
-	@ManyToOne
-	@JoinColumn (name = "student")
-	private StudentEntity student;
+	@Column(columnDefinition = "nvarchar(50)")
+	private String name;
+	
+	@Column
+	private String phone;
+	
+	@Column
+	private String email;
+	
+	@Column
+	private String facebook;
 	
 	@ManyToMany 
 	@JoinTable (name = "orderDetails", 
@@ -43,17 +52,59 @@ public class OrderEntity extends BaseEntity {
 	}
 
 	/**
-	 * @return the student
+	 * @return the name
 	 */
-	public StudentEntity getStudent() {
-		return student;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param student the student to set
+	 * @param name the name to set
 	 */
-	public void setStudent(StudentEntity student) {
-		this.student = student;
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @return the phone
+	 */
+	public String getPhone() {
+		return phone;
+	}
+
+	/**
+	 * @param phone the phone to set
+	 */
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/**
+	 * @return the facebook
+	 */
+	public String getFacebook() {
+		return facebook;
+	}
+
+	/**
+	 * @param facebook the facebook to set
+	 */
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
 	}
 
 	/**

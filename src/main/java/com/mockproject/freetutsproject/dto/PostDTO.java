@@ -11,8 +11,22 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	private String thumbnail;
 	private AdminDTO creator;
 	private Long categoryId;	
-	private List<ContentDTO> contents;
+	private String contentFile ;
 	private List<CommentDTO> comments;
+	
+	
+	/**
+	 * @return the contentFile
+	 */
+	public String getContentFile() {
+		return contentFile;
+	}
+	/**
+	 * @param contentFile the contentFile to set
+	 */
+	public void setContentFile(String contentFile) {
+		this.contentFile = contentFile;
+	}
 	/**
 	 * @return the name
 	 */
@@ -85,18 +99,7 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 	}
-	/**
-	 * @return the contents
-	 */
-	public List<ContentDTO> getContents() {
-		return contents;
-	}
-	/**
-	 * @param contents the contents to set
-	 */
-	public void setContents(List<ContentDTO> contents) {
-		this.contents = contents;
-	}
+	
 	/**
 	 * @return the comments
 	 */

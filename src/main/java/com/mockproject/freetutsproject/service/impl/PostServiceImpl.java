@@ -7,16 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
-import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.ContentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.mapper.CategoryMapper;
 import com.mockproject.freetutsproject.mapper.PostMapper;
 import com.mockproject.freetutsproject.repository.PostRepository;
-import com.mockproject.freetutsproject.service.CommentService;
-import com.mockproject.freetutsproject.service.ContentService;
 import com.mockproject.freetutsproject.service.PostService;
 
 @Service
