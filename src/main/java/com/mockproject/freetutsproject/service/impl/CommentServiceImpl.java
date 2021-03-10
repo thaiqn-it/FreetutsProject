@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.ContentDTO;
 import com.mockproject.freetutsproject.entity.CommentEntity;
-import com.mockproject.freetutsproject.entity.ContentEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.mapper.CommentMapper;
 import com.mockproject.freetutsproject.repository.CommentRepository;

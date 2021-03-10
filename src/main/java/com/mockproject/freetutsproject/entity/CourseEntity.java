@@ -54,21 +54,21 @@ public class CourseEntity extends BaseEntity{
 	
 	@OneToMany (mappedBy = "course")
 	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<CommentEntity> comment = new ArrayList<CommentEntity>();
+	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 
 	
 	/**
 	 * @return the comment
 	 */
-	public List<CommentEntity> getComment() {
-		return comment;
+	public List<CommentEntity> getComments() {
+		return comments;
 	}
 
 	/**
 	 * @param comment the comment to set
 	 */
-	public void setComment(List<CommentEntity> comment) {
-		this.comment = comment;
+	public void setComment(List<CommentEntity> comments) {
+		this.comments = comments;
 	}
 
 	/**

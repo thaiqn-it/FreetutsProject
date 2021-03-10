@@ -62,26 +62,20 @@ INSERT [dbo].[courses] ([id], [course_link], [description], [learn_method], [nam
 SET IDENTITY_INSERT [dbo].[courses] OFF
 
 SET IDENTITY_INSERT [dbo].[posts] ON 
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (1, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Test', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (2, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Post 1', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (3, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'bb', N'Post 2', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (4, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'cc', N'Post 3', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (5, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'đd', N'Post 4', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (6, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ee', N'Post 5', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (7, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ff', N'Post 6', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (8, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'gg', N'Post 7', 'post.jpeg', 37, 1)
-INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by]) VALUES (9, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'hh', N'Post 8', 'post.jpeg', 37, 1)
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (1, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Test', 'post.jpeg', 37, 1, 'demo-content-A.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (2, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'aa', N'Post 1', 'post.jpeg', 37, 1, 'demo-content-B.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (3, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'bb', N'Post 2', 'post.jpeg', 37, 1, 'demo-content-C.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (4, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'cc', N'Post 3', 'post.jpeg', 37, 1, 'demo-content-D.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (5, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'đd', N'Post 4', 'post.jpeg', 37, 1, 'demo-content-E.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (6, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ee', N'Post 5', 'post.jpeg', 37, 1, 'demo-content-F.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (7, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'ff', N'Post 6', 'post.jpeg', 37, 1, 'demo-content-A.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (8, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'gg', N'Post 7', 'post.jpeg', 37, 1, 'demo-content-B.html')
+INSERT [dbo].[posts] ([id], [created_date], [description], [name], [thumbnail], [category], [created_by], [content_file]) VALUES (9, CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), N'hh', N'Post 8', 'post.jpeg', 37, 1, 'demo-content-C.html')
 SET IDENTITY_INSERT [dbo].[posts] OFF
 
 SET IDENTITY_INSERT [dbo].[comments] ON 
-INSERT comments (id, comment, commenter_name, commenter_email, [date], post_id)
-VALUES (1, N'Test comment 1', 'Test 1', 'test@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), 1),
-(2, N'Test comment 2', 'Test 2', 'test2@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), 1)
+INSERT comments (id, comment, commenter_name, commenter_email, [date], post_id, course_id)
+VALUES (1, N'Test comment 1', 'Test 1', 'test@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), 1, null),
+(2, N'Test comment 2', 'Test 2', 'test2@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), 1, null),
+(3, N'Test comment 3', 'Test 3', 'test3@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), null, 1)
 SET IDENTITY_INSERT [dbo].[comments] OFF
-
-SET IDENTITY_INSERT [dbo].[contents] ON 
-INSERT contents (id, content_file, name, post_id)
-VALUES (1, 'demo-content-A.html', N'Đây là content A', 1),
-(2, 'demo-content-B.html', N'Đây là content B', 1),
-(3, 'demo-content-C.html', N'Đây là content C', 1);
-SET IDENTITY_INSERT [dbo].[contents] OFF

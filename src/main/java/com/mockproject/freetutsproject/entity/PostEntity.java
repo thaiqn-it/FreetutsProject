@@ -31,6 +31,9 @@ public class PostEntity extends BaseEntity {
 	@Column
 	private String thumbnail;
 	
+	@Column
+	private String contentFile;
+	
 	@ManyToOne
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
@@ -40,11 +43,7 @@ public class PostEntity extends BaseEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
-	@LazyCollection(LazyCollectionOption.FALSE)
-	private List<ContentEntity> contents = new ArrayList<ContentEntity>();
-	
-	@OneToMany (mappedBy = "post")
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@LazyCollection(LazyCollectionOption.FALSE)	
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 
 	/**
@@ -146,16 +145,18 @@ public class PostEntity extends BaseEntity {
 	}
 
 	/**
-	 * @return the contents
+	 * @return the contentFile
 	 */
-	public List<ContentEntity> getContents() {
-		return contents;
+	public String getContentFile() {
+		return contentFile;
 	}
 
 	/**
-	 * @param contents the contents to set
+	 * @param contentFile the contentFile to set
 	 */
-	public void setContents(List<ContentEntity> contents) {
-		this.contents = contents;
+	public void setContentFile(String contentFile) {
+		this.contentFile = contentFile;
 	}
+	
+	
 }

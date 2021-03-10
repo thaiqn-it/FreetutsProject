@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.ContentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO ;
 import com.mockproject.freetutsproject.entity.PostEntity;
 
@@ -20,9 +19,6 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 	
 	@Autowired
 	private AdminMapper adminMapper;
-	
-	@Autowired
-	private ContentMapper contentMapper;
 	
 	@Autowired
 	private CommentMapper commentMapper;
@@ -37,12 +33,6 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 		
 		if (entity.getCreator() != null) {
 			dto.setCreator(adminMapper.toDTO(entity.getCreator()));
-		}
-		
-		if (entity.getContents() != null) {
-			List<ContentDTO> contentList = new ArrayList<>();
-			entity.getContents().forEach(content -> contentList.add(contentMapper.toDTO(content)));
-			dto.setContents(contentList);
 		}
 		
 		if (entity.getComments() != null) {
