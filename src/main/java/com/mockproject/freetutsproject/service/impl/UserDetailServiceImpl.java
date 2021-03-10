@@ -1,0 +1,37 @@
+package com.mockproject.freetutsproject.service.impl;
+
+import com.mockproject.freetutsproject.entity.AdminEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.mockproject.freetutsproject.repository.AdminRepository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Service
+public class UserDetailServiceImpl implements UserDetailsService {
+
+	@Autowired
+	private AdminRepository adminRepository;
+
+	@Override
+	@Transactional(readOnly = true)
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		AdminEntity adminEntity = adminRepository.findByUsername(username);
+		if (adminEntity == null) {
+			throw new UsernameNotFoundException(username);
+		}
+
+		Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
+		grantedAuthoritySet.add(new SimpleGrantedAuthority("ADMIN"));
+		return new org.springframework.security.core.userdetails.User(adminEntity.getUsername(), adminEntity.getPassword(),
+				grantedAuthoritySet);
+	}
+}
