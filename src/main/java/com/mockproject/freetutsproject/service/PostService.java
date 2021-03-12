@@ -9,5 +9,5 @@ public interface PostService {
 	List<PostDTO> findPostByCategory(CategoryDTO category);
 	PostDTO loadPostInfo(String name);
 	List<PostDTO> findPostByCategoryAndOrderedByIdLimitedTo(CategoryDTO categoryDTO, int limit);
-
+	PostDTO findById(Long id);
 }

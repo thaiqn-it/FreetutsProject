@@ -11,10 +11,10 @@
 		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
 			<li class="list-group-item text-left p-2" th:each="item : ${relatePosts}">
 				<th:block th:if="${item.id != post.id}">
-					<a th:href="'/post/' + ${item.name}" th:text="${item.name}" style="color: black;"> </a>
+					<a th:href="'/post/' + ${item.id}" th:text="${item.name}" style="color: black;"> </a>
 				</th:block>
 				<th:block th:if="${item.id == post.id}">
-					<a th:href="'/post/' + ${item.name}" th:text="${item.name}" style="color: orange;"> </a>
+					<a th:href="'/post/' + ${item.id}" th:text="${item.name}" style="color: orange;"> </a>
 				</th:block>
 			</li>
 		</ul>	

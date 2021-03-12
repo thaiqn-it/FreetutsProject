@@ -102,3 +102,5 @@ VALUES (1, N'Test comment 1', 'Test 1', 'test@gmail.com', CAST(N'2020-08-08 00:0
 (2, N'Test comment 2', 'Test 2', 'test2@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), 1, null),
 (3, N'Test comment 3', 'Test 3', 'test3@gmail.com', CAST(N'2020-08-08 00:00:00.0000000' AS DateTime2), null, 1)
 SET IDENTITY_INSERT [dbo].[comments] OFF
+
+update comments set comment='<h2>Test alo alo</h2>' WHERE id=3

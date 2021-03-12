@@ -31,13 +31,14 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private MultiLevelCategoryUtil multiLevelCategoryUtil;
 	
-	public PostDTO loadPostInfo(String name) {
-		//1.Post
-		PostEntity entity = this.postRepository.findByName(name);
-		//Entity -> DTO
-		PostDTO result = postMapper.toDTO(entity);
+	public PostDTO findById(Long id) {
+		PostEntity entity = this.postRepository.findById(id).orElse(null);
 		
-		return result;
+		if (entity != null) {
+			return postMapper.toDTO(entity);
+		
+		}
+		return null;
 	}
 
 	@Override

@@ -7,4 +7,5 @@ import com.mockproject.freetutsproject.entity.PostEntity;
 
 public interface CommentService {
 	List<CommentDTO> loadCommentsByPost(PostEntity post);
+	CommentDTO save(CommentDTO dto);
 }

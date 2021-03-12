@@ -8,14 +8,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
+import com.mockproject.freetutsproject.service.CommentService;
 import com.mockproject.freetutsproject.service.CourseService;
 import com.mockproject.freetutsproject.service.PostService;
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
@@ -35,17 +36,20 @@ public class WebController {
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired 
+	private CommentService commentService;
 
-	@GetMapping(value = "post/{name}")
-	public String loadPost(@PathVariable("name") String name, Model model) {
+	@GetMapping(value = "post/{id}")
+	public String loadPost(@PathVariable("id") String id, Model model) {
 		// Get post
-		PostDTO postDTO = this.postService.loadPostInfo(name);
+		PostDTO postDTO = this.postService.findById(Long.parseLong(id));
 		
 		if (postDTO != null) {
 			model.addAttribute("post", postDTO);
 			
-			long id = postDTO.getCategoryId();
-			CategoryDTO dto = categoryService.findCategory(id);
+			long categoryId = postDTO.getCategoryId();
+			CategoryDTO dto = categoryService.findCategory(categoryId);
 			
 			// Get breadcrumb data 
 			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(dto);
@@ -54,6 +58,11 @@ public class WebController {
 			// Get relate post
 			List<PostDTO> relatePosts = postService.findPostByCategory(dto);
 			model.addAttribute("relatePosts", relatePosts);
+			
+			// Comment object for comment form
+			CommentDTO commentDTO = new CommentDTO();
+			commentDTO.setPostId(postDTO.getId());
+			model.addAttribute("comment", commentDTO);
 		}
 		return "post";
 	}
@@ -97,6 +106,8 @@ public class WebController {
 			}
 			
 			model.addAttribute("category", dto);
+			
+			
 		}
 		return "category";
 	}
@@ -113,8 +124,25 @@ public class WebController {
 			// Get breadcrumb data 
 			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(category);
 			model.addAttribute("breadcrumb", categoryBreadcrumb);
+			
+			// Comment object for comment form
+			CommentDTO commentDTO = new CommentDTO();
+			commentDTO.setCourseId(Long.parseLong(id));
+			model.addAttribute("comment", commentDTO);
 
 		}
 		return "course";
+	}
+	
+	@PostMapping(value = "/comment/")
+	public String comment(CommentDTO commentDTO) {
+		CommentDTO savedComment = commentService.save(commentDTO);
+		if (savedComment.getCourseId() != null) {
+			return "redirect:/course/" + savedComment.getCourseId();
+		}
+		else if (savedComment.getPostId() != null) {
+			return "redirect:/post/" + savedComment.getPostId();
+		}
+		return "error";
 	}
 }
