@@ -20,6 +20,36 @@
 		</ul>	
 	</div>
 
+	<div class="card md-4 mb-4 border" th:fragment="review-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold" style="background: #2f6e91;">
+			Review</h5>
+		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
+			<li class="list-group-item text-left p-2" th:each="review : ${COURSE_REVIEW}">
+				<div class="row">
+					<div class="col-3">
+						<img width="80px" height="60px" th:src="@{'/images/' + ${review.thumbnail}}">
+					</div>
+					<div class="col-9">
+						<a href="" th:text="${review.name}"></a>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item text-right p-2">
+				<a href="/category/34">Xem tất cả</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card md-4 mb-4 border" th:fragment="excercise-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold" style="background: #2f6e91;">
+			Bài tập</h5>
+		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
+			<li class="list-group-item text-left p-2">
+
+			</li>
+		</ul>
+	</div>
+
 	<div class="card md-4 border" style="position:sticky; top:0px; font-size: 14px;" th:fragment="discount-widget">
 		<h5 class="card-header text-white text-center font-weight-bold"
 			style="background: #2f6e91;">Mã Giảm Giá</h5>

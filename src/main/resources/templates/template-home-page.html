@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/owl-carousel/assets/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/owl-carousel/assets/owl.theme.default.css}">
 </head>
 <style>
     #main-content img {
@@ -29,10 +32,32 @@
     a:hover{
         color: #F09217;
     }
+
+    .owl-carousel {
+        padding: 15px 15px 0 15px!important;
+    }
 </style>
 <body>
     <div id="main-content" class="container">
-        <table class="table table-bordered" >
+        <div>
+            <div style="padding:0.75rem; background-color: #2f6e91; color: #ffffff;font-weight: bold">COUPON GIẢM GIÁ</div>
+            <div class="owl-carousel owl-theme border">
+                <div class="item border p-3">
+                    <a href=""><img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt=""></a>
+                    <a href=""><h4>1</h4></a>
+                </div>
+                <div class="item border p-3"><h4>2</h4></div>
+                <div class="item border p-3"><h4>3</h4></div>
+                <div class="item"><h4>4</h4></div>
+                <div class="item"><h4>5</h4></div>
+                <div class="item"><h4>6</h4></div>
+                <div class="item"><h4>7</h4></div>
+                <div class="item"><h4>8</h4></div>
+                <div class="item"><h4>9</h4></div>
+            </div>
+        </div>
+
+        <table class="table table-bordered mt-4" >
             <thead>
                 <tr>
                     <th style="background-color: #2f6e91; color: #ffffff" colspan="2">LẬP TRÌNH</th>
@@ -115,4 +140,24 @@
         </table>
     </div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:src="@{/owl-carousel/owl.carousel.js}"></script>
+<script>
+    $(document).ready(function(){
+        $('.owl-carousel').owlCarousel({
+            loop:true,
+            responsive:{
+                0:{
+                    items:1
+                },
+                600:{
+                    items:2
+                },
+                1000:{
+                    items:3
+                }
+            }
+        })
+    });
+</script>
 </html>

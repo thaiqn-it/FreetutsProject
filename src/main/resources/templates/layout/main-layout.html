@@ -29,10 +29,10 @@
 			<!-- Left frame -->	
 			<div class="col-lg-8">
 				<!-- Post Content -->
-				<div class="col-12 border" th:insert="${mainContent} ?: ~{}"></div>
+				<div class="col-12 p-0" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
-				<div class="col-12 border mt-4" th:insert="${commentFrame} ?: ~{}"></div>
+				<th:block th:replace="${commentFrame} ?: ~{}"></th:block>
 				
 				<!-- Course List frame -->
 				<div th:insert="${courseList} ?: ~{}"></div>

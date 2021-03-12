@@ -1,8 +1,10 @@
 package com.mockproject.freetutsproject.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,9 @@ public class PostServiceImpl implements PostService {
 	
 	@Autowired
 	private PostMapper postMapper;
+
+	@Autowired
+	private MultiLevelCategoryUtil multiLevelCategoryUtil;
 	
 	public PostDTO loadPostInfo(String name) {
 		//1.Post
@@ -33,6 +38,31 @@ public class PostServiceImpl implements PostService {
 		PostDTO result = postMapper.toDTO(entity);
 		
 		return result;
+	}
+
+	@Override
+	public List<PostDTO> findPostByCategoryAndOrderedByIdLimitedTo(CategoryDTO categoryDTO, int limit) {
+		if (!categoryDTO.getPosts().isEmpty()){
+			List<PostDTO> originalPostList = categoryDTO.getPosts();
+			List<PostDTO> postDTOList = new ArrayList<>();
+			Collections.reverse(originalPostList);
+			for (int i = 0; i < limit; i++) {
+				postDTOList.add(originalPostList.get(i));
+			}
+			return postDTOList;
+		}
+
+		List<PostEntity> postEntityList = new ArrayList<>();
+		List<CategoryDTO> lastLevelCategories = multiLevelCategoryUtil.findAllLastLevelSubCategroies(categoryDTO);
+		List<Long> ids = new ArrayList<>();
+		lastLevelCategories.forEach(category -> ids.add(category.getId()));
+		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids,5);
+		if (postEntityList != null) {
+			List<PostDTO> postDTOList = new ArrayList<PostDTO>();
+			postEntityList.forEach(entity -> postDTOList.add(postMapper.toDTO(entity)));
+			return postDTOList;
+		}
+		return null;
 	}
 
 	@Override

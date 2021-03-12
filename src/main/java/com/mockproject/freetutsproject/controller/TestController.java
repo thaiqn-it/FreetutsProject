@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class TestController {
 	@RequestMapping (value = "/testabc", method = RequestMethod.GET)
 	public String loadMenu() {
-		return "test";
+		return "home";
 	}
 	
 }
