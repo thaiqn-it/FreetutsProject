@@ -4,7 +4,7 @@
       th:replace="~{layout/main-layout :: main-fragment(
                                                 ~{::title},
                                                 ~{:: #styles},
-                                                ~{:: #sub-categories-nav},
+                                                ~{:: #breadcrumb},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
                                                 ~{:: #post-list-frame},
@@ -52,12 +52,12 @@
 </th:block>
 
 <body>
-<div id="widget-1" th:insert="/common/___widgets :: review-widget"></div>
+<div class="mt-4" id="widget-1" th:insert="/common/___widgets :: review-widget"></div>
 <div id="widget-2" th:insert="/common/___widgets :: excercise-widget"></div>
 
 <div id="main-content">
     <div>
-        <div style="padding:0.75rem; background-color: #2f6e91; color: #ffffff;font-weight: bold">COUPON GIẢM GIÁ</div>
+        <div class="mt-4" style="padding:0.75rem; background-color: #2f6e91; color: #ffffff;font-weight: bold">COUPON GIẢM GIÁ</div>
         <div class="owl-carousel owl-theme border">
             <div class="item border p-3">
                 <a href=""><img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt=""></a>
@@ -74,14 +74,14 @@
         </div>
     </div>
 
-    <table class="table table-bordered mt-4" >
+    <table class="table table-bordered mt-4" th:each="box : ${NEWS_BOXES}">
         <thead>
         <tr>
-            <th style="background-color: #2f6e91; color: #ffffff" colspan="2">LẬP TRÌNH</th>
+            <th style="background-color: #2f6e91; color: #ffffff" colspan="2" th:text="${box.categoryName}"></th>
         </tr>
         </thead>
         <tbody>
-            <tr th:each="item, state : ${COURSE_REVIEW}">
+            <tr th:each="item, state : ${box.posts}">
                 <th:block th:if="${state.first}">
                     <td width="300px" rowspan="5" class="p-3">
                         <div class="mb-4">
@@ -99,7 +99,7 @@
                     <td>
                         <div class="row">
                             <div class="col-3">
-                                <a href="">
+                                <a th:href="@{'/post/' + ${item.id}}">
                                     <img style="height: 75px;width: 95px" th:src="@{'/images/' + ${item.thumbnail}}" alt="">
                                 </a>
                             </div>
@@ -110,13 +110,16 @@
                     </td>
                 </th:block>
             </tr>
-            <tr>
-                <td class="text-center" colspan="2">
-                    <a th:href="@{'/category/1'}">Xem thêm  <i class="fas fa-long-arrow-alt-right"></i></a>
-                </td>
-            </tr>
+            <th:block th:if="${box.id != 1}">
+                <tr>
+                    <td class="text-center" colspan="2">
+                        <a th:href="@{'/category/' + ${box.id}}">Xem thêm  <i class="fas fa-long-arrow-alt-right"></i></a>
+                    </td>
+                </tr>
+            </th:block>
         </tbody>
     </table>
+
 </div>
 </body>
 

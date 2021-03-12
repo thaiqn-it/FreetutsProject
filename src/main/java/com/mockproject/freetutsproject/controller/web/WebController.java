@@ -143,6 +143,6 @@ public class WebController {
 		else if (savedComment.getPostId() != null) {
 			return "redirect:/post/" + savedComment.getPostId();
 		}
-		return "error";
+		return "error-404";
 	}
 }

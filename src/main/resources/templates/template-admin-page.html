@@ -94,30 +94,30 @@
                     'bold',
                     'italic',
                     'link',
-                    'undo',
-                    'redo',
+                    'fontBackgroundColor',
+                    'fontColor',
+                    'fontFamily',
+                    'fontSize',
+                    'highlight',
+                    '|',
                     'bulletedList',
                     'numberedList',
                     '|',
                     'outdent',
                     'indent',
                     '|',
-                    'imageUpload',
                     'imageInsert',
                     'mediaEmbed',
                     '|',
-                    'blockQuote',
                     'insertTable',
-                    'fontBackgroundColor',
-                    'fontFamily',
-                    'highlight',
-                    'fontColor',
-                    'fontSize',
-                    'MathType',
-                    'ChemType',
-                    'pageBreak',
+                    'undo',
+                    'redo',
                     '|',
+                    'htmlEmbed',
                     'codeBlock',
+                    'code',
+                    'MathType',
+                    '|'
                 ]
             },
             language: 'vi',
@@ -142,6 +142,7 @@
         })
         .then(editor => {
             window.editor = editor;
+            handleSubmit(editor);
 
         })
         .catch(error => {
@@ -150,6 +151,14 @@
             console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
             console.error(error);
         });
+
+    function handleSubmit(editor){
+       $("#btn-submit").click(function (e) {
+           e.preventDefault();
+           var content = editor.getData();
+           console.log(content);
+       });
+    }
 </script>
 </body>
 </html>

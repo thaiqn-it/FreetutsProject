@@ -4,7 +4,7 @@
 	th:replace="~{layout/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #styles},
-                                                ~{:: #sub-categories-nav},
+                                                ~{:: #breadcrumb-bar},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
                                                 ~{:: #post-list-frame},
@@ -31,8 +31,11 @@
 <title th:text="${post.name}"></title>
 </head>
 <body>
+	<!-- Breadcrumb (if need) -->
+	<div id="breadcrumb-bar" th:replace="/common/___breadcrumb :: breadcrumb"></div>
+
 	<div id="widget-1" th:insert="/common/___widgets :: lesson-widget"></div>
-	<div class="border" id="main-content" th:object="${post}">
+	<div class="border p-4" id="main-content" th:object="${post}">
 				<!-- Title -->
 				<h1 class="mt-4" th:text="*{name}">  </h1> 
 

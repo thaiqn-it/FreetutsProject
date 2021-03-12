@@ -4,7 +4,7 @@
 	th:replace="~{layout/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #styles},
-                                                ~{:: #sub-categories-nav},
+                                                ~{:: #breadcrumb-bar},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
                                                 ~{:: #post-list-frame},
@@ -68,11 +68,11 @@
 <title th:text="${category.name}"></title>
 </head>
 <body>
-	<!-- Sub-categories Navbar (if need) -->
-	<div id="sub-categories-nav" th:replace="/common/___subcate-nav :: subcate-nav"></div>
+	<!-- Breadcrumb (if need) -->
+	<div id="breadcrumb-bar" th:replace="/common/___breadcrumb :: breadcrumb"></div>
 
 	<!-- Post Content (populate content here) -->
-	<div id="main-content" class="border p-2">
+	<div id="main-content" class="border p-4">
 
 		<!-- Title -->
 		<h2 class="mt-4" th:text="${category.name}"></h2>

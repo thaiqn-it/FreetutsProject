@@ -18,6 +18,7 @@
     "@ckeditor/ckeditor5-font": "^26.0.0",
     "@ckeditor/ckeditor5-heading": "^26.0.0",
     "@ckeditor/ckeditor5-highlight": "^26.0.0",
+    "@ckeditor/ckeditor5-html-embed": "^26.0.0",
     "@ckeditor/ckeditor5-image": "^26.0.0",
     "@ckeditor/ckeditor5-indent": "^26.0.0",
     "@ckeditor/ckeditor5-link": "^26.0.0",
@@ -28,6 +29,7 @@
     "@ckeditor/ckeditor5-theme-lark": "^26.0.0",
     "@ckeditor/ckeditor5-typing": "^26.0.0",
     "@ckeditor/ckeditor5-upload": "^26.0.0",
+    "@wiris/mathtype-ckeditor5": "^7.24.4",
     "css-loader": "^5.1.1",
     "postcss": "^8.2.7",
     "postcss-loader": "^4.2.0",
@@ -38,6 +40,7 @@
     "webpack-cli": "^4.5.0"
   },
   "scripts": {
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "start": "npx http-server -o ./sample -s -c-1"
   }
 }
