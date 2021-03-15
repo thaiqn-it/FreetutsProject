@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 </head>
@@ -11,10 +11,11 @@
             <div class="col-sm-3">
                 <p>Liên hệ</p>
                 <ul>
-                    <li><a href="">Chính sách</a></li>
-                    <li><a href="">Giới thiệu</a></li>
-                    <li><a href="">Điều khoản</a></li>
-                    <li><a href="">Liên hệ</a></li>
+                    <li><a th:href="@{/lien-he/chinh-sach}">Chính sách</a></li>
+                    <li><a th:href="@{/lien-he/gioi-thieu}">Giới thiệu</a></li>
+                    <li><a th:href="@{/lien-he/dieu-khoan}">Điều khoản</a></li>
+                    <li><a th:href="@{/lien-he/lien-he}">Liên hệ</a></li>
+                    <li><a th:href="@{/lien-he/guest-post}">Guest Post</a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

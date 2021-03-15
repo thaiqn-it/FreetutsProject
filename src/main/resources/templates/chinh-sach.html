@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #breadcrumb-bar},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu Freetuts.net</title>
+</head>
+
+<body>
+<div class="border p-4" id="main-content">
+    <h2><strong>Giới thiệu</strong></h2><p>Đăng bởi: Administrator- Vào ngày: 21-07-2016</p><p>Freetuts.net là một mã giảm giá, tại đây sẽ tổng hợp các tin tức giảm giá về Domain, Hosting và các khóa học lập trình của các trung tâm dạy học online. Rất mong các bạn sẽ mua sản phẩm thông qua link giới thiệu của freetuts.</p><h2><strong>Mạng xã hội</strong></h2><p>Theo quy định của nhà nước Việt Nam,&nbsp;muốn thành lập forum thì&nbsp;cần phải có giấy phép đăng ký, vì vậy freetuts không thể tạo sân chơi này cho các bạn được. Tuy nhiên, hiện nay đa số ban nào cũng có tài khoản Facebook nên freetuts sẽ lấy Facebook làm nơi thảo luận và&nbsp;trao đổi kiến thức.</p><ul><li><a href="https://www.facebook.com/groups/freetutsdotnet/">Group thảo luận</a></li><li><a href="https://www.facebook.com/freetuts/">Fanpage</a></li></ul><p>Ngoài ra blog còn có một kênh youtube để đăng các video dạy học miễn phí:</p><ul><li><a href="https://www.youtube.com/c/FreetutsNetVideo">Freetuts Video</a></li></ul><h2><strong>Mong muốn</strong></h2><p>Vì một cộng đồng IT Việt Nam&nbsp;phát triển thì mình rất mong muốn nhận được sự ủng hộ của các bạn lập trình viên, admin của các blog khác. Chúng ta không nên ganh ghét lẫn nhau mã hãy giúp đỡ lẫn nhau, cùng nhau phát triển hơn nữa.</p>
+</div>
+</body>
+</html>
