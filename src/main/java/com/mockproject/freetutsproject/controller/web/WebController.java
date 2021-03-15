@@ -55,9 +55,12 @@ public class WebController {
 			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(dto);
 			model.addAttribute("breadcrumb", categoryBreadcrumb);
 			
-			// Get relate post
-			List<PostDTO> relatePosts = postService.findPostByCategory(dto);
-			model.addAttribute("relatePosts", relatePosts);
+			// If post belong to "Lập trình" category, get realte post for widget
+			if (categoryBreadcrumb.get(0).getName().equals("Lập trình")) {
+				// Get relate post
+				List<PostDTO> relatePosts = postService.findPostByCategory(dto);
+				model.addAttribute("relatePosts", relatePosts);
+			}
 			
 			// Comment object for comment form
 			CommentDTO commentDTO = new CommentDTO();

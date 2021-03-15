@@ -5,8 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="card md-4 mb-4 border" th:fragment="lesson-widget" style="font-size: 17px">
-		<h5 class="card-header text-white text-left font-weight-bold" style="background: green;">
+	<div th:if="${relatePosts != null}" class="card md-4 mb-4 border" th:fragment="lesson-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: green; font-size: 17px">
 			Danh Sách Bài Học</h5>
 		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
 			<li class="list-group-item text-left p-2" th:each="item : ${relatePosts}">
@@ -21,21 +21,21 @@
 	</div>
 
 	<div class="card md-4 border" style="position:sticky; top:0px; font-size: 14px;" th:fragment="discount-widget">
-		<h5 class="card-header text-white text-center font-weight-bold"
-			style="background: #2f6e91;">Mã Giảm Giá</h5>
+		<h5 class="card-header text-white text-center font-weight-bold p-2"
+			style="background: #2f6e91; font-size: 17px">MÃ GIẢM GIÁ</h5>
 		<table style="margin-bottom: 0px">
 			<tr class="card-body border text-center">
 				<td class="border">Unica</td>
 				<td class="border">50%</td>
 				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary">Lấy Mã</button>
+						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
 				</a></td>
 			</tr>
 			<tr class="card-body border text-center">
 				<td class="border">TinoHost</td>
 				<td class="border">30%</td>
 				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary">Lấy Mã</button>
+						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
 				</a></td>
 			</tr>
 			</tr>
@@ -43,7 +43,7 @@
 				<td class="border">INET</td>
 				<td class="border">30%</td>
 				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary">Lấy Mã</button>
+						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
 				</a></td>
 			</tr>
 		</table>
