@@ -32,4 +32,10 @@ public class CommentServiceImpl implements CommentService {
 		});
 		return result;
 	}
+
+	@Override
+	public CommentDTO save(CommentDTO dto) {
+		CommentEntity entity = commentMapper.toEntity(dto);
+		return commentMapper.toDTO(commentRepository.save(entity));
+	}
 }

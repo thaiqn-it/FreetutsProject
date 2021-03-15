@@ -7,7 +7,9 @@ public class CommentDTO extends AbstractDTO<CommentDTO> {
 	private String commenterEmail;
 	private Date date;
 	private String comment;
-	private PostDTO post;
+	private Long postId;
+	private Long courseId;
+	
 	/**
 	 * @return the commenterName
 	 */
@@ -57,16 +59,28 @@ public class CommentDTO extends AbstractDTO<CommentDTO> {
 		this.comment = comment;
 	}
 	/**
-	 * @return the post
+	 * @return the postId
 	 */
-	public PostDTO getPost() {
-		return post;
+	public Long getPostId() {
+		return postId;
 	}
 	/**
-	 * @param post the post to set
+	 * @param postId the postId to set
 	 */
-	public void setPost(PostDTO post) {
-		this.post = post;
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+	/**
+	 * @return the courseId
+	 */
+	public Long getCourseId() {
+		return courseId;
+	}
+	/**
+	 * @param courseId the courseId to set
+	 */
+	public void setCourseId(Long courseId) {
+		this.courseId = courseId;
 	}
 	
 	

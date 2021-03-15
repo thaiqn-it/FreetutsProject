@@ -1,9 +1,13 @@
 package com.mockproject.freetutsproject.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO ;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CourseEntity;
@@ -17,6 +21,9 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 	@Autowired
 	private AdminMapper adminMapper;
 
+	@Autowired
+	private CommentMapper commentMapper;
+	
 	@Override
 	public CourseDTO toDTO(CourseEntity entity) {
 		CourseDTO dto = modelMapper.map(entity, CourseDTO.class);
@@ -27,6 +34,11 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 		
 		if (entity.getCategory() != null) {
 			dto.setCategoryId(entity.getCategory().getId());
+		}
+		
+		if (entity.getComments() != null) {
+			List<CommentDTO> commentDTOs = new ArrayList<CommentDTO>();
+			entity.getComments().forEach(comment -> commentDTOs.add(commentMapper.toDTO(comment)));
 		}
 		return dto;
 	}
