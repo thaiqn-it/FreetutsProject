@@ -43,4 +43,14 @@ public class CategoryServiceImpl implements CategoryService {
 		}
 		return null;
 	}
+
+	@Override
+	public CategoryDTO findCategory(String name) {
+		CategoryEntity entity = categoryRepository.findOneByName(name);
+		
+		if (entity != null) {
+			return categoryMapper.toDTO(entity);
+		}
+		return null;
+	}
 }

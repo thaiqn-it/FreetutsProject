@@ -8,4 +8,5 @@ import com.mockproject.freetutsproject.entity.CategoryEntity;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
 	List<CategoryEntity> findByParentIsNull();
+	CategoryEntity findOneByName(String name);
 }

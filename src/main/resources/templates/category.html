@@ -126,7 +126,8 @@
                      <td>
                          <a th:href="'/course/' + ${course.id}">
                              <h6 th:text="${course.name}"></h6>
-                             <p> Giá <span style="color: red" th:text="${course.price}"></span> </p>
+                             <p> Giá <span class="text-danger font-weight-bold" 
+                             th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + 'đ'}"></span> </p>
                          </a>
                      </td>
                  </tr>

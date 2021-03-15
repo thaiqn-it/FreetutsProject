@@ -1,5 +1,8 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +27,21 @@ public class CourseServiceImpl implements CourseService {
 		
 		if (entity != null) {
 			return courseMapper.toDTO(entity);
+		}
+		return null;
+	}
+
+	@Override
+	public List<CourseDTO> findTopFiveNewestCourse() {
+		List<CourseEntity> entities = courseRepository.findTopFiveCoursesOrderByIdDescending();
+		
+		if (entities != null) {
+			List<CourseDTO> dtos = new ArrayList<CourseDTO>();
+			entities.forEach(entity -> {
+				dtos.add(courseMapper.toDTO(entity));
+			});
+			
+			return dtos;
 		}
 		return null;
 	}

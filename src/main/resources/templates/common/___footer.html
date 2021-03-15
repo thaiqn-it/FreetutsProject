@@ -20,19 +20,17 @@
             <div class="col-sm-3">
                 <p>Mã giảm giá</p>
                 <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
+                    <li th:each="discount : ${#request.getAttribute('DISCOUNTS')}">
+                    	<a th:href="@{'/category/' + ${discount.id}}" th:text="${discount.name}"></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-sm-3">
                 <p>Khóa học</p>
-                <ul class="text-pink">
-                    <li>ada</li>
-                    <li>ada</li>
-                    <li>dad</li>
-                    <li>dada</li>
+                <ul>
+                    <li th:each="courseItem : ${#request.getAttribute('COURSES')}">
+                    	<a class="text-pink" th:href="@{'/course/' + ${courseItem.id}}" th:text="${courseItem.name}"></a>
+                    </li>
                 </ul>
             </div>
             <div class="col-sm-3">
