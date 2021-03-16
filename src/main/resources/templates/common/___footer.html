@@ -20,7 +20,7 @@
             <div class="col-sm-3">
                 <p>Mã giảm giá</p>
                 <ul>
-                    <li th:each="discount : ${#request.getAttribute('DISCOUNTS')}">
+                    <li th:each="discount : ${#request.getAttribute('DISCOUNT_POSTS')}">
                     	<a th:href="@{'/category/' + ${discount.id}}" th:text="${discount.name}"></a>
                     </li>
                 </ul>

@@ -9,13 +9,30 @@ import javax.persistence.Table;
 public class DiscountEntity extends BaseEntity {
 	
 	@Column
-	private int discountPercent;
+	private String discountCode;
 	
 	@Column
 	private String discountWebsite;
 	
 	@Column
-	private boolean available;
+	private String provider;
+	
+	@Column
+	private int discountPercent;
+	
+	/**
+	 * @return the provider
+	 */
+	public String getProvider() {
+		return provider;
+	}
+
+	/**
+	 * @param provider the provider to set
+	 */
+	public void setProvider(String provider) {
+		this.provider = provider;
+	}
 
 	/**
 	 * @return the discountPercent
@@ -32,6 +49,20 @@ public class DiscountEntity extends BaseEntity {
 	}
 
 	/**
+	 * @return the discountCode
+	 */
+	public String getDiscountCode() {
+		return discountCode;
+	}
+
+	/**W
+	 * @param discountCode the discountCode to set
+	 */
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
+	}
+
+	/**
 	 * @return the discountWebsite
 	 */
 	public String getDiscountWebsite() {
@@ -43,20 +74,6 @@ public class DiscountEntity extends BaseEntity {
 	 */
 	public void setDiscountWebsite(String discountWebsite) {
 		this.discountWebsite = discountWebsite;
-	}
-
-	/**
-	 * @return the available
-	 */
-	public boolean isAvailable() {
-		return available;
-	}
-
-	/**
-	 * @param available the available to set
-	 */
-	public void setAvailable(boolean available) {
-		this.available = available;
 	}
 	
 }

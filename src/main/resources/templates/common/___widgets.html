@@ -24,26 +24,13 @@
 		<h5 class="card-header text-white text-center font-weight-bold p-2"
 			style="background: #2f6e91; font-size: 17px">MÃ GIẢM GIÁ</h5>
 		<table style="margin-bottom: 0px">
-			<tr class="card-body border text-center">
-				<td class="border">Unica</td>
-				<td class="border">50%</td>
-				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
-				</a></td>
-			</tr>
-			<tr class="card-body border text-center">
-				<td class="border">TinoHost</td>
-				<td class="border">30%</td>
-				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
-				</a></td>
-			</tr>
-			</tr>
-			<tr class="card-body border text-center">
-				<td class="border">INET</td>
-				<td class="border">30%</td>
-				<td class="border"><a href="https://www.google.com/">
-						<button type="button" class="btn btn-primary my-2">Lấy Mã</button>
+			<tr class="card-body border text-center" th:each="discount : ${#request.getAttribute('DISCOUNT_CODES')}">
+				<td class="border" th:text="${discount.provider}"></td>
+				<td class="border" th:text="${discount.discountPercent + '%'}"></td>
+				<td class="border"><a th:href="@{${discount.discountWebsite}}">
+						<button type="button" class="btn btn-primary my-2" 
+						th:attr="onclick=|prompt('Copy mã giảm giá, nhớ đọc kỹ hướng dẫn sử dụng nhé bạn.','${discount.discountCode}')|"
+						th:title="${discount.discountCode}" >Lấy Mã</button>
 				</a></td>
 			</tr>
 		</table>

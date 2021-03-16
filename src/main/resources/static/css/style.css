@@ -191,3 +191,9 @@ a:active, a:after, a:before, a:focus, a:link, a:visited {
 .btn:hover {
     background-color: #F09217 !important;
 }
+
+#main-content code {
+	color: #000;
+	background-color: #dadada!important;
+	padding: 4px;
+}
