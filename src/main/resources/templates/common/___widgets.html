@@ -5,11 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div th:if="${relatePosts != null}" class="card md-4 mb-4 border" th:fragment="lesson-widget" style="font-size: 17px">
+	<div th:if="${RELATED_POSTS != null}" class="card md-4 mb-4 border" th:fragment="lesson-widget" style="font-size: 17px">
 		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: green; font-size: 17px">
 			Danh Sách Bài Học</h5>
 		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
-			<li class="list-group-item text-left p-2" th:each="item : ${relatePosts}">
+			<li class="list-group-item text-left p-2" th:each="item : ${RELATED_POSTS}">
 				<th:block th:if="${item.id != post.id}">
 					<a th:href="'/post/' + ${item.id}" th:text="${item.name}" style="color: black;"> </a>
 				</th:block>

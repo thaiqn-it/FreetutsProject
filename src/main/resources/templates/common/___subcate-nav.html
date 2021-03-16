@@ -7,10 +7,21 @@
 <body th:fragment="subcate-nav">
 	<div id="categoryNavbar">
 		<ul class="navbar navbar-expand-lg p-0 border-left mt-3">
-			<li class="p-2"><a href="">Khóa học a</a></li>
-			<li class="p-2"><a href="">Khóa học b</a></li>
-			<li class="p-2"><a href="">Khóa học c</a></li>
-			<li class="p-2"><a href="">Khóa học d</a></li>
+			<th:block th:each="item : ${SUB_CATEGORY_BAR}">
+			
+				<th:block th:if="${item.id == category.id}">
+					<li class="p-2 bg-white">
+						<a th:href="@{'/category/' + ${item.id}}" th:text="${item.name}"></a>
+					</li>
+				</th:block>
+				<th:block th:if="${item.id != category.id}">
+					<li class="p-2">
+						<a th:href="@{'/category/' + ${item.id}}" th:text="${item.name}"></a>
+					</li>
+				</th:block>	
+			
+			</th:block>
+			
 		</ul>
 	</div>
 </body>

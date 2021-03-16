@@ -16,7 +16,7 @@
 	
 	    >
 		
-		<th:block th:each="item : ${breadcrumb}">
+		<th:block th:each="item : ${BREADCRUMB}">
 			<!-- In category page (has category object) -->
 			<th:block th:if="${category != null}">
 				<th:block th:if="${item.id != category.id}">

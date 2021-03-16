@@ -53,13 +53,19 @@ public class WebController {
 			
 			// Get breadcrumb data 
 			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(dto);
-			model.addAttribute("breadcrumb", categoryBreadcrumb);
+			model.addAttribute("BREADCRUMB", categoryBreadcrumb);
 			
-			// If post belong to "Lập trình" category, get realte post for widget
+			// If post belong to "Lập trình" category
 			if (categoryBreadcrumb.get(0).getName().equals("Lập trình")) {
+				// Remove "Lập trình" since it not accessible
+				categoryBreadcrumb.remove(0);
+				
 				// Get relate post
 				List<PostDTO> relatePosts = postService.findPostByCategory(dto);
-				model.addAttribute("relatePosts", relatePosts);
+				model.addAttribute("RELATED_POSTS", relatePosts);
+				
+				// Alert flag
+				model.addAttribute("BELONG_TO_PROGRAMMING", true);
 			}
 			
 			// Comment object for comment form
@@ -77,8 +83,30 @@ public class WebController {
 		CategoryDTO dto = categoryService.findCategory(Long.parseLong(id));
 		
 		if (dto != null) {
-			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(dto);
-			model.addAttribute("breadcrumb", categoryBreadcrumb);
+			List<CategoryDTO> categoryNaviagtionBar = categoryUtil.getCategoryListBottomUp(dto);
+			
+			// If post belong to "Lập trình" category
+			if (categoryNaviagtionBar.get(0).getName().equals("Lập trình")) {
+				// Remove "Lập trình" since it not accessible
+				categoryNaviagtionBar.remove(0);
+				
+				// Add breadcrumb data
+				model.addAttribute("BREADCRUMB", categoryNaviagtionBar);
+			}
+			else {
+				// Last level category
+				if (dto.getSubCategories().isEmpty()) {
+					CategoryDTO parent = categoryService.findCategory(dto.getParentId()); 
+					categoryNaviagtionBar = categoryUtil.findAllLastLevelSubCategroies(parent);
+				}
+				
+				//not last level category
+				else {
+					categoryNaviagtionBar = categoryUtil.findAllLastLevelSubCategroies(dto);
+				}
+				model.addAttribute("SUB_CATEGORY_BAR", categoryNaviagtionBar);
+				
+			}
 			
 			// Divide subcategories into has children (not last level) and last level subcategories
 			List<CategoryDTO> listSubCateHasChildren = new ArrayList<CategoryDTO>();

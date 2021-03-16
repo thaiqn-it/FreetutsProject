@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts)">
+	th:fragment="main-fragment(title, styles, breadcrumbBar, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts)">
 <head>
 <meta charset="UTF-8">
 <title th:replace="${title}">Title</title>
@@ -20,7 +20,7 @@
 	
 	<div class="container">	
 		<!-- Breadcrumb -->
-		<div th:replace="/common/___breadcrumb :: breadcrumb"></div>
+		<div th:replace="${breadcrumbBar} ?: ~{}"></div>
 		
 		<!-- Sub-categories Navbar -->
 		<div th:replace="${subCategoriesNav} ?: ~{}">Sub-category navbar</div>
@@ -31,7 +31,7 @@
 			<!-- Left frame -->	
 			<div class="col-lg-8">
 				<!-- Post Content -->
-				<div class="col-12 border" th:insert="${mainContent} ?: ~{}"></div>
+				<div class="col-12 border px-4" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
 				<div class="col-12 border mt-4" th:insert="${commentFrame} ?: ~{}"></div>

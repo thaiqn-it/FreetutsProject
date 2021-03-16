@@ -4,6 +4,7 @@
 	th:replace="~{layout/main-layout :: main-fragment(  
                                                 ~{::title},
                                                 ~{:: #styles},
+                                                ~{:: #breadcrumb-bar},
                                                 ~{:: #sub-categories-nav},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
@@ -36,6 +37,7 @@
 </head>
 <body>
 	<div id="widget-1" th:insert="/common/___widgets :: lesson-widget"></div>
+	<div id="breadcrumb-bar" th:insert="/common/___breadcrumb :: breadcrumb"></div>
 	<div class="container" id="main-content" th:object="${post}">
 				<!-- Title -->
 				<h1 class="mt-4" th:text="*{name}">  </h1> 
