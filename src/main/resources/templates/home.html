@@ -57,27 +57,19 @@
 
 <div id="main-content">
     <div>
-        <div class="mt-4" style="padding:0.75rem; background-color: #2f6e91; color: #ffffff;font-weight: bold">COUPON GIẢM GIÁ</div>
+        <div class="mt-4 p-2" style="background-color: #2f6e91; color: #ffffff;font-weight: bold; font-size: 17px">COUPON GIẢM GIÁ</div>
         <div class="owl-carousel owl-theme border">
-            <div class="item border p-3">
-                <a href=""><img src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg" alt=""></a>
-                <a href=""><h4>1</h4></a>
+            <div class="item border p-3" th:each="item : ${COUPON}">
+                <a th:href="@{'/post/' + ${item.id}}"><img th:src="@{'/images/' + ${item.thumbnail}}" alt=""></a>
+                <a th:href="@{'/post/' + ${item.id}}"><h4 th:text="${item.name}"></h4></a>
             </div>
-            <div class="item border p-3"><h4>2</h4></div>
-            <div class="item border p-3"><h4>3</h4></div>
-            <div class="item"><h4>4</h4></div>
-            <div class="item"><h4>5</h4></div>
-            <div class="item"><h4>6</h4></div>
-            <div class="item"><h4>7</h4></div>
-            <div class="item"><h4>8</h4></div>
-            <div class="item"><h4>9</h4></div>
         </div>
     </div>
 
     <table class="table table-bordered mt-4" th:each="box : ${NEWS_BOXES}">
         <thead>
         <tr>
-            <th style="background-color: #2f6e91; color: #ffffff" colspan="2" th:text="${box.categoryName}"></th>
+            <th class="p-2" style="background-color: #2f6e91; color: #ffffff; font-size: 17px" colspan="2" th:text="${box.categoryName}"></th>
         </tr>
         </thead>
         <tbody>
@@ -85,12 +77,12 @@
                 <th:block th:if="${state.first}">
                     <td width="300px" rowspan="5" class="p-3">
                         <div class="mb-4">
-                            <a href="">
+                            <a th:href="@{'/post/' + ${item.id}}">
                                 <img id="main-img" th:src="@{'/images/' + ${item.thumbnail}}" alt="">
                             </a>
                         </div>
                         <div  style="overflow: hidden ; max-height: 50px">
-                            <strong ><a href="" th:text="${item.name}"></a></strong>
+                            <strong ><a th:href="@{'/post/' + ${item.id}}" th:text="${item.name}"></a></strong>
                         </div>
                         <p style="overflow: hidden ; max-height: 100px" class="mt-2" th:text="${item.description}"></p>
                     </td>

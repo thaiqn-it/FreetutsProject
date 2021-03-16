@@ -44,6 +44,11 @@ public class HomeController {
         List<PostDTO> postList = postService.findPostByCategoryAndOrderedByIdLimitedTo(category,5);
         model.addAttribute("COURSE_REVIEW",postList);
 
+        //load owl-carousel
+        category = categoryService.findCategory((long)38);
+        postList = postService.findPostByCategoryAndOrderedByIdLimitedTo(category,12);
+        model.addAttribute("COUPON",postList);
+
         return "home";
     }
 }

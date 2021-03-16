@@ -9,7 +9,6 @@ public class FooterController {
 
     @GetMapping("/lien-he/{name}")
     public String loadFooter(@PathVariable("name") String name) {
-        System.out.println(name);
         return name;
     }
 }
