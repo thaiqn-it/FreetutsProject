@@ -13,7 +13,10 @@
 	                    <meta itemprop="position" content="1">
 	                </a>
 	            </span>
-		<th:block th:each="item : ${breadcrumb}">
+	
+	    >
+		
+		<th:block th:each="item : ${BREADCRUMB}">
 			<!-- In category page (has category object) -->
 			>
 			<th:block th:if="${category != null}">

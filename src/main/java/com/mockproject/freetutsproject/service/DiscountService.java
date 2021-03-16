@@ -1,5 +1,9 @@
 package com.mockproject.freetutsproject.service;
 
-public interface DiscountService {
+import java.util.List;
 
+import com.mockproject.freetutsproject.dto.DiscountDTO;
+
+public interface DiscountService {
+	List<DiscountDTO> findAll();
 }

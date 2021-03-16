@@ -11,8 +11,10 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
+import com.mockproject.freetutsproject.service.DiscountService;
 
 @Component
 public class LayoutPreloadInterceptor implements HandlerInterceptor{
@@ -21,6 +23,9 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 	
 	@Autowired
 	private CourseService courseService;
+	
+	@Autowired
+	private DiscountService discountService;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -33,11 +38,15 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 		// Load footer
 		// 1. Discount
 		CategoryDTO discountCategory = categoryService.findCategory("Mã giảm giá");
-		request.setAttribute("DISCOUNTS", discountCategory.getSubCategories());
+		request.setAttribute("DISCOUNT_POSTS", discountCategory.getSubCategories());
 		
 		//2. Load 5 newest courses
 		List<CourseDTO> courses = courseService.findTopFiveNewestCourse();
 		request.setAttribute("COURSES", courses);
+		
+		// Load Discount code widget
+		List<DiscountDTO> discounts = discountService.findAll();
+		request.setAttribute("DISCOUNT_CODES", discounts);
 		
 		return true;
 	}

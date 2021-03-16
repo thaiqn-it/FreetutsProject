@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" 
-	th:fragment="main-fragment(title, styles, breadcrumbBar, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts)">
+ th:fragment="main-fragment(title, styles, breadcrumbBar, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts)">
+
 <head>
 <meta charset="UTF-8">
 <title th:replace="${title}">Title</title>
@@ -9,7 +10,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}"/>
 <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/default.min.css">
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
   
 <th:block th:replace="${styles} ?: ~{}"></th:block>
 </head>
@@ -31,7 +32,7 @@
 			<!-- Left frame -->	
 			<div class="col-lg-8">
 				<!-- Post Content -->
-				<div class="col-12 p-0" th:insert="${mainContent} ?: ~{}"></div>
+				<div class="col-12 border px-4" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
 				<th:block th:replace="${commentFrame} ?: ~{}"></th:block>

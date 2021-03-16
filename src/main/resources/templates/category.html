@@ -5,6 +5,7 @@
                                                 ~{::title},
                                                 ~{:: #styles},
                                                 ~{:: #breadcrumb-bar},
+                                                ~{:: #sub-categories-nav},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
                                                 ~{:: #post-list-frame},
@@ -68,9 +69,14 @@
 <title th:text="${category.name}"></title>
 </head>
 <body>
-	<!-- Breadcrumb (if need) -->
-	<div id="breadcrumb-bar" th:replace="/common/___breadcrumb :: breadcrumb"></div>
-
+	<!-- Sub-categories Navbar (if need) -->
+	<div id="sub-categories-nav" th:if="${BREADCRUMB == null}">
+		<div th:replace="/common/___subcate-nav :: subcate-nav"></div>
+	</div>
+	<div id="breadcrumb-bar" th:if="${BREADCRUMB != null}">
+		<div th:insert="/common/___breadcrumb :: breadcrumb"></div>
+	</div>
+	
 	<!-- Post Content (populate content here) -->
 	<div id="main-content" class="border p-4">
 
