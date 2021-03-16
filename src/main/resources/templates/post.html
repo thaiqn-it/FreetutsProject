@@ -36,9 +36,6 @@
 <title th:text="${post.name}"></title>
 </head>
 <body>
-	<!-- Breadcrumb (if need) -->
-	<div id="breadcrumb-bar" th:replace="/common/___breadcrumb :: breadcrumb"></div>
-
 	<div id="widget-1" th:insert="/common/___widgets :: lesson-widget"></div>
 	<div id="breadcrumb-bar" th:insert="/common/___breadcrumb :: breadcrumb"></div>
 	<div class="container" id="main-content" th:object="${post}">

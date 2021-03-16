@@ -13,7 +13,7 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column (columnDefinition = "boolean default true")
+	@Column (columnDefinition = "bit default 1")
 	private boolean available;
 	
 	/**

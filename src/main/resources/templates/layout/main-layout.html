@@ -24,7 +24,7 @@
 		<div th:replace="${breadcrumbBar} ?: ~{}"></div>
 		
 		<!-- Sub-categories Navbar -->
-<!--		<div th:replace="${subCategoriesNav} ?: ~{}">Sub-category navbar</div>-->
+		<div th:replace="${subCategoriesNav} ?: ~{}">Sub-category navbar</div>
 		
 		<!-- Body -->	
 		<div class="row mt-5">
@@ -35,7 +35,7 @@
 				<div class="col-12 border px-4" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
-				<th:block th:replace="${commentFrame} ?: ~{}"></th:block>
+				<div class="col-12 border mt-4" th:replace="${commentFrame} ?: ~{}"></div>
 				
 				<!-- Course List frame -->
 				<div th:insert="${courseList} ?: ~{}"></div>
