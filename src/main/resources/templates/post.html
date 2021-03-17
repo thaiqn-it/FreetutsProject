@@ -31,6 +31,19 @@
     #widget-1 a:hover {
     	color: orange !important;
     }
+    
+    .go-to-item {
+    	color: #315062;
+    }
+    
+    .go-to-item:hover {
+    	color: #315062;
+    }
+    
+    #go-to-list {
+    	padding-left: 20px;
+    }
+    
 </style>
 </th:block>
 <title th:text="${post.name}"></title>
@@ -55,20 +68,18 @@
 
 				<!-- 1. Preface -->
 				<p th:text="*{description}"></p>
-
+				
 				<!-- 2. Table Of Content -->
-				<!-- <div class="card md-4 border">
-					<h5 class="card-header">Table of Content</h5>
-					<ul class="go-to-detail" style="margin-bottom: 0px;">
-						<li class="#" style="text-align: left;" th:each="content : *{contents}">
-						<a th:href="'#' + ${content.id}" th:utext="${content.name}"> </a>
-						</li>
+				<div class="card my-3 border bg-light p-4">
+					<p class="font-weight-bold">Table of Content</p>
+					<ul id="go-to-list" style="margin-bottom: 0px;">
+						
 					</ul>
-				</div> -->
+				</div>
+				
 				<!-- 3. Post Content -->
 				<div th:attr="include-html='/contents/' + ${post.contentFile}"></div>
-				
-				<hr>
+			
 			</div>		
 	</div>
 	
@@ -107,6 +118,7 @@
 		
 		includeHTML();
 	</script>
+	<script th:src="@{/js/table-content-script.js}"></script>
 	<script th:src="@{/js/comment-box.js}"></script>
 	</th:block>
 </body>
