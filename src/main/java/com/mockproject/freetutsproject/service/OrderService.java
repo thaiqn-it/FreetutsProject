@@ -1,5 +1,7 @@
 package com.mockproject.freetutsproject.service;
 
-public interface OrderService {
+import com.mockproject.freetutsproject.dto.OrderDTO;
 
+public interface OrderService {
+    void save(OrderDTO orderDTO);
 }

@@ -31,6 +31,23 @@
     #widget-1 a:hover {
     	color: orange !important;
     }
+
+	#nav-button-bar {
+		height: 50px;
+		margin: 40px 0;
+	}
+
+	#nav-button-bar a{
+		font-size: 17px !important;
+		color: white;
+		width: 120px;
+	}
+
+	#nav-button-bar a.disabled{
+		opacity: 100% !important;
+		background-color: #ddd !important;
+	}
+
 </style>
 </th:block>
 <title th:text="${post.name}"></title>
@@ -49,27 +66,31 @@
 					<!-- Date/Time -->
 					<span> Vào ngày: </span><span th:text="*{createdDate}"></span> 
 				</p>
-
-
 				<hr>
 
 				<!-- 1. Preface -->
 				<p th:text="*{description}"></p>
 
-				<!-- 2. Table Of Content -->
-				<!-- <div class="card md-4 border">
-					<h5 class="card-header">Table of Content</h5>
-					<ul class="go-to-detail" style="margin-bottom: 0px;">
-						<li class="#" style="text-align: left;" th:each="content : *{contents}">
-						<a th:href="'#' + ${content.id}" th:utext="${content.name}"> </a>
-						</li>
-					</ul>
-				</div> -->
 				<!-- 3. Post Content -->
 				<div th:attr="include-html='/contents/' + ${post.contentFile}"></div>
-			</div>		
+
+				<div id="nav-button-bar">
+
+					<th:block th:if="${NEXT_POST_ID != -1}">
+						<a class="float-right btn" th:href="@{'/post/' + ${NEXT_POST_ID}}">Bài sau <i class="fas fa-step-forward"></i></a>
+					</th:block>
+					<th:block th:if="${NEXT_POST_ID == -1}">
+						<a class="float-right btn disabled" href="">Bài sau <i class="fas fa-step-forward"></i></a>
+					</th:block>
+
+					<th:block th:if="${PREVIOUS_POST_ID != -1}">
+						<a class="float-left btn" th:href="@{'/post/' + ${PREVIOUS_POST_ID}}"><i class="fas fa-step-backward"></i> Bài trước </a>
+					</th:block>
+					<th:block th:if="${PREVIOUS_POST_ID == -1}">
+						<a class="float-left btn disabled" href="#"><i class="fas fa-step-backward"></i> Bài trước </a>
+					</th:block>
+				</div>
 	</div>
-	
 	<!-- Comment Frame (if need) -->
 	<div id="comment-frame" th:replace="/common/___comment-frame :: comment-frame"></div>
 	

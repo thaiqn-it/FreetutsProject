@@ -34,9 +34,6 @@ public class WebController {
 	@Autowired
 	private PostService postService;
 	
-	@Autowired
-	private CourseService courseService;
-	
 	@Autowired 
 	private CommentService commentService;
 
@@ -49,10 +46,10 @@ public class WebController {
 			model.addAttribute("post", postDTO);
 			
 			long categoryId = postDTO.getCategoryId();
-			CategoryDTO dto = categoryService.findCategory(categoryId);
+			CategoryDTO categoryDTO = categoryService.findCategory(categoryId);
 			
 			// Get breadcrumb data 
-			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(dto);
+			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(categoryDTO);
 			model.addAttribute("BREADCRUMB", categoryBreadcrumb);
 			
 			// If post belong to "Lập trình" category
@@ -61,9 +58,29 @@ public class WebController {
 				categoryBreadcrumb.remove(0);
 				
 				// Get relate post
-				List<PostDTO> relatePosts = postService.findPostByCategory(dto);
+				List<PostDTO> relatePosts = postService.findPostByCategory(categoryDTO);
 				model.addAttribute("RELATED_POSTS", relatePosts);
-				
+
+				for (int i = 0; i < relatePosts.size(); i++) {
+					if(relatePosts.get(i).getId().equals(postDTO.getId())){
+						long previousPostId = -1;
+						long nextPostId = -1;
+
+						if (i == 0){
+							nextPostId = relatePosts.get(i + 1).getId();
+						}
+						else if (i == relatePosts.size() - 1){
+							previousPostId = relatePosts.get(i - 1).getId();
+						}
+						else {
+							nextPostId = relatePosts.get(i + 1).getId();
+							previousPostId = relatePosts.get(i - 1).getId();
+						}
+
+						model.addAttribute("PREVIOUS_POST_ID", previousPostId);
+						model.addAttribute("NEXT_POST_ID", nextPostId);
+					}
+				}
 				// Alert flag
 				model.addAttribute("BELONG_TO_PROGRAMMING", true);
 			}
@@ -143,27 +160,7 @@ public class WebController {
 		return "category";
 	}
 	
-	@GetMapping(value = "/course/{id}")
-	public String viewCourse(@PathVariable("id") String id, Model model) {
-		CourseDTO dto = courseService.findCourseById(Long.parseLong(id));
-		model.addAttribute("course", dto);
-		
-		if (dto != null) {
-			long categoryId = dto.getCategoryId();
-			CategoryDTO category = categoryService.findCategory(categoryId);
-			
-			// Get breadcrumb data 
-			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(category);
-			model.addAttribute("breadcrumb", categoryBreadcrumb);
-			
-			// Comment object for comment form
-			CommentDTO commentDTO = new CommentDTO();
-			commentDTO.setCourseId(Long.parseLong(id));
-			model.addAttribute("comment", commentDTO);
 
-		}
-		return "course";
-	}
 	
 	@PostMapping(value = "/comment/")
 	public String comment(CommentDTO commentDTO) {

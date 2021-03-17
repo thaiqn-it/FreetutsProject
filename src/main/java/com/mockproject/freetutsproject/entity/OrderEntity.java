@@ -30,6 +30,12 @@ public class OrderEntity extends BaseEntity {
 	
 	@Column
 	private String facebook;
+
+	@Column
+	private float price;
+
+	@Column(columnDefinition = "nvarchar(255)")
+	private String address;
 	
 	@ManyToMany 
 	@JoinTable (name = "orderDetails", 
@@ -120,6 +126,20 @@ public class OrderEntity extends BaseEntity {
 	public void setCourses(List<CourseEntity> courses) {
 		this.courses = courses;
 	}
-	
-	
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 }

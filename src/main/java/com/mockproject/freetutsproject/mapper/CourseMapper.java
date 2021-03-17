@@ -46,6 +46,7 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 	@Override
 	public CourseEntity toEntity(CourseDTO  dto) {
 		CourseEntity entity = modelMapper.map(dto, CourseEntity.class);
+
 		return entity;
 	}
 

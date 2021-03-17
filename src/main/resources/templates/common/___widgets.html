@@ -21,7 +21,7 @@
 	</div>
 
 	<div class="card md-4 mb-4 border" th:fragment="review-widget" style="font-size: 17px">
-		<h5 class="card-header text-white text-left font-weight-bold" style="background: #2f6e91;">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: #2f6e91; font-size: 17px">
 			Review</h5>
 		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
 			<li class="list-group-item text-left p-2" th:each="review : ${COURSE_REVIEW}">
@@ -30,7 +30,7 @@
 						<img width="80px" height="60px" th:src="@{'/images/' + ${review.thumbnail}}">
 					</div>
 					<div class="col-9">
-						<a href="" th:text="${review.name}"></a>
+						<a th:href="@{'/post/' + ${review.id}}" th:text="${review.name}"></a>
 					</div>
 				</div>
 			</li>
@@ -41,7 +41,7 @@
 	</div>
 
 	<div class="card md-4 mb-4 border" th:fragment="excercise-widget" style="font-size: 17px">
-		<h5 class="card-header text-white text-left font-weight-bold" style="background: #2f6e91;">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: #2f6e91;  font-size: 17px">
 			Bài tập</h5>
 		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
 			<li class="list-group-item text-left p-2">

@@ -1,5 +1,8 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import com.mockproject.freetutsproject.dto.OrderDTO;
+import com.mockproject.freetutsproject.entity.OrderEntity;
+import com.mockproject.freetutsproject.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,4 +14,13 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+
+	@Autowired
+	private OrderMapper orderMapper;
+
+	@Override
+	public void save(OrderDTO orderDTO) {
+		OrderEntity entity = orderMapper.toEntity(orderDTO);
+		orderRepository.save(entity);
+	}
 }

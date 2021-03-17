@@ -158,3 +158,10 @@ VALUES (1, 1, 'freetuts50', 'https://unica.vn/?aff=2560&src=ft.sidebar.coupon', 
 (2, 1, 'TINO30_2020', 'https://tinohost.com/', 30, 'TinoHost'),
 (3, 1, 'INET30UP', 'https://inet.vn/?aff=158288', 30, 'INET')
 SET IDENTITY_INSERT [dbo].[discounts] OFF
+
+SET IDENTITY_INSERT [dbo].[payment_methods] ON
+INSERT [dbo].[payment_methods] ([id], [available], [name]) VALUES (1, 1, N'Thanh toán qua ngân hàng')
+INSERT [dbo].[payment_methods] ([id], [available], [name]) VALUES (2, 1, N'Thanh toán qua bưu điện')
+INSERT [dbo].[payment_methods] ([id], [available], [name]) VALUES (3, 1, N'Thanh toán qua paypal')
+INSERT [dbo].[payment_methods] ([id], [available], [name]) VALUES (4, 1, N'Thanh toán qua ví momo')
+SET IDENTITY_INSERT [dbo].[payment_methods] OFF
