@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
@@ -15,6 +16,7 @@ import com.mockproject.freetutsproject.repository.CategoryRepository;
 import com.mockproject.freetutsproject.service.CategoryService;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
@@ -24,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
+	@Transactional (readOnly = true)
 	public List<CategoryDTO> loadCategories() {
 		List<CategoryDTO> result = new ArrayList<CategoryDTO>();
 		List<CategoryEntity> entities = categoryRepository.findByParentIsNull();
@@ -35,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public CategoryDTO findCategory(Long id) {
 		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
 		
@@ -45,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public CategoryDTO findCategory(String name) {
 		CategoryEntity entity = categoryRepository.findOneByName(name);
 		

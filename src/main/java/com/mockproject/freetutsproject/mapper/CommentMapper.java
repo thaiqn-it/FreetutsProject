@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CommentEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;

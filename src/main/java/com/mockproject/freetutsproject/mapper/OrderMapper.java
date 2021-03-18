@@ -1,18 +1,15 @@
 package com.mockproject.freetutsproject.mapper;
 
-import com.mockproject.freetutsproject.entity.CourseEntity;
-import com.mockproject.freetutsproject.entity.PaymentMethodEntity;
-import com.mockproject.freetutsproject.repository.CourseRepository;
-import com.mockproject.freetutsproject.repository.PaymentMethodRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.mockproject.freetutsproject.dto.OrderDTO ;
+import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.OrderEntity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mockproject.freetutsproject.entity.PaymentMethodEntity;
+import com.mockproject.freetutsproject.repository.CourseRepository;
+import com.mockproject.freetutsproject.repository.PaymentMethodRepository;
 
 @Component
 public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
