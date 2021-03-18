@@ -77,7 +77,8 @@ VALUES (1, N'Lập trình', null),
 (64, N'Ẩm thực', 61),
 (65, N'Học HTML căn bản & nâng cao', 7),
 (66, N'Học HTML5 căn bản & nâng cao', 7),
-(67, N'HTML5 Canvas', 7);
+(67, N'HTML5 Canvas', 7),
+(68, N'Bài tập Java', 5);
 SET IDENTITY_INSERT [dbo].[category] OFF
 UPDATE category SET thumbnail='learn.png', [description]='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
 
