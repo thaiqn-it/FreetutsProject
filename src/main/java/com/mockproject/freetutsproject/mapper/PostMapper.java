@@ -18,9 +18,6 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 	private ModelMapper modelMapper;
 	
 	@Autowired
-	private AdminMapper adminMapper;
-	
-	@Autowired
 	private CommentMapper commentMapper;
 	
 	@Override
@@ -29,10 +26,11 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 		
 		if (entity.getCategory() != null) {
 			dto.setCategoryId(entity.getCategory().getId());
+			dto.setCategoryName(entity.getCategory().getName());
 		}
 		
 		if (entity.getCreator() != null) {
-			dto.setCreator(adminMapper.toDTO(entity.getCreator()));
+			dto.setCreatorName(entity.getCreator().getFullname());
 		}
 		
 		if (entity.getComments() != null) {

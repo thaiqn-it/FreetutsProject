@@ -14,7 +14,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table (name = "posts")
 public class PostEntity extends BaseEntity {
@@ -43,120 +45,5 @@ public class PostEntity extends BaseEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
-	@LazyCollection(LazyCollectionOption.FALSE)	
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
-
-	/**
-	 * @return the comments
-	 */
-	public List<CommentEntity> getComments() {
-		return comments;
-	}
-
-	/**
-	 * @param comments the comments to set
-	 */
-	public void setComments(List<CommentEntity> comments) {
-		this.comments = comments;
-	}
-
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return the description
-	 */
-	public String getDescription() {
-		return description;
-	}
-
-	/**
-	 * @param description the description to set
-	 */
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	/**
-	 * @return the createdDate
-	 */
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	/**
-	 * @param createdDate the createdDate to set
-	 */
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
-
-	/**
-	 * @return the thumbnail
-	 */
-	public String getThumbnail() {
-		return thumbnail;
-	}
-
-	/**
-	 * @param thumbnail the thumbnail to set
-	 */
-	public void setThumbnail(String thumbnail) {
-		this.thumbnail = thumbnail;
-	}
-
-	/**
-	 * @return the creator
-	 */
-	public AdminEntity getCreator() {
-		return creator;
-	}
-
-	/**
-	 * @param creator the creator to set
-	 */
-	public void setCreator(AdminEntity creator) {
-		this.creator = creator;
-	}
-
-	/**
-	 * @return the category
-	 */
-	public CategoryEntity getCategory() {
-		return category;
-	}
-
-	/**
-	 * @param category the category to set
-	 */
-	public void setCategory(CategoryEntity category) {
-		this.category = category;
-	}
-
-	/**
-	 * @return the contentFile
-	 */
-	public String getContentFile() {
-		return contentFile;
-	}
-
-	/**
-	 * @param contentFile the contentFile to set
-	 */
-	public void setContentFile(String contentFile) {
-		this.contentFile = contentFile;
-	}
-	
-	
 }

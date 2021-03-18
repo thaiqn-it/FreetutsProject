@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.entity.CourseEntity;
@@ -13,6 +14,7 @@ import com.mockproject.freetutsproject.repository.CourseRepository;
 import com.mockproject.freetutsproject.service.CourseService;
 
 @Service
+@Transactional
 public class CourseServiceImpl implements CourseService {
 
 	@Autowired
@@ -33,7 +35,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public List<CourseDTO> findTopFiveNewestCourse() {
-		List<CourseEntity> entities = courseRepository.findTopFiveCoursesOrderByIdDescending();
+		List<CourseEntity> entities = courseRepository.findTop5ByOrderByIdDesc();
 		
 		if (entities != null) {
 			List<CourseDTO> dtos = new ArrayList<CourseDTO>();

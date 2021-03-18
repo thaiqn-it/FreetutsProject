@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO ;
-import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 
 @Component
@@ -17,9 +16,6 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
-	@Autowired
-	private AdminMapper adminMapper;
 
 	@Autowired
 	private CommentMapper commentMapper;
@@ -29,11 +25,12 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 		CourseDTO dto = modelMapper.map(entity, CourseDTO.class);
 		
 		if (entity.getCreator() != null) {
-			dto.setCreator(adminMapper.toDTO(entity.getCreator()));
+			dto.setCreatorName(entity.getCreator().getFullname());
 		}
 		
 		if (entity.getCategory() != null) {
 			dto.setCategoryId(entity.getCategory().getId());
+			dto.setCategoryName(entity.getCategory().getName());
 		}
 		
 		if (entity.getComments() != null) {

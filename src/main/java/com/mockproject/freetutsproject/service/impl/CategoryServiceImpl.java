@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
@@ -15,6 +16,7 @@ import com.mockproject.freetutsproject.repository.CategoryRepository;
 import com.mockproject.freetutsproject.service.CategoryService;
 
 @Service
+@Transactional
 public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired

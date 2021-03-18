@@ -8,6 +8,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table (name = "comments")
 public class CommentEntity extends BaseEntity {
@@ -31,92 +34,4 @@ public class CommentEntity extends BaseEntity {
 	@ManyToOne
 	@JoinColumn (name = "course_id")
 	private CourseEntity course;
-
-
-	
-	/**
-	 * @return the course
-	 */
-	public CourseEntity getCourse() {
-		return course;
-	}
-
-	/**
-	 * @param course the course to set
-	 */
-	public void setCourse(CourseEntity course) {
-		this.course = course;
-	}
-
-	/**
-	 * @return the comment
-	 */
-	public String getComment() {
-		return comment;
-	}
-
-	/**
-	 * @param comment the comment to set
-	 */
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
-	
-	/**
-	 * @return the commenterName
-	 */
-	public String getCommenterName() {
-		return commenterName;
-	}
-
-	/**
-	 * @param name the name to set
-	 */
-	public void setCommenterName(String name) {
-		this.commenterName = name;
-	}
-
-	/**
-	 * @return the commenterEmail
-	 */
-	public String getCommenterEmail() {
-		return commenterEmail;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setCommenterEmail(String email) {
-		this.commenterEmail = email;
-	}
-
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	/**
-	 * @return the post
-	 */
-	public PostEntity getPost() {
-		return post;
-	}
-
-	/**
-	 * @param post the post to set
-	 */
-	public void setPost(PostEntity post) {
-		this.post = post;
-	}
-	
-	
 }
