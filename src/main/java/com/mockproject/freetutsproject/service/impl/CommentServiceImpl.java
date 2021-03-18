@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.entity.CommentEntity;
@@ -14,6 +15,7 @@ import com.mockproject.freetutsproject.repository.CommentRepository;
 import com.mockproject.freetutsproject.service.CommentService;
 
 @Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
@@ -23,6 +25,7 @@ public class CommentServiceImpl implements CommentService {
 	private CommentMapper commentMapper; 
 	
 	@Override
+	@Transactional (readOnly = true)
 	public List<CommentDTO> loadCommentsByPost(PostEntity post) {
 		List<CommentDTO> result = new ArrayList<CommentDTO>();
 		List<CommentEntity> entities = this.commentRepository.findByPost(post);

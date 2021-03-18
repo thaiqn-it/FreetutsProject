@@ -26,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
+	@Transactional (readOnly = true)
 	public List<CategoryDTO> loadCategories() {
 		List<CategoryDTO> result = new ArrayList<CategoryDTO>();
 		List<CategoryEntity> entities = categoryRepository.findByParentIsNull();
@@ -37,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public CategoryDTO findCategory(Long id) {
 		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
 		
@@ -47,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Transactional (readOnly = true)
 	public CategoryDTO findCategory(String name) {
 		CategoryEntity entity = categoryRepository.findOneByName(name);
 		
