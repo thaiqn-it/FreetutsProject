@@ -35,15 +35,18 @@ public class CategoryEntity extends BaseEntity {
 	private CategoryEntity parent;
 	
 	@OneToMany (mappedBy = "parent")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
 	
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn (name = "created_by")
 	private AdminEntity creator;
 	
 	@OneToMany (mappedBy = "category")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CourseEntity> courses = new ArrayList<CourseEntity>();
 
 	@OneToMany (mappedBy = "category")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PostEntity> posts = new ArrayList<PostEntity>();
 }

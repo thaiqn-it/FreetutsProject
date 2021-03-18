@@ -7,7 +7,6 @@ import java.util.List;
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
@@ -19,7 +18,6 @@ import com.mockproject.freetutsproject.repository.PostRepository;
 import com.mockproject.freetutsproject.service.PostService;
 
 @Service
-@Transactional
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepository;

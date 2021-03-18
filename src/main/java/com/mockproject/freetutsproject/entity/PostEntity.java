@@ -45,5 +45,6 @@ public class PostEntity extends BaseEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
+	@LazyCollection(LazyCollectionOption.FALSE)	
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 }

@@ -52,8 +52,10 @@ public class CourseEntity extends BaseEntity{
 	private CategoryEntity category;
 	
 	@ManyToMany (mappedBy = "courses")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<OrderEntity> orders = new ArrayList<OrderEntity>();
 	
 	@OneToMany (mappedBy = "course")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 }

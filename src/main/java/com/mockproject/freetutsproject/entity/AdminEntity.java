@@ -28,11 +28,14 @@ public class AdminEntity extends BaseEntity {
 	private String fullname;
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CategoryEntity> createdCategories = new ArrayList<CategoryEntity>();
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<CourseEntity> createdCourses = new ArrayList<CourseEntity>();
 	
 	@OneToMany (mappedBy = "creator")
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<PostEntity> createdPosts = new ArrayList<PostEntity>();
 }
