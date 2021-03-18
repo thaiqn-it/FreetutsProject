@@ -1,8 +1,13 @@
 package com.mockproject.freetutsproject.controller.web;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.CommentDTO;
+import com.mockproject.freetutsproject.dto.PostDTO;
+import com.mockproject.freetutsproject.service.CategoryService;
+import com.mockproject.freetutsproject.service.CommentService;
+import com.mockproject.freetutsproject.service.PostService;
+import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
+import com.mockproject.freetutsproject.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.mockproject.freetutsproject.dto.CategoryDTO;
-import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.CourseDTO;
-import com.mockproject.freetutsproject.dto.PostDTO;
-import com.mockproject.freetutsproject.service.CategoryService;
-import com.mockproject.freetutsproject.service.CommentService;
-import com.mockproject.freetutsproject.service.CourseService;
-import com.mockproject.freetutsproject.service.PostService;
-import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
-import com.mockproject.freetutsproject.util.PagingUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class WebController {
@@ -81,6 +78,7 @@ public class WebController {
 						model.addAttribute("NEXT_POST_ID", nextPostId);
 					}
 				}
+
 				// Alert flag
 				model.addAttribute("BELONG_TO_PROGRAMMING", true);
 			}

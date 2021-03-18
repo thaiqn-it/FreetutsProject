@@ -4,7 +4,8 @@
       th:replace="~{layout/main-layout :: main-fragment(
                                                 ~{::title},
                                                 ~{:: #styles},
-                                                ~{:: #breadcrumb-bar},
+                                                ~{:: #breadcrumb},
+                                                ~{:: #nav-bar},
                                                 ~{:: #main-content},
                                                 ~{:: #course-frame},
                                                 ~{:: #post-list-frame},
@@ -20,8 +21,22 @@
 </head>
 
 <body>
-<div class="border p-4" id="main-content">
-    <h2><strong>Điều khoản sử dụng</strong></h2><p>Đăng bởi: Administrator- Vào ngày: 29-10-2019</p><p>Để thuận tiện trong việc duy trì website thì rất mong quý độc giả tuân thủ theo những quy tắc mà freetuts đặt ra dưới đây.</p><h2><strong>Bình luận khiếm nhã và lịch sự</strong></h2><p>Hãy là một người có văn hóa, bình luận một cách lịch sự và tôn trọng mọi người. Tất cả những bình luận sẽ được public ngay lập tức, nhưng admin sẽ luôn theo dõi và xóa những bình luận vô văn hóa.</p><h2><strong>Chia sẻ bài viết hay</strong></h2><p>Nếu bạn cảm thấy bài viết trên freetuts hay và hữu ích thì hãy giúp mình chia sẻ nó đến với mọi người nhiều hơn nữa. Việc làm này sẽ giúp khích lệ các tác giả và họ sẽ chia sẻ ngày nhiều hơn.</p><h2><strong>Không copy bài&nbsp;</strong></h2><p>Các bài viết được tác giả tự biên soạn, tổng hợp lại nên có thể được xem là tự biên soạn. Vì vậy mọi hành động copy bài mà không xin phép sẽ được xem là vô văn hóa.</p><p>Đối với hình ảnh thì chúng tôi có copy trên internet vì đó là kho tài nguyên miễn phí, vì vậy nếu có vi phạm bản quyền thì hãy report cho admin nhé.</p>
+<div id="main-content">
+    <h2><strong>Điều khoản sử dụng</strong></h2>
+    <p>Đăng bởi: Administrator- Vào ngày: 29-10-2019</p>
+    <p>Để thuận tiện trong việc duy trì website thì rất mong quý độc giả tuân thủ theo những quy tắc mà freetuts đặt ra
+        dưới đây.</p>
+    <h2><strong>Bình luận khiếm nhã và lịch sự</strong></h2>
+    <p>Hãy là một người có văn hóa, bình luận một cách lịch sự và tôn trọng mọi người. Tất cả những bình luận sẽ được
+        public ngay lập tức, nhưng admin sẽ luôn theo dõi và xóa những bình luận vô văn hóa.</p>
+    <h2><strong>Chia sẻ bài viết hay</strong></h2>
+    <p>Nếu bạn cảm thấy bài viết trên freetuts hay và hữu ích thì hãy giúp mình chia sẻ nó đến với mọi người nhiều hơn
+        nữa. Việc làm này sẽ giúp khích lệ các tác giả và họ sẽ chia sẻ ngày nhiều hơn.</p>
+    <h2><strong>Không copy bài&nbsp;</strong></h2>
+    <p>Các bài viết được tác giả tự biên soạn, tổng hợp lại nên có thể được xem là tự biên soạn. Vì vậy mọi hành động
+        copy bài mà không xin phép sẽ được xem là vô văn hóa.</p>
+    <p>Đối với hình ảnh thì chúng tôi có copy trên internet vì đó là kho tài nguyên miễn phí, vì vậy nếu có vi phạm bản
+        quyền thì hãy report cho admin nhé.</p>
 </div>
 </body>
 </html>

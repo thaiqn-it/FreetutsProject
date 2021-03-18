@@ -34,7 +34,9 @@ public class HomeController {
             }
             else {
                 List<PostDTO> posts = postService.findPostByCategoryAndOrderedByIdLimitedTo(category, 5);
-                newsBoxes.add(new NewsBoxDTO(category.getName(), category.getId(), posts));
+                if (posts != null) {
+                    newsBoxes.add(new NewsBoxDTO(category.getName(), category.getId(), posts));
+                }
             }
         }
         model.addAttribute("NEWS_BOXES",newsBoxes);

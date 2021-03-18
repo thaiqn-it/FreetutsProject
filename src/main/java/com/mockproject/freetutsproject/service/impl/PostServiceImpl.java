@@ -53,12 +53,12 @@ public class PostServiceImpl implements PostService {
 			return postDTOList;
 		}
 
-		List<PostEntity> postEntityList = new ArrayList<>();
+		List<PostEntity> postEntityList;
 		List<CategoryDTO> lastLevelCategories = multiLevelCategoryUtil.findAllLastLevelSubCategroies(categoryDTO);
 		List<Long> ids = new ArrayList<>();
 		lastLevelCategories.forEach(category -> ids.add(category.getId()));
 		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids,5);
-		if (postEntityList != null) {
+		if (!postEntityList.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<PostDTO>();
 			postEntityList.forEach(entity -> postDTOList.add(postMapper.toDTO(entity)));
 			return postDTOList;

@@ -16,7 +16,6 @@
                                                )}">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="https://freetuts.net/public/logo/icon.png?r=1">
     <title >Học online miễn phí - Freetuts</title>
 </head>
 <th:block id="styles">
@@ -60,7 +59,7 @@
     <div>
         <div class="mt-4 p-2" style="background-color: #2f6e91; color: #ffffff;font-weight: bold; font-size: 17px">COUPON GIẢM GIÁ</div>
         <div class="owl-carousel owl-theme border">
-            <div class="item border p-3" th:each="item : ${COUPON}">
+            <div class="item border p-3" style="height: 330px ; overflow: hidden" th:each="item : ${COUPON}">
                 <a th:href="@{'/post/' + ${item.id}}"><img th:src="@{'/images/' + ${item.thumbnail}}" alt=""></a>
                 <a th:href="@{'/post/' + ${item.id}}"><h4 th:text="${item.name}"></h4></a>
             </div>

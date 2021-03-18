@@ -4,6 +4,7 @@
 
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="https://freetuts.net/public/logo/icon.png?r=1">
 <title th:replace="${title}">Title</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -35,7 +36,9 @@
 				<div class="col-12 border px-4" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
-				<div class="col-12 border mt-4" th:insert="${commentFrame} ?: ~{}"></div>
+				<th:block th:if="${commentFrame != null}">
+					<div class="col-12 border mt-4" th:insert="${commentFrame} ?: ~{}"></div>
+				</th:block>
 				
 				<!-- Course List frame -->
 				<div th:insert="${courseList} ?: ~{}"></div>

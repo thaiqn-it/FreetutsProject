@@ -30,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin().loginPage("/admin").loginProcessingUrl("/admin").defaultSuccessUrl("/admin/panel")
                 .permitAll();
 
-        //add product
+        //admin pages
         http.authorizeRequests().antMatchers("/admin/**").authenticated();
 
         //logout
