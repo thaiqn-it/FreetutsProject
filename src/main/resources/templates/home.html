@@ -57,7 +57,7 @@
 
 <div id="main-content">
     <div>
-        <div class="mt-4 p-2" style="background-color: #2f6e91; color: #ffffff;font-weight: bold; font-size: 17px">COUPON GIẢM GIÁ</div>
+        <div class="p-2" style="background-color: #2f6e91; color: #ffffff;font-weight: bold; font-size: 17px">COUPON GIẢM GIÁ</div>
         <div class="owl-carousel owl-theme border">
             <div class="item border p-3" style="height: 330px ; overflow: hidden" th:each="item : ${COUPON}">
                 <a th:href="@{'/post/' + ${item.id}}"><img th:src="@{'/images/' + ${item.thumbnail}}" alt=""></a>

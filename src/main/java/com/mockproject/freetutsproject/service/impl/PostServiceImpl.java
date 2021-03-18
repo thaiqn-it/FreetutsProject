@@ -42,7 +42,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDTO> findPostByCategoryAndOrderedByIdLimitedTo(CategoryDTO categoryDTO, int limit) {
+	public List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit) {
 		if (!categoryDTO.getPosts().isEmpty()){
 			List<PostDTO> originalPostList = categoryDTO.getPosts();
 			List<PostDTO> postDTOList = new ArrayList<>();
@@ -61,6 +61,17 @@ public class PostServiceImpl implements PostService {
 		if (!postEntityList.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<PostDTO>();
 			postEntityList.forEach(entity -> postDTOList.add(postMapper.toDTO(entity)));
+			return postDTOList;
+		}
+		return null;
+	}
+
+	@Override
+	public List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name) {
+		List<PostEntity> entities = postRepository.findTop20PostByCategoryNameContainingOrderById(name);
+		if(!entities.isEmpty()){
+			List<PostDTO> postDTOList = new ArrayList<>();
+			entities.forEach(postEntity -> postDTOList.add(postMapper.toDTO(postEntity)));
 			return postDTOList;
 		}
 		return null;

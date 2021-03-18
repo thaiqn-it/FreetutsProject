@@ -7,6 +7,7 @@ import com.mockproject.freetutsproject.dto.PostDTO;
 
 public interface PostService {
 	List<PostDTO> findPostByCategory(CategoryDTO category);
-	List<PostDTO> findPostByCategoryAndOrderedByIdLimitedTo(CategoryDTO categoryDTO, int limit);
+	List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit);
+	List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name);
 	PostDTO findById(Long id);
 }

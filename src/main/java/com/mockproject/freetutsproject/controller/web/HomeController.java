@@ -33,7 +33,7 @@ public class HomeController {
                 categoryDTOS.remove(i);
             }
             else {
-                List<PostDTO> posts = postService.findPostByCategoryAndOrderedByIdLimitedTo(category, 5);
+                List<PostDTO> posts = postService.findPostByCategoryAndOrderedById(category, 5);
                 if (posts != null) {
                     newsBoxes.add(new NewsBoxDTO(category.getName(), category.getId(), posts));
                 }
@@ -43,14 +43,17 @@ public class HomeController {
 
         // Load widget review course
         CategoryDTO category = categoryService.findCategory((long)34);
-        List<PostDTO> postList = postService.findPostByCategoryAndOrderedByIdLimitedTo(category,5);
+        List<PostDTO> postList = postService.findPostByCategoryAndOrderedById(category,5);
         model.addAttribute("COURSE_REVIEW",postList);
 
         //load owl-carousel
         category = categoryService.findCategory((long)38);
-        postList = postService.findPostByCategoryAndOrderedByIdLimitedTo(category,12);
+        postList = postService.findPostByCategoryAndOrderedById(category,12);
         model.addAttribute("COUPON",postList);
 
+        //load exercise
+        postList =  postService.findTop20PostByCategoryNameContainingOrderById("Bài tập");
+        model.addAttribute("EXERCISE",postList);
         return "home";
     }
 }

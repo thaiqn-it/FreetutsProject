@@ -18,4 +18,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 	List<PostEntity> findPostByCategoriesAndOrderedByIdLimitedTo(@Param("ids") List<Long> ids, @Param("limit") int limit);
 
 	PostEntity findByName(String name);
+
+	List<PostEntity> findTop20PostByCategoryNameContainingOrderById(String name);
 }

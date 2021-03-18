@@ -1,3 +1,4 @@
+
 .container {
 	padding: 0px;
 }
@@ -193,7 +194,7 @@ a:active, a:after, a:before, a:focus, a:link, a:visited {
 }
 
 #main-content code {
-	color: #000;
-	background-color: #dadada!important;
+	color: #abb2bf;
+	background-color: #282c34;
 	padding: 4px;
 }

@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 <link rel="stylesheet" th:href="@{/css/style.css}"/>
 <link rel="stylesheet"
-      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/androidstudio.min.css">
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/styles/atom-one-dark.min.css">
   
 <th:block th:replace="${styles} ?: ~{}"></th:block>
 </head>
@@ -33,7 +33,7 @@
 			<!-- Left frame -->	
 			<div class="col-lg-8">
 				<!-- Post Content -->
-				<div class="col-12 border px-4" th:insert="${mainContent} ?: ~{}"></div>
+				<div class="col-12 p-0" th:insert="${mainContent} ?: ~{}"></div>
 				
 				<!-- Comment frame -->
 				<th:block th:if="${commentFrame != null}">
@@ -66,7 +66,11 @@
 	<script type="text/javascript" th:src="@{/js/header-script.js}"></script>
 	<script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
 	<<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.6.0/highlight.min.js"></script>
-	<script>hljs.highlightAll();</script>
+	<script>
+		$(document).ready(function () {
+			hljs.highlightAll();
+		})
+	</script>
 	<th:block th:replace="${scripts} ?: ~{}"></th:block>
 </body>
 </html>

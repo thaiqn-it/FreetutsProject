@@ -78,7 +78,7 @@
 	</div>
 	
 	<!-- Post Content (populate content here) -->
-	<div id="main-content">
+	<div id="main-content" class="border p-4">
 
 		<!-- Title -->
 		<h2 class="mt-4" th:text="${category.name}"></h2>
@@ -86,8 +86,10 @@
 		<hr>
 
 		<!-- 1. Preface -->
-		<p th:text="${category.description}"></p>
-
+		<div class="row">
+			<p class="col-8" th:text="${category.description}"></p>
+			<img style="height: 200px" class="col-4" th:src="@{'/images/' + ${category.thumbnail}}" alt="">
+		</div>
 
 		<!-- Subcategory has child -->
 		<div th:if="${!listSubCateHasChildren.empty}" class="row">
