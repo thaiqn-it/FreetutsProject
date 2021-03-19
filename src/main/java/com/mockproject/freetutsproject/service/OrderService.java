@@ -2,6 +2,5 @@ package com.mockproject.freetutsproject.service;
 
 import com.mockproject.freetutsproject.dto.OrderDTO;
 
-public interface OrderService {
-    OrderDTO save(OrderDTO orderDTO);
+public interface OrderService extends AbstractService<OrderDTO> {
 }

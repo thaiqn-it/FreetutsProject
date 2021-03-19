@@ -15,7 +15,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "category")
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity extends AbstractEntity {
 	
 	@Column(columnDefinition="nvarchar(50)")
 	private String name;

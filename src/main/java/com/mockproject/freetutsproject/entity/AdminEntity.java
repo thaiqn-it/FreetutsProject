@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "admins")
-public class AdminEntity extends BaseEntity {
+public class AdminEntity extends AbstractEntity {
 
 	@Column
 	private String username;

@@ -109,4 +109,18 @@ public class PostServiceImpl implements PostService {
 		
 		return null;
 	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<PostDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public PostDTO save(PostDTO t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

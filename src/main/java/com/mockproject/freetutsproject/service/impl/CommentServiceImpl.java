@@ -37,8 +37,23 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
+	@Transactional
 	public CommentDTO save(CommentDTO dto) {
 		CommentEntity entity = commentMapper.toEntity(dto);
 		return commentMapper.toDTO(commentRepository.save(entity));
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<CommentDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public CommentDTO findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

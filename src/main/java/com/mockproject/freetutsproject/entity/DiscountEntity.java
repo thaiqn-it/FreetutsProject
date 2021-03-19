@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "discounts")
-public class DiscountEntity extends BaseEntity {
+public class DiscountEntity extends AbstractEntity {
 	
 	@Column
 	private String discountCode;
