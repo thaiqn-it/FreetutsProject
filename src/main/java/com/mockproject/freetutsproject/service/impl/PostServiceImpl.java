@@ -3,6 +3,7 @@ package com.mockproject.freetutsproject.service.impl;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +102,7 @@ public class PostServiceImpl implements PostService {
 		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
 		List<PostEntity> entityList = postRepository.findByCategory(categoryEntity);
 		
-		if (entityList != null) {
+		if (!entityList.isEmpty()) {
 			List<PostDTO> dtoList = new ArrayList<PostDTO>();
 			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
 			return dtoList;
@@ -121,6 +122,22 @@ public class PostServiceImpl implements PostService {
 	@Transactional
 	public PostDTO save(PostDTO t) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<PostDTO> findTop15PostByCategories(List<CategoryDTO> categories) {
+		List<Long> categoryIds = categories.stream()
+											.map(category -> category.getId())
+											.collect(Collectors.toList());
+		
+		List<PostEntity> postEntities = postRepository.findTop15PostByCategoryIdInOrderById(categoryIds);
+		if (!postEntities.isEmpty()) {
+			return postEntities.stream()
+								.map(postEntity -> postMapper.toDTO(postEntity))
+								.collect(Collectors.toList());
+		}
 		return null;
 	}
 }

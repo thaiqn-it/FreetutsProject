@@ -144,7 +144,7 @@
      </div>
 	 
 	<!-- Post list frame -->
-	<div id="post-list-frame" class="mt-4" th:if="${!category.posts.empty}">
+	<div id="post-list-frame" class="mt-4" th:if="${category.posts != null}">
          <table class="table table-bordered">
          	<thead>
                  <th colspan="2">Bài viết</th>
