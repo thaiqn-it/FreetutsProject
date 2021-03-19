@@ -3,6 +3,7 @@ package com.mockproject.freetutsproject.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional (readOnly = true)
-	public List<CategoryDTO> loadCategories() {
+	public List<CategoryDTO> loadTopLevelCategories() {
 		List<CategoryDTO> result = new ArrayList<CategoryDTO>();
 		List<CategoryEntity> entities = categoryRepository.findByParentIsNull();
 		
@@ -55,6 +56,18 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<CategoryDTO> findBySubCategoriesIsNull() {
+		List<CategoryEntity> entities = categoryRepository.findBySubCategoriesIsNull();
+		if (!entities.isEmpty()){
+			return entities.stream()
+							.map(entity -> categoryMapper.toDTO(entity))
+							.collect(Collectors.toList());
 		}
 		return null;
 	}

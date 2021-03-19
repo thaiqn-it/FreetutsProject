@@ -27,21 +27,17 @@
         <div class="tab-content">
             <div id="home" class="container tab-pane active"><br>
                 <h3>POST</h3>
-                <form class="mt-5 mb-3" id="form-post">
-                    <input class="form-control mb-2" type="text" value="" placeholder="Name">
-                    <select class="form-control mb-2">
-                        <option>23131</option>
-                        <option>23131</option>
-                        <option>23131</option>
-                        <option>23131</option>
-                        <option>23131</option>
+                <form class="mt-5 mb-3" id="form-post" action="/admin/post" method="post" th:object="${POST_DTO}" enctype="multipart/form-data">
+                    <input class="form-control mb-2" type="text" th:field="*{name}" value="" placeholder="Name">
+                    <select th:field="*{categoryId}" class="form-control mb-2">
+                        <option th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
                     </select>
-                    <textarea class="form-control mb-2" placeholder="Description" rows="5"></textarea>
+                    <textarea th:field="*{description}" class="form-control mb-2" placeholder="Description" rows="5"></textarea>
 
                     <div class="panel">
                         <div class="button_outer">
                             <div class="btn_upload">
-                                <input type="file" id="upload_file" name="thumbnail">
+                                <input type="file" id="upload_file" name="upload_file">
                                 Upload Thumbnail
                             </div>
                             <div class="processing_bar"></div>
@@ -51,29 +47,15 @@
                     <div class="uploaded_file_view" id="uploaded_view">
                         <span class="file_remove">X</span>
                     </div>
-                </form>
-
-                <!-- content form -->
-                <form class="mt-5 mb-3">
-     <!--               <div class="row mb-3">
-                        <div class="col-11">
-                            <input class="form-control" type="text" name="txtContentName" placeholder="Content Name">
-                        </div>
-                        <div class="col-1 p-0">
-                            <button class="btn btn-primary btn-show-hide" type="button"><i class="far fa-eye"></i></button>
-                            <button class="btn btn-danger btn-delete" type="button"><i class="fas fa-times"></i></button>
-                        </div>
-                    </div>-->
                     <div class="content-editor">
-                        <textarea name="content" id="editor">
+                        <textarea name="content" id="editor" th:field="*{contentFile}">
 
                         </textarea>
                     </div>
+                    <div id="btn-group" class="float-right">
+                        <input id="btn-submit" class="btn btn-primary" type="submit" value="Submit">
+                    </div>
                 </form>
-                <div id="btn-group" class="float-right">
-                    <!--<input id="btn-new-content" class="btn btn-success" type="button" value="New Content">-->
-                    <input id="btn-submit" class="btn btn-primary" type="button" value="Submit">
-                </div>
             </div>
             <div id="menu1" class="container tab-pane fade"><br>
                 <h3>Menu 1</h3>
@@ -142,7 +124,7 @@
         })
         .then(editor => {
             window.editor = editor;
-            handleSubmit(editor);
+            // handleSubmit(editor);
 
         })
         .catch(error => {
@@ -152,13 +134,13 @@
             console.error(error);
         });
 
-    function handleSubmit(editor){
-       $("#btn-submit").click(function (e) {
-           e.preventDefault();
-           var content = editor.getData();
-           console.log(content);
-       });
-    }
+    // function handleSubmit(editor){
+    //    $("#btn-submit").click(function (e) {
+    //        e.preventDefault();
+    //        var content = editor.getData();
+    //        console.log(content);
+    //    });
+    // }
 </script>
 </body>
 </html>

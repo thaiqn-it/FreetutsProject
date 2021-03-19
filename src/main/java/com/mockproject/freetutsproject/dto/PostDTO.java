@@ -17,5 +17,4 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	private String categoryName;
 	private String contentFile ;
 	private List<CommentDTO> comments;
-	
 }
