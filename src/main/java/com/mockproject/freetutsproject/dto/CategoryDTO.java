@@ -15,4 +15,7 @@ public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	private String createdBy;
 	private List<PostDTO> posts;
 	private List<CourseDTO> courses;
+	
+	private Long id;
+	private boolean available;
 }

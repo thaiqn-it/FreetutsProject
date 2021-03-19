@@ -18,4 +18,6 @@ public class PostDTO extends AbstractDTO<PostDTO> {
 	private String contentFile ;
 	private List<CommentDTO> comments;
 	
+	private Long id;
+	private boolean available;
 }

@@ -281,16 +281,17 @@
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            <tr th:each="post : ${posts}">
-                                            	<td th:text="${post.id}">Id</td>
-                                                <td th:text="${post.name}">Name</td>
-                                                <td th:text="${post.creatorName}">CreatorName</td>
-                                                <td th:text="${post.categoryName}">CategoryName</td>
-                                                <th th:text="${#dates.format(post.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
-                                                <td th:text="${post.available}">Available</td>
-                                                <td style="text-align: center;"><a class="btn btn-primary text-white font-30"
-															href="javascript:void(0)"> <span>Edit</span>
-												</a></td>
+                                            <tr>
+                                            	<td>ID</td>
+                                                <td>Name</td>
+                                                <td>CreatorName</td>
+                                                <td>CategoryName</td>
+                                                <td>CreatedDate</td>
+                                                <td>Available</td>
+                                                <td style="text-align: center;">
+                                                <i data-feather="edit" class="svg-icon"></i>
+                                                Edit 
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

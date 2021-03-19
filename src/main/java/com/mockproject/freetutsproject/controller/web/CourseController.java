@@ -30,12 +30,12 @@ public class CourseController {
 
     @GetMapping(value = "/course/{id}")
     public String viewCourse(@PathVariable("id") String id, Model model) {
-        CourseDTO dto = courseService.findCourseById(Long.parseLong(id));
+        CourseDTO dto = courseService.findById(Long.parseLong(id));
         model.addAttribute("course", dto);
 
         if (dto != null) {
             long categoryId = dto.getCategoryId();
-            CategoryDTO category = categoryService.findCategory(categoryId);
+            CategoryDTO category = categoryService.findById(categoryId);
 
             // Get breadcrumb data
             List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(category);

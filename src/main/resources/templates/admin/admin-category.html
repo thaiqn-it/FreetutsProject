@@ -73,13 +73,6 @@
                                 <img src="../assets/images/logo-icon.png" alt="homepage" class="light-logo" />
                             </b>
                             <!--End Logo icon -->
-                            <!-- Logo text -->
-                            <span class="logo-text">
-                                <!-- dark Logo text -->
-                                <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
-                                <!-- Light Logo text -->
-                                <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                            </span>
                         </a>
                     </div>
                     <!-- ============================================================== -->
@@ -210,6 +203,13 @@
 							href="/admin/post" aria-expanded="false"><i
 								data-feather="file-text" class="feather-icon"></i><span
 								class="hide-menu">Posts </span></a></li>
+						<!-- ============================================================== -->
+						<!-- Courses  -->
+						<!-- ============================================================== -->
+						<li class="sidebar-item"><a class="sidebar-link"
+							href="/admin/course" aria-expanded="false"><i
+								data-feather="book-open" class="feather-icon"></i><span
+								class="hide-menu">Courses </span></a></li>
 					</ul>
 				</nav>
                 <!-- End Sidebar navigation -->
@@ -252,47 +252,47 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Multi-column ordering</h4>
-                                <h6 class="card-subtitle">On a per-column basis (i.e. order by a specific column and
-                                    then a secondary column if the data in the first column is identical), through the
-                                    <code> columns.orderData</code> option.</h6>
+                                <h4 class="card-title">Categories</h4>
+                                <h6 class="card-subtitle"> Do something here </h6>
                                 <div class="table-responsive">
                                     <table id="multi_col_order"
                                         class="table table-striped table-bordered display no-wrap" style="width:100%">
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Description</th>
-                                                <th>ParentID</th>
-                                                <th>SubCategories</th>
                                                 <th>CreatedBy</th>
-                                                <th>Posts</th>
-                                                <th>Courses</th>
-                                                <th>Edit</th>
+                                                <th>ParentID</th>
+                                                <th>Available</th>
+                                                <th style="text-align: center;">
+                                                <i data-feather="edit" class="svg-icon"></i>
+                                                Edit 
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
+                                            	<th>ID</th>
                                                 <th>Name</th>
-                                                <th>Description</th>
-                                                <th>ParentID</th>
-                                                <th>SubCategories</th>
                                                 <th>CreatedBy</th>
-                                                <th>Posts</th>
-                                                <th>Courses</th>
-                                                <th>Edit</th>
+                                                <th>ParentID</th>
+                                                <th>Available</th>
+                                                <th style="text-align: center;">
+                                                <i data-feather="edit" class="svg-icon"></i>
+                                                Edit 
+                                                </th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             <tr th:each="category : ${categories}">
+                                            	<td th:text="${category.id}">Id</td>
                                                 <td th:text="${category.name}">Name</td>
-                                                <td>Description</td>
-                                                <td th:text="${category.parentID}">ParentID</td>
-                                                <td>SubCategories</td>
-                                                <td>CreatedBy</td>
-                                                <td>Posts</td>
-                                                <td>Courses</td>
-                                                <th>Edit</th>
+                                                <td th:text="${category.CreatedBy}">CreatedBy</td>
+                                                <td th:text="${category.ParentId}">ParentId</td>
+                                                <td th:text="${category.available}">Available</td>
+                                                <td style="text-align: center;"><a class="btn btn-primary text-white font-30"
+															href="javascript:void(0)"> <span>Edit</span>
+												</a></td>
                                             </tr>
                                         </tbody>
                                     </table>

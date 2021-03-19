@@ -18,4 +18,7 @@ public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private String categoryName;
 	private List<CommentDTO> comments;
 	private Long price;
+	
+	private Long id;
+	private boolean available;
 }

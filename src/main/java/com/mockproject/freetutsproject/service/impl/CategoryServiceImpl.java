@@ -62,7 +62,12 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<CategoryDTO> findAll() {
-		// TODO Auto-generated method stub
+		List<CategoryEntity> entities = categoryRepository.findAll();
+		if(!entities.isEmpty()){
+			List<CategoryDTO> DTOs = new ArrayList<>();
+			entities.forEach(entity -> DTOs.add(categoryMapper.toDTO(entity)));
+			return DTOs;
+		}
 		return null;
 	}
 

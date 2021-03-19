@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.PostService;
 
@@ -40,19 +41,29 @@ public class AdminController {
     
     @GetMapping (value = "/admin/category")
     public String loadAdminCategory(Model model) {
-    	List<CategoryDTO> categories = categoryService.findAllCategories();
-    	
+    	List<CategoryDTO> categories = categoryService.findAll();
     	model.addAttribute("categories", categories);
         return "admin/admin-category";
     }
     
     @GetMapping (value = "/admin/post")
-    public String loadAdminPost() {
+    public String loadAdminPost(Model model) {
+    	List<PostDTO> posts = postService.findAll();
+    	
+    	model.addAttribute("posts", posts);
         return "admin/admin-post";
     }
+    
+    @GetMapping (value = "/admin/course")
+    public String loadAdminCourse(Model model) {
+
+        return "admin/admin-course";
+    }
+    
     
     @GetMapping (value = "/admin/panel")
     public String loadAdminCreatePost() {
         return "admin-new-post";
     }
+    
 }
