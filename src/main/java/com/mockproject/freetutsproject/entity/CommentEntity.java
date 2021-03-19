@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "comments")
-public class CommentEntity extends BaseEntity {
+public class CommentEntity extends AbstractEntity {
 	
 	@Column (columnDefinition = "nvarchar(50)")
 	private String commenterName;

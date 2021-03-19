@@ -25,7 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	@Transactional (readOnly = true)
-	public CourseDTO findCourseById(Long id) {
+	public CourseDTO findById(Long id) {
 		CourseEntity entity = courseRepository.findById(id).orElse(null);
 		
 		if (entity != null) {
@@ -47,6 +47,20 @@ public class CourseServiceImpl implements CourseService {
 			
 			return dtos;
 		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<CourseDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public CourseDTO save(CourseDTO t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mockproject.freetutsproject.dto.CourseDTO;
 
-public interface CourseService {
-    CourseDTO findCourseById(Long id);
+public interface CourseService extends AbstractService<CourseDTO>{
     List<CourseDTO> findTopFiveNewestCourse();
 }

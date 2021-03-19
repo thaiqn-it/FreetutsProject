@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "orders")
-public class OrderEntity extends BaseEntity {
+public class OrderEntity extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn (name = "payment_method")
