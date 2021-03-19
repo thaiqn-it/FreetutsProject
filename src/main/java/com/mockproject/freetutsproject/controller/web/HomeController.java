@@ -42,12 +42,12 @@ public class HomeController {
         model.addAttribute("NEWS_BOXES",newsBoxes);
 
         // Load widget review course
-        CategoryDTO category = categoryService.findCategory((long)34);
+        CategoryDTO category = categoryService.findById((long)34);
         List<PostDTO> postList = postService.findPostByCategoryAndOrderedById(category,5);
         model.addAttribute("COURSE_REVIEW",postList);
 
         //load owl-carousel
-        category = categoryService.findCategory((long)38);
+        category = categoryService.findById((long)38);
         postList = postService.findPostByCategoryAndOrderedById(category,12);
         model.addAttribute("COUPON",postList);
 

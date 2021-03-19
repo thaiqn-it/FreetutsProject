@@ -43,7 +43,7 @@ public class WebController {
 			model.addAttribute("post", postDTO);
 			
 			long categoryId = postDTO.getCategoryId();
-			CategoryDTO categoryDTO = categoryService.findCategory(categoryId);
+			CategoryDTO categoryDTO = categoryService.findById(categoryId);
 			
 			// Get breadcrumb data 
 			List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(categoryDTO);
@@ -95,7 +95,7 @@ public class WebController {
 	public String viewCategory(@PathVariable("id") String id, Model model,
 								@RequestParam(value="page", required = false, defaultValue = "1") int page, 
 								@RequestParam(value="limit", required = false, defaultValue = "5") int limit) {
-		CategoryDTO dto = categoryService.findCategory(Long.parseLong(id));
+		CategoryDTO dto = categoryService.findById(Long.parseLong(id));
 		
 		if (dto != null) {
 			List<CategoryDTO> categoryNaviagtionBar = categoryUtil.getCategoryListBottomUp(dto);
@@ -111,7 +111,7 @@ public class WebController {
 			else {
 				// Last level category
 				if (dto.getSubCategories().isEmpty()) {
-					CategoryDTO parent = categoryService.findCategory(dto.getParentId()); 
+					CategoryDTO parent = categoryService.findById(dto.getParentId()); 
 					categoryNaviagtionBar = categoryUtil.findAllLastLevelSubCategroies(parent);
 				}
 				
