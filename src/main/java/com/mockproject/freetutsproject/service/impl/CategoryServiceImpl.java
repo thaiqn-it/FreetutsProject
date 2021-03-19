@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional (readOnly = true)
-	public CategoryDTO findCategory(Long id) {
+	public CategoryDTO findById(Long id) {
 		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
 		
 		if (entity != null) {
@@ -56,6 +56,20 @@ public class CategoryServiceImpl implements CategoryService {
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
 		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<CategoryDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public CategoryDTO save(CategoryDTO t) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

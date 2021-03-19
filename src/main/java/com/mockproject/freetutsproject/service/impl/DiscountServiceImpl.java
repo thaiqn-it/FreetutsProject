@@ -31,4 +31,18 @@ public class DiscountServiceImpl implements DiscountService{
 				.map(entity -> discountMapper.toDTO(entity))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public DiscountDTO findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public DiscountDTO save(DiscountDTO t) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

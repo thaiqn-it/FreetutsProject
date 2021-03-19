@@ -4,8 +4,7 @@ import java.util.List;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 
-public interface CategoryService {
+public interface CategoryService extends AbstractService<CategoryDTO> {
 	List<CategoryDTO> loadCategories();
-	CategoryDTO findCategory(Long id);
 	CategoryDTO findCategory(String name);
 }

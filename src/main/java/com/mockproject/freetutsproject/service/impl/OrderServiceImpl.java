@@ -3,6 +3,9 @@ package com.mockproject.freetutsproject.service.impl;
 import com.mockproject.freetutsproject.dto.OrderDTO;
 import com.mockproject.freetutsproject.entity.OrderEntity;
 import com.mockproject.freetutsproject.mapper.OrderMapper;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,8 +24,23 @@ public class OrderServiceImpl implements OrderService {
 	private OrderMapper orderMapper;
 
 	@Override
-	public void save(OrderDTO orderDTO) {
+	@Transactional
+	public OrderDTO save(OrderDTO orderDTO) {
 		OrderEntity entity = orderMapper.toEntity(orderDTO);
-		orderRepository.save(entity);
+		return orderMapper.toDTO(orderRepository.save(entity));
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<OrderDTO> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public OrderDTO findById(Long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
