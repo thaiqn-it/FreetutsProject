@@ -16,4 +16,6 @@ public class AbstractDTO<T> {
 	private int totalPage;
 	private int page;
 	private int limit;
+	
+	private boolean available;
 }
