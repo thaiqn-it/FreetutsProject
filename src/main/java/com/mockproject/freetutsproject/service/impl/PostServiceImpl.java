@@ -47,6 +47,18 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional (readOnly = true)
+	public List<PostDTO> findTop8PostByOrderById() {
+		List<PostEntity> entity = postRepository.findTop8PostByOrderById();
+		if(!entity.isEmpty()){
+			List<PostDTO> postDTOList = new ArrayList<>();
+			entity.forEach(postEntity -> postDTOList.add(postMapper.toDTO(postEntity)));
+			return postDTOList;
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
 	public List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit) {
 		if (!categoryDTO.getPosts().isEmpty()){
 			List<PostDTO> originalPostList = categoryDTO.getPosts();

@@ -10,4 +10,5 @@ public interface PostService {
 	List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit);
 	List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name);
 	PostDTO findById(Long id);
+	List<PostDTO> findTop8PostByOrderById();
 }

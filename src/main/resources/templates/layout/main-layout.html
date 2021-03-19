@@ -45,6 +45,9 @@
 				
 				<!-- Post List frame -->
 				<div th:insert="${postList} ?: ~{}"></div>
+
+				<!-- View more frame -->
+				<div th:replace="/common/___viewMore-frame :: viewMore-frame"></div>
 			</div>
 			
 			<!-- Right frame: Widgets -->

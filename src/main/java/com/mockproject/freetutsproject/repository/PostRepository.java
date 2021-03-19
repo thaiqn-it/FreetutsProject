@@ -19,4 +19,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 	PostEntity findByName(String name);
 
 	List<PostEntity> findTop20PostByCategoryNameContainingOrderById(String name);
+
+	List<PostEntity> findTop8PostByOrderById();
 }
