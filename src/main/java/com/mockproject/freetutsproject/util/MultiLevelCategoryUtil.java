@@ -46,7 +46,7 @@ public class MultiLevelCategoryUtil {
 			CategoryDTO item = categoryList.get(i);
 			Long parentId = item.getParentId();
 			if (parentId != null) {
-				categoryList.add(categoryService.findCategory(parentId));
+				categoryList.add(categoryService.findById(parentId));
 			}
 		}
 		Collections.reverse(categoryList);
