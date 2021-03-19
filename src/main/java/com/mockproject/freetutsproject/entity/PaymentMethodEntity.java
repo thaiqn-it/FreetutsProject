@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "paymentMethods")
-public class PaymentMethodEntity extends BaseEntity {
+public class PaymentMethodEntity extends AbstractEntity {
 	
 	@Column (columnDefinition = "nvarchar(50)")
 	private String name;

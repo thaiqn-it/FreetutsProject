@@ -19,7 +19,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table (name = "posts")
-public class PostEntity extends BaseEntity {
+public class PostEntity extends AbstractEntity {
 	
 	@Column (columnDefinition = "nvarchar(255)")
 	private String name;
