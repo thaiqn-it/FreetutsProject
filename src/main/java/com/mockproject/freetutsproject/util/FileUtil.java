@@ -17,6 +17,9 @@ public class FileUtil {
 	@Value("${content-file-path}")
 	String contentStoragePath;
 
+	@Value("${image-path}")
+	String imageStoragePath;
+
 	public String writeContentToHTMLOnHardDisk(String content, String name) throws IOException {
 		String fileName = StringUtils.cleanPath(name + ".html");
 		Path storage = Paths.get(contentStoragePath);
@@ -28,5 +31,21 @@ public class FileUtil {
 		Files.write(filePath, content.getBytes());
 
 		return fileName;
+	}
+
+	public String writeImageHardDisk(MultipartFile imagePart) throws IOException {
+		String imageName = StringUtils.cleanPath(imagePart.getOriginalFilename());
+		Path storage = Paths.get(imageStoragePath);
+		if (Files.notExists(storage)){
+			Files.createDirectories(storage);
+		}
+
+		try (InputStream in = imagePart.getInputStream()) {
+			Path imagePath = storage.resolve(imageName);
+			if (!Files.exists(imagePath)) {
+				Files.copy(in, imagePath, StandardCopyOption.REPLACE_EXISTING);
+			}
+		}
+		return imageName;
 	}
 }

@@ -41,8 +41,8 @@ public class DiscountServiceImpl implements DiscountService{
 
 	@Override
 	@Transactional
-	public DiscountDTO save(DiscountDTO t) {
-		// TODO Auto-generated method stub
-		return null;
+	public DiscountDTO save(DiscountDTO discountDTO) {
+		DiscountEntity entity = discountRepository.save(discountMapper.toEntity(discountDTO));
+		return discountMapper.toDTO(entity);
 	}
 }

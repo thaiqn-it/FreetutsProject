@@ -1,10 +1,15 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import com.mockproject.freetutsproject.util.FileUtil;
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
+import com.mockproject.freetutsproject.util.StringUtil;
+import com.sun.imageio.plugins.common.ImageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +37,12 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private MultiLevelCategoryUtil multiLevelCategoryUtil;
+
+	@Autowired
+	private FileUtil fileUtil;
+
+	@Autowired
+	private StringUtil stringUtil;
 	
 	@Override
 	@Transactional (readOnly = true)
@@ -119,8 +130,22 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public PostDTO save(PostDTO t) {
-		// TODO Auto-generated method stub
+	public PostDTO save(PostDTO postDTO) {
+		String fileName = null;
+		String imageName = null;
+		try {
+			fileName = fileUtil.writeContentToHTMLOnHardDisk(postDTO.getContentFile(), stringUtil.removeAccent(postDTO.getName()));
+			imageName = fileUtil.writeImageHardDisk(postDTO.getImage());
+
+			postDTO.setContentFile(fileName);
+			postDTO.setThumbnail(imageName);
+
+			PostEntity entity = postMapper.toEntity(postDTO);
+			return postMapper.toDTO(postRepository.save(entity));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
+
 }

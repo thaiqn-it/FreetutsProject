@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.controller.admin;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.service.CategoryService;
@@ -36,9 +37,8 @@ public class HomeController {
 
     @GetMapping (value = "/admin/panel")
     public String loadMenu(Model model) {
-        PostDTO postDTO = new PostDTO();
-
-        model.addAttribute("POST_DTO",postDTO);
+        model.addAttribute("POST_DTO",new PostDTO());
+        model.addAttribute("DISCOUNT",new DiscountDTO());
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
 
         return "template-admin-page";
