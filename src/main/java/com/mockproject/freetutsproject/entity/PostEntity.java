@@ -33,7 +33,6 @@ public class PostEntity extends AbstractEntity {
 	private String contentFile;
 	
 	@ManyToOne
-
 	@JoinColumn (name = "created_by")
 	@CreatedBy
 	private AdminEntity creator;
