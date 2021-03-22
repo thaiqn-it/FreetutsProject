@@ -1,8 +1,8 @@
 package com.mockproject.freetutsproject.dto;
 
-import java.util.List;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class AbstractDTO<T> {
@@ -17,5 +17,5 @@ public class AbstractDTO<T> {
 	private int page;
 	private int limit;
 	
-	private boolean available;
+	private boolean available = true;
 }
