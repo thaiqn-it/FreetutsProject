@@ -73,6 +73,7 @@
 	<div id="sub-categories-nav" th:if="${BREADCRUMB == null}">
 		<div th:replace="/common/___subcate-nav :: subcate-nav"></div>
 	</div>
+    <!-- Breadcrumb (if need) -->
 	<div id="breadcrumb-bar" th:if="${BREADCRUMB != null}">
 		<div th:insert="/common/___breadcrumb :: breadcrumb"></div>
 	</div>
@@ -91,6 +92,7 @@
 			<img style="height: 200px" class="col-4" th:src="@{'/images/' + ${category.thumbnail}}" alt="">
 		</div>
 
+        <!-- Subcatrogry Lít -->
 		<!-- Subcategory has child -->
 		<div th:if="${!listSubCateHasChildren.empty}" class="row">
 			<th:block th:each="subCate : ${listSubCateHasChildren}">	
@@ -118,6 +120,7 @@
 	</div>
 	
 	<!-- Course list frame -->
+	<!-- Category's courses -->
 	<div class="course-frame mt-4" th:if="${!category.courses.empty}">
          <table class="table table-bordered">
              <thead>
@@ -143,6 +146,7 @@
          </table>
  	</div>
 
+    <!-- Subcategories's courses -->
 	<th:block th:if="${!category.subCategories.empty}">
 		<div class="course-frame mt-4" th:each="item : ${category.subCategories}" th:if="${!item.courses.empty}">
 			<table class="table table-bordered">

@@ -55,7 +55,7 @@ public class WebController {
 		if (dto != null) {
 			processPagingOnPostListOfCategory(page, limit, dto);
 			model.addAttribute("category", dto);
-			setOtherDateOfCategoryPage(dto, model);
+			setOtherDataOfCategoryPage(dto, model);
 		}
 		return "category";
 	}
@@ -130,7 +130,7 @@ public class WebController {
 		return categoryStack.get(0).getName().equals("Lập trình");
 	}
 
-	private void setOtherDateOfCategoryPage(CategoryDTO dto, Model model) {
+	private void setOtherDataOfCategoryPage(CategoryDTO dto, Model model) {
 		List<CategoryDTO> categoryStack = categoryUtil.getCategoryListBottomUp(dto);
 		
 		// If post belong to "Lập trình" category
@@ -158,7 +158,7 @@ public class WebController {
 	}
 	
 	private List<CategoryDTO> getSubCategoryNavigationBar(CategoryDTO dto) {
-		List<CategoryDTO> categoryStack = new ArrayList<CategoryDTO>();
+		List<CategoryDTO> categoryStack;
 		// Last level category
 		if (dto.getSubCategories().isEmpty()) {
 			CategoryDTO parent = categoryService.findById(dto.getParentId());
@@ -173,8 +173,8 @@ public class WebController {
 	}
 	
 	private void seperateSubCategoriesTo2Types(CategoryDTO dto, Model model) {
-		List<CategoryDTO> listSubCateHasChildren = new ArrayList<CategoryDTO>();
-		List<CategoryDTO> listSubCateLastLevel = new ArrayList<CategoryDTO>();
+		List<CategoryDTO> listSubCateHasChildren = new ArrayList<>();
+		List<CategoryDTO> listSubCateLastLevel = new ArrayList<>();
 		if (dto.getSubCategories() != null) {
 			dto.getSubCategories().forEach(subCategory -> {
 				if (subCategory.getSubCategories().isEmpty()) {
