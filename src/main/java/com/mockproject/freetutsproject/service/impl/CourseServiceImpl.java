@@ -49,7 +49,7 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<CourseDTO> findTopFiveNewestCourse() {
-		List<CourseEntity> entities = courseRepository.findTop5ByOrderByIdDesc();
+		List<CourseEntity> entities = courseRepository.findTop5ByAvailableTrueOrderByIdDesc();
 		
 		if (entities != null) {
 			List<CourseDTO> dtos = new ArrayList<CourseDTO>();

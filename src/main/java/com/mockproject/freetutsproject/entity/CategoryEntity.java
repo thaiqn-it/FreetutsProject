@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -28,6 +29,7 @@ public class CategoryEntity extends AbstractEntity {
 	private CategoryEntity parent;
 	
 	@OneToMany (mappedBy = "parent")
+	@Where(clause = "available = true")
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
 	
 	@ManyToOne
@@ -36,8 +38,10 @@ public class CategoryEntity extends AbstractEntity {
 	private AdminEntity creator;
 	
 	@OneToMany (mappedBy = "category")
+	@Where(clause = "available = true")
 	private List<CourseEntity> courses = new ArrayList<CourseEntity>();
 
 	@OneToMany (mappedBy = "category")
+	@Where(clause = "available = true")
 	private List<PostEntity> posts = new ArrayList<PostEntity>();
 }

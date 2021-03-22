@@ -38,6 +38,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     @Transactional (readOnly = true)
     public AdminDTO findByUsername(String username) {
-        return adminMapper.toDTO(adminRepository.findByUsername(username));
+        return adminMapper.toDTO(adminRepository.findByUsernameAndAvailableTrue(username));
     }
 }

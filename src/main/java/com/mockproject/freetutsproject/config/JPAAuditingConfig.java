@@ -32,7 +32,7 @@ public class JPAAuditingConfig {
             if (authentication == null){
                 return Optional.empty();
             }
-            AdminEntity admin = adminRepository.findByUsername(authentication.getName());
+            AdminEntity admin = adminRepository.findByUsernameAndAvailableTrue(authentication.getName());
             return Optional.of(admin);
         }
     }

@@ -25,7 +25,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	@Override
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		AdminEntity adminEntity = adminRepository.findByUsername(username);
+		AdminEntity adminEntity = adminRepository.findByUsernameAndAvailableTrue(username);
 		if (adminEntity == null) {
 			throw new UsernameNotFoundException(username);
 		}

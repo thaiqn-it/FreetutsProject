@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -42,5 +43,6 @@ public class PostEntity extends AbstractEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
+	@Where(clause = "available = true")
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 }

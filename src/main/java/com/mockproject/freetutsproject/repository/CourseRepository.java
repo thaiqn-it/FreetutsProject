@@ -1,12 +1,10 @@
 package com.mockproject.freetutsproject.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import com.mockproject.freetutsproject.entity.CourseEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface CourseRepository extends JpaRepository<CourseEntity, Long>{
-	List<CourseEntity> findTop5ByOrderByIdDesc();
+	List<CourseEntity> findTop5ByAvailableTrueOrderByIdDesc();
 }

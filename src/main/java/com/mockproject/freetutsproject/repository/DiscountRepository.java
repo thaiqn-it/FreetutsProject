@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.mockproject.freetutsproject.entity.DiscountEntity;
 
-public interface DiscountRepository extends JpaRepository<DiscountEntity, Long>{
+import java.util.List;
 
+public interface DiscountRepository extends JpaRepository<DiscountEntity, Long>{
+    List<DiscountEntity> findAllByAvailableTrue();
 }
