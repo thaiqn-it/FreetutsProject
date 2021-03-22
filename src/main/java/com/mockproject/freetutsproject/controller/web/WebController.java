@@ -51,7 +51,7 @@ public class WebController {
 								@RequestParam(value="page", required = false, defaultValue = "1") int page, 
 								@RequestParam(value="limit", required = false, defaultValue = "5") int limit) {
 		CategoryDTO dto = categoryService.findById(Long.parseLong(id));
-		
+
 		if (dto != null) {
 			processPagingOnPostListOfCategory(page, limit, dto);
 			model.addAttribute("category", dto);
@@ -59,8 +59,6 @@ public class WebController {
 		}
 		return "category";
 	}
-	
-
 	
 	@PostMapping(value = "/comment/")
 	public String comment(CommentDTO commentDTO) {
@@ -80,7 +78,7 @@ public class WebController {
 				long previousPostId = -1;
 				long nextPostId = -1;
 
-				if (i == 0){
+				if (i == 0 && relatePosts.size() > 1){
 					nextPostId = relatePosts.get(i + 1).getId();
 				}
 				else if (i == relatePosts.size() - 1){

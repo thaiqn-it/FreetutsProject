@@ -7,7 +7,7 @@
                                                 ~{:: #breadcrumb-bar},
                                                 ~{:: #sub-categories-nav},
                                                 ~{:: #main-content},
-                                                ~{:: #course-frame},
+                                                ~{:: .course-frame},
                                                 ~{:: #post-list-frame},
                                                 ~{:: #comment-frame},
                                                 ~{:: #widget-1},
@@ -118,7 +118,7 @@
 	</div>
 	
 	<!-- Course list frame -->
-	<div id="course-frame" class="mt-4" th:if="${!category.courses.empty}">
+	<div class="course-frame mt-4" th:if="${!category.courses.empty}">
          <table class="table table-bordered">
              <thead>
                  <th colspan="2" th:text="${category.name}"></th>
@@ -127,22 +127,49 @@
                  <tr th:each="course : ${category.courses}">
                      <td class="text-center">
                          <a th:href="'/course/' + ${course.id}">
-                             <img style="max-width: 100px; max-height: 75px;" 
+                             <img style="max-width: 100px; max-height: 75px;"
                              th:src="@{'/images/' + ${course.thumbnail}}">
                          </a>
                      </td>
                      <td>
                          <a th:href="'/course/' + ${course.id}">
                              <h6 th:text="${course.name}"></h6>
-                             <p> Giá <span class="text-danger font-weight-bold" 
+                             <p> Giá <span class="text-danger font-weight-bold"
                              th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + 'đ'}"></span> </p>
                          </a>
                      </td>
                  </tr>
              </tbody>
          </table>
-     </div>
-	 
+ 	</div>
+
+	<th:block th:if="${!category.subCategories.empty}">
+		<div class="course-frame mt-4" th:each="item : ${category.subCategories}" th:if="${!item.courses.empty}">
+			<table class="table table-bordered">
+				<thead>
+				<th colspan="2" th:text="${item.name}"></th>
+				</thead>
+				<tbody>
+				<tr th:each="course : ${item.courses}">
+					<td class="text-center">
+						<a th:href="'/course/' + ${course.id}">
+							<img style="max-width: 100px; max-height: 75px;"
+								 th:src="@{'/images/' + ${course.thumbnail}}">
+						</a>
+					</td>
+					<td>
+						<a th:href="'/course/' + ${course.id}">
+							<h6 th:text="${course.name}"></h6>
+							<p> Giá <span class="text-danger font-weight-bold"
+										  th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + 'đ'}"></span> </p>
+						</a>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</th:block>
+
 	<!-- Post list frame -->
 	<div id="post-list-frame" class="mt-4" th:if="${category.posts != null}">
          <table class="table table-bordered">
