@@ -14,7 +14,10 @@ public class DiscountController {
 
     @PostMapping("/admin/discount")
      public String createDiscount(DiscountDTO discountDTO){
-        discountService.save(discountDTO);
-        return "redirect:/admin/panel/?success";
+        if (!discountService.checkCodeExist(discountDTO.getDiscountCode())){
+            discountService.save(discountDTO);
+            return "redirect:/admin/panel/?success";
+        }
+        return "redirect:/admin/panel/?error";
     }
 }

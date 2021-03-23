@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
@@ -34,6 +35,7 @@ public class HomeController {
         model.addAttribute("POST_DTO",new PostDTO());
         model.addAttribute("COURSE_DTO",new CourseDTO());
         model.addAttribute("DISCOUNT",new DiscountDTO());
+        model.addAttribute("ADMIN_DTO",new AdminDTO());
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
 

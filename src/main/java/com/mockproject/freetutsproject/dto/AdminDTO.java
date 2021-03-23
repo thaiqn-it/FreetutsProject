@@ -5,4 +5,6 @@ import lombok.Data;
 @Data
 public class AdminDTO extends AbstractDTO<AdminDTO> {
 	private String fullname;
+	private String username;
+	private String password;
 }
