@@ -6,4 +6,5 @@ import com.mockproject.freetutsproject.dto.CourseDTO;
 
 public interface CourseService extends AbstractService<CourseDTO>{
     List<CourseDTO> findTopFiveNewestCourse();
+    void updateStatus(Boolean status, CourseDTO dto);
 }

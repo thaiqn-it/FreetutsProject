@@ -117,4 +117,11 @@ public class PostServiceImpl implements PostService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateStatus(Boolean status, PostDTO dto) {
+		PostEntity entity = postMapper.toEntity(dto);
+		entity.setAvailable(!status);
+		postRepository.save(entity);
+	}
 }
