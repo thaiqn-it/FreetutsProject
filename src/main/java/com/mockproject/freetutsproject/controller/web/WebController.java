@@ -73,26 +73,24 @@ public class WebController {
 	}
 	
 	private void setNextAndPreviousPost(List<PostDTO> relatePosts, Model model, Long currentPostId) {
-		for (int i = 0; i < relatePosts.size(); i++) {
-			if(relatePosts.get(i).getId().equals(currentPostId)){
-				long previousPostId = -1;
-				long nextPostId = -1;
-
-				if (i == 0 && relatePosts.size() > 1){
-					nextPostId = relatePosts.get(i + 1).getId();
+		long previousPostId = -1;
+		long nextPostId = -1;
+		if (relatePosts.size() > 1) {
+			for (int i = 0; i < relatePosts.size(); i++) {
+				if(relatePosts.get(i).getId().equals(currentPostId)){
+					if (i == 0) {
+						nextPostId = relatePosts.get(i + 1).getId();
+					} else if (i == relatePosts.size() - 1) {
+						previousPostId = relatePosts.get(i - 1).getId();
+					} else {
+						nextPostId = relatePosts.get(i + 1).getId();
+						previousPostId = relatePosts.get(i - 1).getId();
+					}
 				}
-				else if (i == relatePosts.size() - 1){
-					previousPostId = relatePosts.get(i - 1).getId();
 				}
-				else {
-					nextPostId = relatePosts.get(i + 1).getId();
-					previousPostId = relatePosts.get(i - 1).getId();
-				}
-
-				model.addAttribute("PREVIOUS_POST_ID", previousPostId);
-				model.addAttribute("NEXT_POST_ID", nextPostId);
-			}
 		}
+		model.addAttribute("PREVIOUS_POST_ID", previousPostId);
+		model.addAttribute("NEXT_POST_ID", nextPostId);
 	}
 	
 	private void setCommentDto(Model model, Long postId) {
@@ -198,7 +196,7 @@ public class WebController {
 		
 		if (dto.getTotalItems() > 0) {
 			List<PostDTO> pagedPostList = new PagingUtil<PostDTO>()
-												.paging(dto.getPosts(), limit, page, dto.getTotalItems());
+										.paging(dto.getPosts(), limit, page, dto.getTotalItems());
 			dto.setPosts(pagedPostList);
 		}
 	}
