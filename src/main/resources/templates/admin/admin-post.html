@@ -199,7 +199,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
+                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>     
                     </div>
                 </div>
             </div>
@@ -264,41 +264,15 @@
                                                 <!-- <td th:text="${post.available}">Available</td> -->
                                                 <td style="text-align: center;">
                                                 <label th:text="${post.available}"></label>
-                                                <a href="javascript:void(0)" data-toggle="modal" th:data-target="'#myModal' + ${post.id}"> <i class="fas fa-pen-fancy"></i>
-                                                </a>
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:id="${post.id}" th:onclick="'updateStatus('+${post.id}+','+${post.available}+')'"> 
+                                                <i class="fas fa-pen-fancy"></i>
+                                                </a></td>
                                                 
-                                                <!-- The Modal -->
-                                                <div class="modal" th:id="'myModal' + ${post.id}">
-                                                  <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                
-                                                      <!-- Modal Header -->
-                                                      <div class="modal-header">
-                                                        <h4 class="modal-title">Update Status</h4>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                      </div>
-                                                
-                                                      <!-- Modal body -->
-                                                      <div class="modal-body">
-                                                        <span> Update status of </span> <span th:text="'(' + ${post.Id} + ') ' + ${post.name}"></span>
-                                                        <br>
-                                                        <span th:text="${post.available}"> </span> -> <span th:text="${!post.available}"> </span>
-                                                      </div>
-                                                      
-                                                      <!-- Modal footer -->
-                                                      <div class="modal-footer">
-                                                        <a th:href="'/admin/post/update-status:' + ${post.available} +'/'+ ${post.id}" class="btn btn-success">Yes!</a>
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                                      </div>
-                                                
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                </td>
-                                                
-                                                <td style="text-align: center;"><a class="btn btn-primary text-white font-30"
-															href="javascript:void(0)"> <span>Edit</span>
-												</a></td>
+                                               <td style="text-align: center;">
+                                                  <a class="btn btn-primary text-white font-30" href="javascript:void(0)"> <span>Edit</span>
+                                                  </a>
+                                               </td>
+												
                                             </tr>
                                         </tbody>
                                     </table>
@@ -334,6 +308,36 @@
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
+    
+    <!-- The Modal - STATUS -->
+    <div class="modal" id="modalStatus">
+      <div class="modal-dialog">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Update Status - Post</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            <span> Update status of </span><span id="updateStatus_text"> (ID) Name </span>
+            <br>
+		     <span id="updateStatus_before"> Before </span> -> <span id="updateStatus_after"> After </span>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+             <a id="updateStatus_confirm" class="btn btn-success" href="#">Yes!</a>
+            
+             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <!-- End The Modal - STATUS  -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
      <!-- All Jquery -->
@@ -358,6 +362,27 @@
     <!--This page plugins -->
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
+    <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+
+<script type="text/javascript">
+        function updateStatus(id,status){
+        	$("#updateStatus_text").html(id);
+        	
+        	var status_before = "false";
+        	var status_after = "true";
+        	if(status){
+        		status_before = "true";
+        		status_after = "false";
+        	}
+        	
+        	 $("#updateStatus_before").html(status_before);
+        	 $("#updateStatus_after").html(status_after);
+        	 
+        	var confirm = "/admin/post/update-status:" + status + "/" + id;
+            var confirmBtnEle = $("#updateStatus_confirm");
+    		confirmBtnEle.attr('href',confirm);
+        };
+</script>
 </body>
 
 </html>
