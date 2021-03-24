@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/image-upload-style.css}">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <ul class="nav nav-tabs col-11">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#home">Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#discount">Discount code</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#course">Course</a>
+                </li>
+            </ul>
+            <a class="btn btn-danger col-1" href="/logout">Logout</a>
+        </div>
+        <div class="tab-content">
+            <div id="home" class="container tab-pane active"><br>
+                <h3>POST</h3>
+                <form class="mt-5 mb-3" id="form-post" action="/admin/post" method="post" th:object="${POST_DTO}" enctype="multipart/form-data">
+                    <input class="form-control mb-2" type="text" th:field="*{name}" value="" placeholder="Name">
+
+                    <select th:field="*{categoryId}" class="form-control mb-2">
+                        <option th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
+                    </select>
+                    <textarea th:field="*{description}" class="form-control mb-2" placeholder="Description" rows="5"></textarea>
+
+                    <div class="panel">
+                        <div class="button_outer">
+                            <div class="btn_upload">
+                                <input type="file" id="upload_file" th:field="*{image}">
+                                Upload Thumbnail
+                            </div>
+                            <div class="processing_bar"></div>
+                        </div>
+                    </div>
+                    <div class="error_msg"></div>
+                    <div class="uploaded_file_view" id="uploaded_view">
+                        <span class="file_remove">X</span>
+                    </div>
+                    <div class="content-editor">
+                        <textarea name="content" id="editor" th:field="*{contentFile}">
+
+                        </textarea>
+                    </div>
+                    <div id="btn-group" class="float-right">
+                        <input id="btn-submit" class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+            <div id="discount" class="container tab-pane fade"><br>
+                <h3>Menu 1</h3>
+                <form action="/admin/discount" method="post" th:object="${DISCOUNT}">
+                    <input type="text" class="form-control mb-2" placeholder="Code" th:field="*{discountCode}" required>
+                    <input type="number" class="form-control mb-2" placeholder="Percent" th:field="*{discountPercent}" min="1" max="100" required>
+                    <input type="url" class="form-control mb-2" placeholder="Link" th:field="*{discountWebsite}" required>
+                    <input type="text" class="form-control mb-2" placeholder="Provider" th:field="*{provider}" required>
+                    <input type="submit" class="btn btn-success mb-2" name="Submit">
+                </form>
+            </div>
+            <div id="course" class="container tab-pane fade"><br>
+                <h3>Course</h3>
+                <form action="/admin/course" method="post" th:object="${COURSE_DTO}" enctype="multipart/form-data">
+                    <input type="text" class="form-control mb-2" placeholder="Name" th:field="*{name}" required>
+                    <input type="text" class="form-control mb-2" placeholder="Description" th:field="*{description}" required>
+                    <input type="number" class="form-control mb-2" placeholder="Price" th:field="*{price}" min="1" required>
+                    <input type="url" class="form-control mb-2" placeholder="Link" th:field="*{courseLink}" required>
+                    <select th:field="*{categoryId}" class="form-control mb-2">
+                        <option th:each="item : ${COURSE_CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
+                    </select>
+                    <input type="text" class="form-control mb-2" placeholder="Learn method" th:field="*{learnMethod}" required>
+                    <input type="file" class="form-control mb-2" placeholder="thumbnail" th:field="*{image}" required>
+                    <input type="submit" class="btn btn-success mb-2" name="Submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+    <script th:src="@{/js/image-upload-script.js}"></script>
+    <script>
+    ClassicEditor
+        .create(document.querySelector('#editor'), {
+
+            toolbar: {
+                items: [
+                    'heading',
+                    '|',
+                    'bold',
+                    'italic',
+                    'link',
+                    'fontBackgroundColor',
+                    'fontColor',
+                    'fontFamily',
+                    'fontSize',
+                    'highlight',
+                    '|',
+                    'bulletedList',
+                    'numberedList',
+                    '|',
+                    'outdent',
+                    'indent',
+                    '|',
+                    'imageInsert',
+                    'mediaEmbed',
+                    '|',
+                    'insertTable',
+                    'undo',
+                    'redo',
+                    '|',
+                    'htmlEmbed',
+                    'codeBlock',
+                    'code',
+                    'MathType',
+                    '|'
+                ]
+            },
+            language: 'vi',
+            image: {
+                toolbar: [
+                    'imageTextAlternative',
+                    'imageStyle:full',
+                    'imageStyle:side',
+                    'linkImage'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn',
+                    'tableRow',
+                    'mergeTableCells'
+                ]
+            },
+            licenseKey: '',
+
+
+        })
+        .then(editor => {
+            window.editor = editor;
+            // handleSubmit(editor);
+
+        })
+        .catch(error => {
+            console.error('Oops, something went wrong!');
+            console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+            console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+            console.error(error);
+        });
+
+    // function handleSubmit(editor){
+    //    $("#btn-submit").click(function (e) {
+    //        e.preventDefault();
+    //        var content = editor.getData();
+    //        console.log(content);
+    //    });
+    // }
+
+    $(document).ready(function () {
+        $("#pay_for_bank").attr('checked','checked');
+
+        var isSuccessOrder = CheckPostStatus();
+        if (isSuccessOrder) {
+            alertify.notify('Bạn đã tạo bài thành công !', 'success', 5, function () {
+                console.log('dismissed');
+            });
+        }
+    });
+
+    function CheckPostStatus() {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        var sParameterName = sURLVariables[0].split('=');
+        if (sParameterName[0] == "success")
+        {
+            return true;
+        }
+    }
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@Controller
+@Controller(value ="webCourse")
 public class CourseController {
 
     @Autowired

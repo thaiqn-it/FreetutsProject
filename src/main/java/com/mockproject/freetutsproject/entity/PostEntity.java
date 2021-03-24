@@ -1,23 +1,19 @@
 package com.mockproject.freetutsproject.entity;
 
+import lombok.Data;
+import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import lombok.Data;
-
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table (name = "posts")
 public class PostEntity extends AbstractEntity {
 	
@@ -28,6 +24,7 @@ public class PostEntity extends AbstractEntity {
 	private String description;
 	
 	@Column
+	@CreatedDate
 	private Date createdDate;
 	
 	@Column
@@ -38,6 +35,7 @@ public class PostEntity extends AbstractEntity {
 	
 	@ManyToOne
 	@JoinColumn (name = "created_by")
+	@CreatedBy
 	private AdminEntity creator;
 	
 	@ManyToOne
@@ -45,5 +43,6 @@ public class PostEntity extends AbstractEntity {
 	private CategoryEntity category;
 	
 	@OneToMany (mappedBy = "post")
+	@Where(clause = "available = true")
 	private List<CommentEntity> comments = new ArrayList<CommentEntity>();
 }

@@ -11,4 +11,5 @@ public interface PostService extends AbstractService<PostDTO> {
 	List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name);
 	List<PostDTO> findTop8PostByOrderById();
 	void updateStatus(boolean status, PostDTO dto);
+	List<PostDTO> findTop15PostByCategories(List<CategoryDTO> categories);
 }

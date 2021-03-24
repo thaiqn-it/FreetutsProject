@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Controller (value = "homeOfWeb")
 public class HomeController {
     @Autowired
     private CategoryService categoryService;
@@ -23,7 +23,7 @@ public class HomeController {
     @GetMapping(value = "/")
     public String loadHome(Model model){
         List<NewsBoxDTO> newsBoxes = new ArrayList<>();
-        List<CategoryDTO> categoryDTOS = categoryService.loadCategories();
+        List<CategoryDTO> categoryDTOS = categoryService.loadTopLevelCategories();
 
         for (int i = 0; i < categoryDTOS.size(); i++) {
             CategoryDTO category = categoryDTOS.get(i);

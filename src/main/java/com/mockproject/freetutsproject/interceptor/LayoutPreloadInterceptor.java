@@ -37,7 +37,7 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 			throws Exception {
 		
 		// Load Header Navigation Category
-		List<CategoryDTO> categories = categoryService.loadCategories();
+		List<CategoryDTO> categories = categoryService.loadTopLevelCategories();
 		request.setAttribute("CATEGORIES", categories);
 		
 		// Load footer

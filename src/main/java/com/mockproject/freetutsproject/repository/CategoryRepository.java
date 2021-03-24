@@ -1,12 +1,13 @@
 package com.mockproject.freetutsproject.repository;
 
-import java.util.List;
-
+import com.mockproject.freetutsproject.entity.CategoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.mockproject.freetutsproject.entity.CategoryEntity;
+import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
-	List<CategoryEntity> findByParentIsNull();
+	List<CategoryEntity> findByParentIsNullAndAvailableTrue();
 	CategoryEntity findOneByName(String name);
+	List<CategoryEntity> findBySubCategoriesIsNull();
+	CategoryEntity findByIdAndAvailableTrue(Long id);
 }

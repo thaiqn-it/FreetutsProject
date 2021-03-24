@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -23,10 +24,10 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryMapper categoryMapper;
 
 	@Override
-	@Transactional(readOnly = true)
-	public List<CategoryDTO> loadCategories() {
+	@Transactional (readOnly = true)
+	public List<CategoryDTO> loadTopLevelCategories() {
 		List<CategoryDTO> result = new ArrayList<CategoryDTO>();
-		List<CategoryEntity> entities = categoryRepository.findByParentIsNull();
+		List<CategoryEntity> entities = categoryRepository.findByParentIsNullAndAvailableTrue();
 
 		entities.forEach(entity -> {
 			result.add(categoryMapper.toDTO(entity));
@@ -37,8 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
-		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
-
+		CategoryEntity entity = categoryRepository.findByIdAndAvailableTrue(id);
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
 		}
@@ -57,7 +57,19 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional (readOnly = true)
+	public List<CategoryDTO> findBySubCategoriesIsNull() {
+		List<CategoryEntity> entities = categoryRepository.findBySubCategoriesIsNull();
+		if (!entities.isEmpty()){
+			return entities.stream()
+							.map(entity -> categoryMapper.toDTO(entity))
+							.collect(Collectors.toList());
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
 	public List<CategoryDTO> findAll() {
 		List<CategoryEntity> entities = categoryRepository.findAll();
 		if (!entities.isEmpty()) {
