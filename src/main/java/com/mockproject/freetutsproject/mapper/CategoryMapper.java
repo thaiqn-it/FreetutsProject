@@ -1,18 +1,18 @@
 package com.mockproject.freetutsproject.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
+import com.mockproject.freetutsproject.repository.CategoryRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO> {
@@ -25,6 +25,9 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	
 	@Autowired
 	private CourseMapper courseMapper;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 
 	@Override
 	public CategoryDTO toDTO(CategoryEntity entity) {
@@ -40,7 +43,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 
 		// Mapping subcategories
 		List<CategoryEntity> subCategoryEnities = entity.getSubCategories();
-		if (!subCategoryEnities.isEmpty()) {
+		if (subCategoryEnities != null) {
 			dto.setSubCategories(new ArrayList<CategoryDTO>());
 
 			// Iterate through sub categories
@@ -51,7 +54,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 
 		// Mapping posts
 		List<PostEntity> postEnities = entity.getPosts();
-		if (!postEnities.isEmpty()) {
+		if (postEnities != null) {
 			dto.setPosts(new ArrayList<PostDTO>());
 
 			// Iterate through posts
@@ -62,7 +65,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 
 		// Mapping courses
 		List<CourseEntity> coursreEnities = entity.getCourses();
-		if (!coursreEnities.isEmpty()) {
+		if (coursreEnities != null) {
 			dto.setCourses(new ArrayList<CourseDTO>());
 
 			// Iterate through courses
@@ -76,6 +79,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Override
 	public CategoryEntity toEntity(CategoryDTO dto) {
 		CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
+		categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
 		return entity;
 	}
 

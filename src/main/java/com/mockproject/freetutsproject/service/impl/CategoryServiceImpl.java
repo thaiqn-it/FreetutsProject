@@ -5,10 +5,12 @@ import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.mapper.CategoryMapper;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
 import com.mockproject.freetutsproject.service.CategoryService;
+import com.mockproject.freetutsproject.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +24,9 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Autowired
 	private CategoryMapper categoryMapper;
+
+	@Autowired
+	private FileUtil fileUtil;
 
 	@Override
 	@Transactional (readOnly = true)
@@ -60,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<CategoryDTO> findBySubCategoriesIsNull() {
-		List<CategoryEntity> entities = categoryRepository.findBySubCategoriesIsNull();
+		List<CategoryEntity> entities = categoryRepository.findBySubCategoriesIsNullAndAvailableTrue();
 		if (!entities.isEmpty()){
 			return entities.stream()
 							.map(entity -> categoryMapper.toDTO(entity))
@@ -72,14 +77,29 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<CategoryDTO> findAll() {
-		// TODO Auto-generated method stub
+		List<CategoryEntity> entities = categoryRepository.findAll();
+		if (!entities.isEmpty()){
+			return entities.stream()
+					.map(entity -> categoryMapper.toDTO(entity))
+					.collect(Collectors.toList());
+		}
 		return null;
 	}
 
 	@Override
 	@Transactional
-	public CategoryDTO save(CategoryDTO t) {
-		// TODO Auto-generated method stub
+	public CategoryDTO save(CategoryDTO categoryDTO) {
+		String imageName = null;
+		try {
+			imageName = fileUtil.writeImageHardDisk(categoryDTO.getImage());
+
+			categoryDTO.setThumbnail(imageName);
+
+			CategoryEntity entity = categoryMapper.toEntity(categoryDTO);
+			return categoryMapper.toDTO(categoryRepository.save(entity));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }

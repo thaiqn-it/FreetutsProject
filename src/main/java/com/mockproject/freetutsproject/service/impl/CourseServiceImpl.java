@@ -6,8 +6,6 @@ import com.mockproject.freetutsproject.mapper.CourseMapper;
 import com.mockproject.freetutsproject.repository.CourseRepository;
 import com.mockproject.freetutsproject.service.CourseService;
 import com.mockproject.freetutsproject.util.FileUtil;
-import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
-import com.mockproject.freetutsproject.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,14 +18,7 @@ import java.util.List;
 @Transactional
 public class CourseServiceImpl implements CourseService {
 	@Autowired
-	private MultiLevelCategoryUtil multiLevelCategoryUtil;
-
-	@Autowired
 	private FileUtil fileUtil;
-
-	@Autowired
-	private StringUtil stringUtil;
-
 
 	@Autowired
 	private CourseRepository courseRepository;
