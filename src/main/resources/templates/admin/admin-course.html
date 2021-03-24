@@ -261,16 +261,17 @@
                                                 <td th:text="${course.creatorName}">CreatorName</td>
                                                 <td th:text="'(' + ${course.categoryId} + ') ' + ${course.categoryName}">(ID)CategoryName</td>
                                                 <th th:text="${#dates.format(course.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
-                                                <!-- <td th:text="${course.available}">Available</td> -->
-                                                <td style="text-align: center;">
+                                                
+												<td style="text-align: center;">
                                                 <label th:text="${course.available}"></label>
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#modalStatus" th:id="${course.id}" th:onclick="'updateStatus('+${course.id}+','+${course.available}+')'">
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:onclick="'updateStatus(this.id,this.name,'+${course.available}+')'"
+                                                th:id="${course.id}" th:name="${course.name}"> 
                                                 <i class="fas fa-pen-fancy"></i>
                                                 </a></td>
                                                 
-                                                <td style="text-align: center;"><a class="btn btn-primary text-white font-30"
-															href="javascript:void(0)"> <span>Edit</span>
-												</a></td>
+                                                <td style="text-align: center;">
+                                                  <a class="btn btn-primary text-white font-30" th:href="'/admin/course/edit/'+${course.id}"> <span>Edit</span></a>
+                                               </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -360,9 +361,11 @@
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     
-    <script type="text/javascript">
-        function updateStatus(id,status){
-        	$("#updateStatus_text").html(id);
+<!-- Update Status -->
+<script type="text/javascript">
+        function updateStatus(id,name,status){
+        	var text = '('+ id + ') ' + name;
+        	$("#updateStatus_text").html(text);
         	
         	var status_before = "false";
         	var status_after = "true";
@@ -379,6 +382,7 @@
     		confirmBtnEle.attr('href',confirm);
         };
 </script>
+<!-- ./Update Status -->
 </body>
 
 </html>

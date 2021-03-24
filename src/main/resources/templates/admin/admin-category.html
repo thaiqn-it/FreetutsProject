@@ -260,13 +260,14 @@
                                                 
                                                 <td style="text-align: center;">
                                                 <label th:text="${category.available}"></label>
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#modalStatus" th:id="${category.id}" th:onclick="'updateStatus('+${category.id}+','+${category.available}+')'">
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:onclick="'updateStatus(this.id,this.name,'+${category.available}+')'"
+                                                th:id="${category.id}" th:name="${category.name}"> 
                                                 <i class="fas fa-pen-fancy"></i>
                                                 </a></td>
                                             	
-                                            	<td style="text-align: center;"><a class="btn btn-primary text-white font-30"
-															href="javascript:void(0)"> <span>Edit</span>
-												</a></td>
+                                            	<td style="text-align: center;">
+                                                  <a class="btn btn-primary text-white font-30" th:href="'/admin/category/edit/'+${category.id}"> <span>Edit</span></a>
+                                               </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -356,9 +357,11 @@
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     
-    <script type="text/javascript">
-        function updateStatus(id,status){
-        	$("#updateStatus_text").html(id);
+<!-- Update Status -->
+<script type="text/javascript">
+        function updateStatus(id,name,status){
+        	var text = '('+ id + ') ' + name;
+        	$("#updateStatus_text").html(text);
         	
         	var status_before = "false";
         	var status_after = "true";
@@ -375,6 +378,7 @@
     		confirmBtnEle.attr('href',confirm);
         };
 </script>
+<!-- ./Update Status -->
 </body>
 
 </html>

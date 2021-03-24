@@ -257,20 +257,21 @@
                                         <tbody>
                                             <tr th:each="post : ${posts}">
                                             	<td th:text="${post.id}">Id</td>
+                                            	
                                                 <td th:text="${post.name}">Name</td>
                                                 <td th:text="${post.creatorName}">CreatorName</td>
                                                 <td th:text="'(' + ${post.categoryId} + ') ' + ${post.categoryName}">CategoryName</td>
                                                 <th th:text="${#dates.format(post.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
-                                                <!-- <td th:text="${post.available}">Available</td> -->
+                                                
                                                 <td style="text-align: center;">
                                                 <label th:text="${post.available}"></label>
-                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:id="${post.id}" th:onclick="'updateStatus('+${post.id}+','+${post.available}+')'"> 
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:onclick="'updateStatus(this.id,this.name,'+${post.available}+')'"
+                                                th:id="${post.id}" th:name="${post.name}"> 
                                                 <i class="fas fa-pen-fancy"></i>
                                                 </a></td>
                                                 
                                                <td style="text-align: center;">
-                                                  <a class="btn btn-primary text-white font-30" href="javascript:void(0)"> <span>Edit</span>
-                                                  </a>
+                                                  <a class="btn btn-primary text-white font-30" th:href="'/admin/post/edit/'+${post.id}"> <span>Edit</span></a>
                                                </td>
 												
                                             </tr>
@@ -364,9 +365,11 @@
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
 
+<!-- Update Status -->
 <script type="text/javascript">
-        function updateStatus(id,status){
-        	$("#updateStatus_text").html(id);
+        function updateStatus(id,name,status){
+        	var text = '('+ id + ') ' + name;
+        	$("#updateStatus_text").html(text);
         	
         	var status_before = "false";
         	var status_after = "true";
@@ -383,6 +386,7 @@
     		confirmBtnEle.attr('href',confirm);
         };
 </script>
+<!-- ./Update Status -->
 </body>
 
 </html>
