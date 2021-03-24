@@ -1,5 +1,9 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
+import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.dto.DiscountDTO;
+import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,4 +35,5 @@ public class HomeController {
 //
 //        return "template-admin-page";
 //    }
+
 }

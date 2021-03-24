@@ -33,6 +33,12 @@ public class DiscountServiceImpl implements DiscountService{
 
 	@Override
 	@Transactional (readOnly = true)
+	public boolean checkCodeExist(String code) {
+		return discountRepository.existsByDiscountCode(code);
+	}
+
+	@Override
+	@Transactional (readOnly = true)
 	public DiscountDTO findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
@@ -44,4 +50,6 @@ public class DiscountServiceImpl implements DiscountService{
 		DiscountEntity entity = discountRepository.save(discountMapper.toEntity(discountDTO));
 		return discountMapper.toDTO(entity);
 	}
+
+
 }

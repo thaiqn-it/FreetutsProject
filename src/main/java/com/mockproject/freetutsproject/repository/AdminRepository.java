@@ -6,4 +6,5 @@ import com.mockproject.freetutsproject.entity.AdminEntity;
 
 public interface AdminRepository extends JpaRepository<AdminEntity, Long>{
     AdminEntity findByUsernameAndAvailableTrue(String username);
+    boolean existsByUsername(String username);
 }

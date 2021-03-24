@@ -9,8 +9,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" th:href="@{/css/image-upload-style.css}">
+
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 </head>
+<style>
+    /* Alertify */
+    .ajs-message.ajs-custom-error {
+        color: #FFFFFF;
+        background-color: #c11818;
+        border-color: #FFFFFF;
+        text-align: center;
+    }
+
+    .ajs-message.ajs-custom-success {
+        color: #FFFFFF;
+        background-color: #13a539 !important;
+        border-color: #FFFFFF;
+        text-align: center;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
@@ -24,6 +41,9 @@
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#course">Course</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#account">Account</a>
+                </li>
             </ul>
             <a class="btn btn-danger col-1" href="/logout">Logout</a>
         </div>
@@ -32,10 +52,10 @@
                 <h3>POST</h3>
                 <form class="mt-5 mb-3" id="form-post" action="/admin/post" method="post" th:object="${POST_DTO}" enctype="multipart/form-data">
                     <input class="form-control mb-2" type="text" th:field="*{name}" value="" placeholder="Name">
-
-                    <select th:field="*{categoryId}" class="form-control mb-2">
-                        <option th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
-                    </select>
+                    <input list="category" th:field="*{categoryId}" class="form-control mb-2" required>
+                    <datalist id="category">
+                        <option style="width: 100% ; font-size: 15px" th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
+                    </datalist>
                     <textarea th:field="*{description}" class="form-control mb-2" placeholder="Description" rows="5"></textarea>
 
                     <div class="panel">
@@ -83,6 +103,30 @@
                     </select>
                     <input type="text" class="form-control mb-2" placeholder="Learn method" th:field="*{learnMethod}" required>
                     <input type="file" class="form-control mb-2" placeholder="thumbnail" th:field="*{image}" required>
+                    <input type="submit" class="btn btn-success mb-2" name="Submit">
+                </form>
+            </div>
+            <div id="account" class="container tab-pane fade"><br>
+                <h3>Course</h3>
+                <form action="/admin/account" class="was-validated" method="post" th:object="${ADMIN_DTO}">
+                    <div class="form-group">
+                        <input type="text" class="form-control mb-2" placeholder="Username" th:field="*{username}" required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control mb-2" placeholder="FullName" th:field="*{fullname}" required>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control mb-2" id="password"
+                               placeholder="Password" th:field="*{password}" required onkeyup="checkPasswordMatch()">
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control mb-2" id="re-password"
+                               placeholder="Re-password" required onkeyup="checkPasswordMatch()">
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
                     <input type="submit" class="btn btn-success mb-2" name="Submit">
                 </form>
             </div>
@@ -173,10 +217,11 @@
 
         var isSuccessOrder = CheckPostStatus();
         if (isSuccessOrder) {
-            alertify.notify('Bạn đã tạo bài thành công !', 'success', 5, function () {
-                console.log('dismissed');
-            });
+            alertify.notify('Bạn đã tạo thành công !', 'custom-success', 5);
+        } else if (!isSuccessOrder){
+            alertify.notify('Bạn đã tạo thất bại !', 'custom-error', 5);
         }
+
     });
 
     function CheckPostStatus() {
@@ -186,8 +231,25 @@
         if (sParameterName[0] == "success")
         {
             return true;
+        } else if (sParameterName[0] == "error"){
+            return false;
         }
     }
+
+    function checkPasswordMatch() {
+        var password = $("#password").get(0);
+        var confirm_password = $("#re-password").get(0);
+        if (password.value != confirm_password.value) {
+            $("#re-password").parent().find('.invalid-feedback').text("Not match");
+            confirm_password.setCustomValidity("Not match");
+        } else {
+            confirm_password.setCustomValidity("");
+        }
+    }
+</script>
+<script>
+
+
 </script>
 </body>
 </html>

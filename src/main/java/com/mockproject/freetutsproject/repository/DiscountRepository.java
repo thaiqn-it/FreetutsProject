@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface DiscountRepository extends JpaRepository<DiscountEntity, Long>{
     List<DiscountEntity> findAllByAvailableTrue();
+    boolean existsByDiscountCode(String code);
 }
