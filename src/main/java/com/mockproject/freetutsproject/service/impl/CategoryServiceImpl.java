@@ -21,7 +21,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
 	private CategoryMapper categoryMapper;
 
@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public List<CategoryDTO> loadTopLevelCategories() {
 		List<CategoryDTO> result = new ArrayList<CategoryDTO>();
 		List<CategoryEntity> entities = categoryRepository.findByParentIsNullAndAvailableTrue();
-		
+
 		entities.forEach(entity -> {
 			result.add(categoryMapper.toDTO(entity));
 		});
@@ -41,10 +41,9 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
 		CategoryEntity entity = categoryRepository.findByIdAndAvailableTrue(id);
-		
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
 		}
@@ -52,10 +51,10 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public CategoryDTO findCategory(String name) {
 		CategoryEntity entity = categoryRepository.findOneByName(name);
-		
+
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
 		}
@@ -101,5 +100,14 @@ public class CategoryServiceImpl implements CategoryService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(boolean status, CategoryDTO dto) {
+		CategoryEntity entity = categoryMapper.toEntity(dto);
+
+		entity.setAvailable(!status);
+		categoryRepository.save(entity);
 	}
 }

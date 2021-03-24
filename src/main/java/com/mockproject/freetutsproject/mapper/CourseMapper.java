@@ -1,15 +1,16 @@
 package com.mockproject.freetutsproject.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.mockproject.freetutsproject.dto.CommentDTO;
+import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.entity.CourseEntity;
+import com.mockproject.freetutsproject.repository.AdminRepository;
+import com.mockproject.freetutsproject.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mockproject.freetutsproject.dto.CommentDTO;
-import com.mockproject.freetutsproject.dto.CourseDTO ;
-import com.mockproject.freetutsproject.entity.CourseEntity;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
@@ -19,13 +20,20 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 
 	@Autowired
 	private CommentMapper commentMapper;
-	
+
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private AdminRepository adminRepository;
+
 	@Override
 	public CourseDTO toDTO(CourseEntity entity) {
 		CourseDTO dto = modelMapper.map(entity, CourseDTO.class);
 		
 		if (entity.getCreator() != null) {
 			dto.setCreatorName(entity.getCreator().getFullname());
+			dto.setCreatorId(entity.getCreator().getId());
 		}
 		
 		if (entity.getCategory() != null) {
@@ -43,7 +51,12 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 	@Override
 	public CourseEntity toEntity(CourseDTO  dto) {
 		CourseEntity entity = modelMapper.map(dto, CourseEntity.class);
-
+		if (dto.getCategoryId() != null) {
+			categoryRepository.findById(dto.getCategoryId()).ifPresent(entity::setCategory);
+		}
+		if (dto.getCreatorId() != null) {
+			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+		}
 		return entity;
 	}
 

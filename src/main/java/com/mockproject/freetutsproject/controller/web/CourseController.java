@@ -50,6 +50,6 @@ public class CourseController {
             orderDTO.setPrice(dto.getPrice());
             model.addAttribute("order", orderDTO);
         }
-        return "course";
+        return "web/course";
     }
 }

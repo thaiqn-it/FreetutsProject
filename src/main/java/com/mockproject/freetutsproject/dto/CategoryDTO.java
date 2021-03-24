@@ -5,6 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
+import java.util.List;
+
 @Data
 public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	// Add more fields which use to show on frontend
@@ -13,7 +15,8 @@ public class CategoryDTO extends AbstractDTO<CategoryDTO> {
 	private String thumbnail;
 	private Long parentId;
 	private List<CategoryDTO> subCategories;
-	private String createdBy;
+	private String creatorName;
+	private Long creatorId;
 	private List<PostDTO> posts;
 	private List<CourseDTO> courses;
 	private MultipartFile image;

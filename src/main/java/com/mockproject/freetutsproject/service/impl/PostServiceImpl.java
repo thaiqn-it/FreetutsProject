@@ -26,10 +26,10 @@ import java.util.stream.Collectors;
 public class PostServiceImpl implements PostService {
 	@Autowired
 	private PostRepository postRepository;
-	
+
 	@Autowired
 	private CategoryMapper categoryMapper;
-	
+
 	@Autowired
 	private PostMapper postMapper;
 
@@ -41,15 +41,14 @@ public class PostServiceImpl implements PostService {
 
 	@Autowired
 	private StringUtil stringUtil;
-	
+
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public PostDTO findById(Long id) {
 		PostEntity entity = this.postRepository.findByIdAndAvailableTrue(id);
-		
 		if (entity != null) {
-			return postMapper.toDTO(entity);
-		
+			PostDTO dto = postMapper.toDTO(entity);
+			return dto;
 		}
 		return null;
 	}
@@ -69,7 +68,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit) {
-		if (!categoryDTO.getPosts().isEmpty()){
+		if (!categoryDTO.getPosts().isEmpty()) {
 			List<PostDTO> originalPostList = categoryDTO.getPosts();
 			List<PostDTO> postDTOList = new ArrayList<>();
 			Collections.reverse(originalPostList);
@@ -83,7 +82,7 @@ public class PostServiceImpl implements PostService {
 		List<CategoryDTO> lastLevelCategories = multiLevelCategoryUtil.findAllLastLevelSubCategroies(categoryDTO);
 		List<Long> ids = new ArrayList<>();
 		lastLevelCategories.forEach(category -> ids.add(category.getId()));
-		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids,5);
+		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids, 5);
 		if (!postEntityList.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<PostDTO>();
 			postEntityList.forEach(entity -> postDTOList.add(postMapper.toDTO(entity)));
@@ -93,7 +92,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name) {
 		List<PostEntity> entities = postRepository.findTop20PostByAvailableTrueAndCategoryNameContainingOrderById(name);
 		if(!entities.isEmpty()){
@@ -105,7 +104,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findPostByCategory(CategoryDTO category) {
 		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
 		List<PostEntity> entityList = postRepository.findByCategoryAndAvailableTrue(categoryEntity);
@@ -115,14 +114,20 @@ public class PostServiceImpl implements PostService {
 			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
 			return dtoList;
 		}
-		
+
 		return null;
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findAll() {
-		// TODO Auto-generated method stub
+		List<PostEntity> entities = postRepository.findAll();
+
+		if (!entities.isEmpty()) {
+			List<PostDTO> DTOs = new ArrayList<PostDTO>();
+			entities.forEach(entity -> DTOs.add(postMapper.toDTO(entity)));
+			return DTOs;
+		}
 		return null;
 	}
 
@@ -160,5 +165,13 @@ public class PostServiceImpl implements PostService {
 								.collect(Collectors.toList());
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(boolean status, PostDTO dto) {
+		PostEntity entity = postMapper.toEntity(dto);
+		entity.setAvailable(!status);
+		postRepository.save(entity);
 	}
 }

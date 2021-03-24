@@ -14,6 +14,7 @@ public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private String learnMethod;
 	private String courseLink;
 	private String creatorName;
+	private Long creatorId;
 	private Date createdDate;
 	private Long categoryId;
 	private String categoryName;

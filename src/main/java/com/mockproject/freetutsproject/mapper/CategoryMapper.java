@@ -6,6 +6,7 @@ import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
+import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Autowired
 	private CategoryRepository categoryRepository;
 
+	@Autowired
+	private AdminRepository adminRepository;
+
 	@Override
 	public CategoryDTO toDTO(CategoryEntity entity) {
 		CategoryDTO dto = modelMapper.map(entity, CategoryDTO.class);
@@ -38,7 +42,8 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 		
 		// Mapping create by
 		if (entity.getCreator() != null) {
-			dto.setCreatedBy(entity.getCreator().getFullname());
+			dto.setCreatorName(entity.getCreator().getFullname());
+			dto.setCreatorId(entity.getCreator().getId());
 		}
 
 		// Mapping subcategories
@@ -79,7 +84,12 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Override
 	public CategoryEntity toEntity(CategoryDTO dto) {
 		CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
-		categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
+		if (dto.getParentId() != null) {
+			categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
+		}
+		if (dto.getCreatorId() != null) {
+			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+		}
 		return entity;
 	}
 

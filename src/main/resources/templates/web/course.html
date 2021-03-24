@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{web/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #breadcrumb-bar},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${course.name}"></title>
+</head>
+
+<th:block id="styles">
+    <!-- Alertify CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+<style>
+
+    #main-content ul li{
+        margin-top: 20px;
+    }
+
+    #main-content .font-weight-light{
+        font-size: 12px !important;
+        color: #c6c6c6;
+    }
+
+    #main-content .btn {
+        background: #3498db;
+        color: #fff;
+        border-radius: 30px;
+    }
+
+    #main-content .btn:hover {
+        color: #000000;
+    }
+
+    #main-content #link-course{
+        color: #F09217;
+    }
+
+    #main-content #link-course:hover{
+        color: #000000;
+    }
+
+    a:active, a:after, a:before, a:focus, a:link, a:visited {
+        outline: 0;
+        text-decoration: none;
+    }
+</style>
+</th:block>
+<body>
+    <!-- Breadcrumb (if need) -->
+    <div id="breadcrumb-bar" th:replace="/web/common/___breadcrumb :: breadcrumb"></div>
+
+    <div id="main-content" class="border p-4">
+        <div class="mt-2 p-4">
+                <div>
+                    <h2 th:text="${course.name}"></h2>
+                </div>
+                <div>
+                    <span class="font-weight-light">Đăng bởi: <span th:text="${course.creatorName}"/> -
+                    <!-- Vào ngày: <span thtext="${course.createdDate}"></span> -->
+                    </span>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-8">
+                            <p th:text="${course.description}"></p>
+                            <p>Bạn có thể tham khảo đề cương khóa học ở phần nội dung khóa học, hoặc truy cập vào link gốc mà mình đã cung cấp dưới đây</p>
+                        </div>
+                        <div class="col-4">
+                            <img th:src="@{'/images/' + ${course.thumbnail}}" width="200px" >
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="m-4">
+            <h2 class="mb-4 border-bottom">Giới thiệu</h2>
+            <table class="w-100 table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Khóa học</th>
+                        <th th:text="${course.name}"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hình thức học</td>
+                        <td th:text="${course.learnMethod}"></td>
+                    </tr>
+                    <tr>
+                        <td>Giá</td>
+                        <td class="font-weight-bold text-danger" th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT')}"></td>
+                    </tr>
+                    <tr>
+                        <td>Link khóa học</td>
+                        <td><a id="link-course" th:href="${course.courseLink}">Click here!</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="mt-4" style="background-color: #d7edf5;border-color: #bddde9;">
+            <div class="m-4 p-4">
+                <div>
+                    <h2>Đăng ký ngay hôm nay để được giảm giá</h2>
+                </div>
+                <div>
+                    <h2>Cơ hội mua khóa học này chỉ với <span th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></span> khi đăng ký tại freetuts.net</h2>
+                </div>
+                <div>
+                    <p>Freetuts.net là đại lý cung cấp khóa học online và offline với giá rẻ nhất, giảm lên đến 51% cho khóa học này, nhanh tay đăng ký nhé bạn.</p>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-primary" href="#form_register">ĐĂNG KÝ NGAY</a>
+                </div>
+            </div>
+        </div>
+        <div id="form_register" style=" background: #34495e;  margin: 20px auto" class="my-5 p-4">
+            <h2 class="text-center text-light">ĐĂNG KÝ KHÓA HỌC</h2>
+            <p class="text-center text-light">###########################</p>
+            <div  style="margin-bottom: 0px;">
+                <div>
+                    <div></div>
+                    <form id="form-course" action="/order" method="post" th:object="${order}">
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Tên của bạn <span style="color: red">*</span></label><br>
+                            <input th:field="*{name}" class="form-control" type="text" required="true" id="name" value="" size="40" placeholder="Tên của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Điện thoại của bạn <span style="color: red">*</span></label> <br>
+                            <input th:field="*{phone}" class="form-control" type="text" required="true" id="phone" value="" size="40" placeholder="Điện thoại của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Email của bạn  <span style="color: red">*</span></label> <br>
+                            <input th:field="*{email}" class="form-control" type="email" required="true" id="email" value="" size="40" placeholder="Email của bạn (required)">
+                            <br>
+                        </p>
+                        <p>
+                            <label style="font-weight: bold; color: #fff">Link facebook</label> <br>
+                            <input th:field="*{facebook}" class="form-control" type="text" id="facebook" value="" size="40" placeholder="Facebook của bạn">
+                            <br>
+                        </p>
+                        <div id="order_form_bank" style="background: #fff; padding: 20px; margin: 15px 0px 20px 0px; ">
+                            <h4 style="text-align: center">CHỌN HÌNH THỨC THANH TOÁN</h4>  <br>
+                            <div>
+                                <div>
+                                    <p><strong> <input checked th:field="*{paymentMethod}"type="radio" name="payment_type" id="pay_for_bank" value="1" class="paycheck"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
+                                    <div class="paylist p-2" style="display: block; background-color: #d3f4e1">
+                                        <ul style="margin-top: 15px">
+                                            <li>
+                                                <strong>VIETCOMBANK </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 0251002704529  <br>
+                                                Chi nhánh: Bình Tây, Q6, TP HCM                                    
+                                            </li>
+                                            <li>
+                                                <strong>SACOMBANK </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 050053235619  <br>
+                                                Chi nhánh: Cưkuin Đăklăk                                    
+                                            </li>
+                                            <li>
+                                                <strong>VIB </strong> <br>
+                                                Chủ tài khoản: Nguyễn Văn Cường  <br>
+                                                Số tài khoản: 410704060192515  <br>
+                                                Chi nhánh: Buôn Ma Thuột - ĐăkLăk                                    
+                                            </li>
+                                        </ul>
+                                        <p><span class="ml-3" style="color: red">Số tiền: <strong style="font-size: 18px" th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong></span></p>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" id="pay_for_post_office" class="paycheck" value="2"> <label for="pay_for_post_office">THANH TOÁN QUA BƯU ĐIỆN</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Bạn phải nhập đúng địa chỉ bên dưới vì mình sẽ gửi mã kích hoạt qua đường bưu điện, thanh toán tận nhà.</p>
+                                        <p>
+                                            <input th:field="*{address}" class="form-control" style="margin-top: 10px" type="text" id="address" value="" size="40" placeholder="Địa chỉ của bạn">
+                                            <br>
+                                        </p>
+                                        <p>
+                                            <span style="color: red">Số tiền: 
+                                            <strong style="font-size: 18px" th:with="price=${course.price + 25000}" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+                                            </span>.
+                                            Trong đó 25,000đ là phí gửi bưu điện
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" id="pay_for_post_paypal" class="paycheck" value="3"> <label for="pay_for_post_paypal">THANH TOÁN QUA PAYPAL</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Gửi $ đến địa chỉ paypal: cuongwriter@gmail.com.</p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px" th:with="price=(${course.price} / 23000.0)" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 2, 'POINT') + '$'}"></strong> giá đã bao gồm phí giao dịch paypal</span></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" value="4" class="paycheck" id="pay_for_momo"> <label for="pay_for_momo">THANH TOÁN QUA VÍ MOMO</label></strong></p>
+                                    <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
+                                        <p>Thanh toán qua ví với số điện thoại: 0979306603.</p>
+                                        <p><span style="color: red">Số tiền: <strong style="font-size: 18px"  th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong></span></p>
+                                    </div>
+                                </div>
+
+                                <div><br>
+                                    <p><strong>Lưu ý: </strong>Nội dung gửi tiền là <strong>[SĐT]</strong> mà bạn đã nhập ở trên.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="courseId" th:field="*{courseId}" th:value="*{courseId}">
+                        <input type="hidden" name="price" th:field="*{price}" th:value="*{price}">
+                        <p style="text-align: center">
+                            <input type="submit" class="btn" style="background: #2ecc71" value="GỬI THÔNG TIN" id="send_message">
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Comment Frame (if need) -->
+	<div id="comment-frame" th:replace="/web/common/___comment-frame :: comment-frame"></div>
+</body>
+
+<th:block id="scripts">
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#pay_for_bank").attr('checked','checked');
+
+        var isSuccessOrder = CheckOrderStatus();
+        if (isSuccessOrder) {
+            alertify.notify('Form đăng ký của bạn đã được ghi nhận !', 'success', 5, function () {
+                console.log('dismissed');
+            });
+        }
+    });
+
+    window.onload = function(){
+        jQuery('.paycheck').click(function(){
+            jQuery('.paylist').hide();
+            jQuery(this).parent().parent().parent().find('.paylist').show();
+        });
+    };
+
+    function CheckOrderStatus() {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        var sParameterName = sURLVariables[0].split('=');
+        if (sParameterName[0] == "success")
+        {
+            return true;
+        }
+    }
+</script>
+<script th:src="@{/js/comment-box.js}"></script>
+</th:block>
+</html>

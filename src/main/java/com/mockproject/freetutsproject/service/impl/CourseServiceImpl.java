@@ -9,7 +9,6 @@ import com.mockproject.freetutsproject.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +55,13 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<CourseDTO> findAll() {
-		// TODO Auto-generated method stub
+		List<CourseEntity> entities = courseRepository.findAll();
+
+		if (!entities.isEmpty()) {
+			List<CourseDTO> DTOs = new ArrayList<CourseDTO>();
+			entities.forEach(entity -> DTOs.add(courseMapper.toDTO(entity)));
+			return DTOs;
+		}
 		return null;
 	}
 
@@ -75,5 +80,13 @@ public class CourseServiceImpl implements CourseService {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public void updateStatus(boolean status, CourseDTO dto) {
+		CourseEntity entity = courseMapper.toEntity(dto);
+		entity.setAvailable(!status);
+		courseRepository.save(entity);
 	}
 }

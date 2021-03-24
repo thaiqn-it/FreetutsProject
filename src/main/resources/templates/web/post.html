@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{web/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #breadcrumb-bar},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block id="styles">
+<style>
+	#main-content img {
+		width: 100%;
+	}
+
+	#main-content .font-weight-light{
+        font-size: 12px !important;
+        color: #c6c6c6;
+    }
+    
+    #widget-1 a:hover {
+    	color: orange !important;
+    }
+
+	#nav-button-bar {
+		height: 50px;
+		margin: 40px 0;
+	}
+
+	#nav-button-bar a{
+		font-size: 17px !important;
+		color: white;
+		width: 120px;
+	}
+
+	#nav-button-bar a.disabled{
+		opacity: 100% !important;
+		background-color: #ddd !important;
+	}
+    
+    .go-to-item {
+    	color: #315062;
+    }
+    
+    .go-to-item:hover {
+    	color: #315062;
+    }
+    
+    #go-to-list {
+    	padding-left: 20px;
+    }
+
+</style>
+</th:block>
+<title th:text="${post.name}"></title>
+</head>
+<body>
+	<div id="widget-1" th:insert="/web/common/___widgets :: lesson-widget"></div>
+	<div id="breadcrumb-bar" th:insert="/web/common/___breadcrumb :: breadcrumb"></div>
+	<div class="container border p-4" id="main-content" th:object="${post}">
+				<!-- Title -->
+				<h1 class="mt-4" th:text="*{name}">  </h1> 
+
+				<p class="font-weight-light">
+					Đăng bởi:
+					<!-- Author -->
+					<span th:text="*{creatorName}"></span> -
+					<!-- Date/Time -->
+					<span> Vào ngày: </span><span th:text="*{createdDate}"></span> 
+				</p>
+				<hr>
+
+				<!-- 1. Preface -->
+				<p th:text="*{description}"></p>
+
+				<!-- 2. Table Of Content -->
+				<div class="card my-3 border bg-light p-4" id="table-of-content">
+					<p class="font-weight-bold">Table of Content</p>
+					<ul id="go-to-list" style="margin-bottom: 0px;">
+
+					</ul>
+				</div>
+
+				<!-- 3. Post Content -->
+				<div th:attr="include-html='/contents/' + ${post.contentFile}"></div>
+
+				<div id="nav-button-bar" th:if="${NEXT_POST_ID != null and PREVIOUS_POST_ID != null}">
+					<th:block th:if="${NEXT_POST_ID != -1}">
+						<a class="float-right btn" th:href="@{'/post/' + ${NEXT_POST_ID}}">Bài sau <i class="fas fa-step-forward"></i></a>
+					</th:block>
+					<th:block th:if="${NEXT_POST_ID == -1}">
+						<a class="float-right btn disabled" href="">Bài sau <i class="fas fa-step-forward"></i></a>
+					</th:block>
+
+					<th:block th:if="${PREVIOUS_POST_ID != -1}">
+						<a class="float-left btn" th:href="@{'/post/' + ${PREVIOUS_POST_ID}}"><i class="fas fa-step-backward"></i> Bài trước </a>
+					</th:block>
+					<th:block th:if="${PREVIOUS_POST_ID == -1}">
+						<a class="float-left btn disabled" href="#"><i class="fas fa-step-backward"></i> Bài trước </a>
+					</th:block>
+				</div>
+	</div>
+
+	<!-- Comment Frame (if need) -->
+	<div id="comment-frame" th:replace="/web/common/___comment-frame :: comment-frame"></div>
+	
+	<th:block id="scripts">
+	<script>
+		function includeHTML() {
+		  var z, i, elmnt, file, xhttp;
+		  /* Loop through a collection of all HTML elements: */
+		  z = document.getElementsByTagName("*");
+		  for (i = 0; i < z.length; i++) {
+		    elmnt = z[i];
+		    /*search for elements with a certain atrribute:*/
+		    file = elmnt.getAttribute("include-html");
+		    if (file) {
+		      /* Make an HTTP request using the attribute value as the file name: */
+		      xhttp = new XMLHttpRequest();
+		      xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		          /* Remove the attribute, and call this function once more: */
+		          elmnt.removeAttribute("include-html");
+		          includeHTML();
+		        }
+		      }
+		      xhttp.open("GET", file, true);
+		      xhttp.send();
+		      /* Exit the function: */
+		      return;
+		    }
+		  }
+		}
+		
+		includeHTML();
+	</script>
+	<script th:src="@{/dist/js/table-content-script.js}"></script>
+	<script th:src="@{/dist/js/comment-box.js}"></script>
+	</th:block>
+</body>
+</html>

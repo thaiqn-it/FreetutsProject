@@ -7,5 +7,6 @@ import java.util.List;
 public interface CategoryService extends AbstractService<CategoryDTO> {
 	List<CategoryDTO> loadTopLevelCategories();
 	CategoryDTO findCategory(String name);
+	void updateStatus(boolean status, CategoryDTO dto);
 	List<CategoryDTO> findBySubCategoriesIsNull();
 }

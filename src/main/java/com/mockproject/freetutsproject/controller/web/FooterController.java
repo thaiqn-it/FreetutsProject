@@ -9,6 +9,6 @@ public class FooterController {
 
     @GetMapping("/lien-he/{name}")
     public String loadFooter(@PathVariable("name") String name) {
-        return name;
+        return "web/" + name;
     }
 }
