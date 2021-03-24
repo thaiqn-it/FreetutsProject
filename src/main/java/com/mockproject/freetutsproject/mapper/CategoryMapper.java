@@ -1,18 +1,19 @@
 package com.mockproject.freetutsproject.mapper;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
+import com.mockproject.freetutsproject.repository.AdminRepository;
+import com.mockproject.freetutsproject.repository.CategoryRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO> {
@@ -26,6 +27,15 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Autowired
 	private CourseMapper courseMapper;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	@Autowired
+	private AdminMapper adminMapper;
+
+	@Autowired
+	private AdminRepository adminRepository;
+
 	@Override
 	public CategoryDTO toDTO(CategoryEntity entity) {
 		CategoryDTO dto = modelMapper.map(entity, CategoryDTO.class);
@@ -35,7 +45,8 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 		
 		// Mapping create by
 		if (entity.getCreator() != null) {
-			dto.setCreatedBy(entity.getCreator().getFullname());
+			dto.setCreatorName(entity.getCreator().getFullname());
+			dto.setCreatorId(entity.getCreator().getId());
 		}
 
 		// Mapping subcategories
@@ -76,6 +87,12 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Override
 	public CategoryEntity toEntity(CategoryDTO dto) {
 		CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
+		if (dto.getParentId() != null) {
+			categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
+		}
+		if (dto.getCreatorId() != null) {
+			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+		}
 		return entity;
 	}
 

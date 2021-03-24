@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{web/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #breadcrumb},
+                                                ~{:: #nav-bar},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chính sách bảo mật</title>
+</head>
+
+<body>
+<div id="main-content" class="border p-4">
+    <h2>
+        <strong>Chính sách bảo mật</strong>
+    </h2>
+    <p>Đăng bởi: Administrator- Vào ngày: 28-10-2019</p>
+    <p>Thông tin chi tiết về chính sách bảo mật khi sử dụng các dịch vụ có phí và miễn phí tại website. Quý khách vui
+        lòng đọc cẩn thận để sau này không có những khiếu nại đáng tiếc.</p>
+    <h2><strong>1. Có thu thập thông tin cá nhân không?</strong></h2>
+    <p>Với mục đích chia sẻ kiến thức miễn phí, kèm với những dịch vụ có phí nên khi sử dụng dịch vụ đó, hoặc đăng ký
+        theo dõi bản tin website, hoặc bình luận thì bạn sẽ được yêu cầu để lại các thông tin như email, số điện
+        thoại.</p>
+    <h2><strong>2. Thông tin được sử dụng để làm gì?</strong></h2>
+    <p>Tùy vào dịch vụ mà bạn đăng ký.&nbsp;</p>
+    <ul>
+        <li>Nếu comment thì chúng tôi sẽ thông báo cho bạn mỗi khi có bình luận mới.</li>
+        <li>Nếu theo dõi bản tin thì chúng tôi sẽ thông báo mỗi khi có bài mới.</li>
+        <li>Nếu đăng ký dịch vụ trả phí như khóa học thì chúng tôi sẽ</li>
+    </ul>
+    <h2><strong>3. Affiliate link</strong></h2>
+    <p>Blog có trỏ link liên kết affiliate đến một số trang khác, đây là nguồn doanh thu giúp duy trì website. Đương
+        nhiên mình chỉ share những link hữu ích.</p>
+</div>
+</body>
+</html>

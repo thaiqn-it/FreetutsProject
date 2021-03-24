@@ -27,7 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         //login
-        http.formLogin().loginPage("/admin").loginProcessingUrl("/admin").defaultSuccessUrl("/admin/panel")
+        http.formLogin().loginPage("/admin").loginProcessingUrl("/admin").defaultSuccessUrl("/admin/home")
                 .permitAll();
 
         //admin pages

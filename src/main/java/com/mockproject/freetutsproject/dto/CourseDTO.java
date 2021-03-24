@@ -1,9 +1,9 @@
 package com.mockproject.freetutsproject.dto;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.util.List;
-
-import lombok.Data;
 
 @Data
 public class CourseDTO extends AbstractDTO<CourseDTO> {
@@ -13,6 +13,7 @@ public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private String learnMethod;
 	private String courseLink;
 	private String creatorName;
+	private Long creatorId;
 	private Date createdDate;
 	private Long categoryId;
 	private String categoryName;

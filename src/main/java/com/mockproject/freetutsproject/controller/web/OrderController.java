@@ -4,7 +4,6 @@ import com.mockproject.freetutsproject.dto.OrderDTO;
 import com.mockproject.freetutsproject.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -26,6 +25,6 @@ public class OrderController {
         }
         orderService.save(orderDTO);
 
-        return "redirect:/course/" + orderDTO.getCourseId() + "?success";
+        return "redirect:web/course/" + orderDTO.getCourseId() + "?success";
     }
 }

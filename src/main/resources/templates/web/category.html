@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<!-- th:fragment="main-fragment(title, styles, subCategoriesNav, mainContent, courseList, postList, commentFrame, widget1, widget2, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{web/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{:: #breadcrumb-bar},
+                                                ~{:: #sub-categories-nav},
+                                                ~{:: #main-content},
+                                                ~{:: #course-frame},
+                                                ~{:: #post-list-frame},
+                                                ~{:: #comment-frame},
+                                                ~{:: #widget-1},
+                                                ~{:: #widget-2},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<th:block id="styles">
+<style>
+	.subcate-box {
+		background-color: #ededed; 
+		margin: 8px 4px;
+		padding: 10px;
+	}	
+	
+	.subcate-item a{
+		color: #000;
+	}
+	
+	.subcate-item{
+		padding: 10px;
+	}
+	
+	.subcate-item img {
+		width: 30px;
+		height: 30px;
+	}
+	
+ 	.table th{
+        background: #2f6e91;
+        font-size: 15px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .table td a{
+        color: #40454d;
+    }
+
+    .col-sm-3 .btn {
+        border-radius: 20px;
+        background-color: #00A5E3 !important;
+        box-shadow: 3px 3px 5px 0px #666;
+        transition: all .2s linear;
+    }
+
+    .col-sm-3 .btn:hover {
+        background-color: #F09217 !important;
+    }
+
+    a:active, a:after, a:before, a:focus, a:link, a:visited {
+        outline: 0;
+        text-decoration: none;
+    }
+</style>
+</th:block>
+<title th:text="${category.name}"></title>
+</head>
+<body>
+	<!-- Sub-categories Navbar (if need) -->
+	<div id="sub-categories-nav" th:if="${BREADCRUMB == null}">
+		<div th:replace="/web/common/___subcate-nav :: subcate-nav"></div>
+	</div>
+	<div id="breadcrumb-bar" th:if="${BREADCRUMB != null}">
+		<div th:insert="/web/common/___breadcrumb :: breadcrumb"></div>
+	</div>
+	
+	<!-- Post Content (populate content here) -->
+	<div id="main-content" class="border p-4">
+
+		<!-- Title -->
+		<h2 class="mt-4" th:text="${category.name}"></h2>
+
+		<hr>
+
+		<!-- 1. Preface -->
+		<div class="row">
+			<p class="col-8" th:text="${category.description}"></p>
+			<img style="height: 200px" class="col-4" th:src="@{'/images/' + ${category.thumbnail}}" alt="">
+		</div>
+
+		<!-- Subcategory has child -->
+		<div th:if="${!listSubCateHasChildren.empty}" class="row">
+			<th:block th:each="subCate : ${listSubCateHasChildren}">	
+				<div class="col-12 mb-3">
+					<h2 th:text="${subCate.name}"></h2>
+					<div class="subcate-box row">
+						<div th:each="subCateChild : ${subCate.subCategories}" class='subcate-item col-6'>
+							<img th:src="@{'/images/' + ${subCateChild.thumbnail}}"/>
+							<a th:href="@{'/category/' + ${subCateChild.id}} + '?page=1&limit=5'" th:text="${subCateChild.name}"></a>
+						</div>
+					</div>
+				</div>
+			</th:block>
+		</div>
+
+		<!-- Subcategory doesnt has child -->		
+		<div th:if="${!listSubCateLastLevel.empty}" class="subcate-box row">
+			<th:block th:each="subCate : ${listSubCateLastLevel}">
+				<div class="subcate-item col-6">
+					<img th:src="@{'/images/' + ${subCate.thumbnail}}"/>
+					<a th:href="@{'/category/' + ${subCate.id}} + '?page=1&limit=5'" th:text="${subCate.name}"></a>
+				</div>
+			</th:block>
+		</div>
+	</div>
+	
+	<!-- Course list frame -->
+	<div id="course-frame" class="mt-4" th:if="${!category.courses.empty}">
+         <table class="table table-bordered">
+             <thead>
+                 <th colspan="2" th:text="${category.name}"></th>
+             </thead>
+             <tbody>
+                 <tr th:each="course : ${category.courses}">
+                     <td class="text-center">
+                         <a th:href="'/course/' + ${course.id}">
+                             <img style="max-width: 100px; max-height: 75px;" 
+                             th:src="@{'/images/' + ${course.thumbnail}}">
+                         </a>
+                     </td>
+                     <td>
+                         <a th:href="'/course/' + ${course.id}">
+                             <h6 th:text="${course.name}"></h6>
+                             <p> Giá <span class="text-danger font-weight-bold" 
+                             th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + 'đ'}"></span> </p>
+                         </a>
+                     </td>
+                 </tr>
+             </tbody>
+         </table>
+     </div>
+	 
+	<!-- Post list frame -->
+	<div id="post-list-frame" class="mt-4" th:if="${!category.posts.empty}">
+         <table class="table table-bordered">
+         	<thead>
+                 <th colspan="2">Bài viết</th>
+             </thead>
+             <tbody>
+	             <tr th:each="post : ${category.posts}">
+	                 <td>
+	                     <a th:href="'/post/' + ${post.id}">
+	                         <h4 class="pt-2 pb-2" th:text="${post.name}"></h4>
+	                         <div class="row pb-3">
+	                             <div style="display: inline" class="col-3">
+	                                 <img style="width: 100% ; max-height: 125px" 
+	                                 th:src="@{'/images/' + ${post.thumbnail}}" alt="">
+	                             </div>
+	                             <p class="col-9" th:text="${post.description}"></p>
+	                         </div>
+	                     </a>
+	                 </td>
+	             </tr>
+             </tbody>
+         </table>
+         <form id="formSubmit" th:action="@{'/category/' + ${category.id}}">
+	         <ul id="pagination" class="pagination"></ul>
+			 <input type="hidden" id="page" name="page" /> 
+			 <input type="hidden" id="limit" name="limit" />
+		 </form>
+     </div>
+     
+	<th:block id="scripts">
+		<script th:src="@{/dist/js/paging/jquery.twbsPagination.min.js}"></script>
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			$(function() {
+				var currentPage = /*[[${category.page}]]*/ 0;
+				var totalPage = /*[[${category.totalPage}]]*/ 0;
+				var limit = 5;
+				window.pagObj = $('#pagination').twbsPagination({
+					totalPages : totalPage,
+					startPage : currentPage,
+					visiblePages : 10,
+					onPageClick : function(event, page) {
+						if (currentPage != page) {
+							$('#page').val(page);
+							$("#limit").val(limit);
+							$('#formSubmit').submit();
+						}
+					}
+				}).on('page', function(event, page) {
+					console.info(page + ' (from event listening)');
+				});
+			});
+		/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

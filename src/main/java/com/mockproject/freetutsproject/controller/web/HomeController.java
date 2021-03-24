@@ -54,6 +54,6 @@ public class HomeController {
         //load exercise
         postList =  postService.findTop20PostByCategoryNameContainingOrderById("Bài tập");
         model.addAttribute("EXERCISE",postList);
-        return "home";
+        return "web/home";
     }
 }

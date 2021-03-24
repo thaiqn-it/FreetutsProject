@@ -88,7 +88,7 @@ public class WebController {
 			commentDTO.setPostId(postDTO.getId());
 			model.addAttribute("comment", commentDTO);
 		}
-		return "post";
+		return "web/post";
 	}
 	
 	@GetMapping (value = "/category/{id}")
@@ -155,7 +155,7 @@ public class WebController {
 			
 			
 		}
-		return "category";
+		return "web/category";
 	}
 	
 
@@ -164,10 +164,10 @@ public class WebController {
 	public String comment(CommentDTO commentDTO) {
 		CommentDTO savedComment = commentService.save(commentDTO);
 		if (savedComment.getCourseId() != null) {
-			return "redirect:/course/" + savedComment.getCourseId();
+			return "redirect:web/course/" + savedComment.getCourseId();
 		}
 		else if (savedComment.getPostId() != null) {
-			return "redirect:/post/" + savedComment.getPostId();
+			return "redirect:web/post/" + savedComment.getPostId();
 		}
 		return "error-404";
 	}
