@@ -7,6 +7,4 @@ public class AdminDTO extends AbstractDTO<AdminDTO> {
 	private String username;
 	private String password;
 	private String fullname;
-	private String username;
-	private String password;
 }
