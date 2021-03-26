@@ -264,8 +264,9 @@
                                                 
 												<td style="text-align: center;">
                                                 <label th:text="${course.available}"></label>
-                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:onclick="'updateStatus(this.id,this.name,'+${course.available}+')'"
-                                                th:id="${course.id}" th:name="${course.name}"> 
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" 
+                                                th:onclick="'updateStatus(this.id,this.name,'+${course.available}+')'"
+                                                th:id="'('+${course.id}+') '+${course.name}" th:name="'/admin/course/update-status:' + ${course.available} + '/' + ${course.id}"> 
                                                 <i class="fas fa-pen-fancy"></i>
                                                 </a></td>
                                                 
@@ -361,28 +362,9 @@
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     
-<!-- Update Status -->
-<script type="text/javascript">
-        function updateStatus(id,name,status){
-        	var text = '('+ id + ') ' + name;
-        	$("#updateStatus_text").html(text);
-        	
-        	var status_before = "false";
-        	var status_after = "true";
-        	if(status){
-        		status_before = "true";
-        		status_after = "false";
-        	}
-        	
-        	 $("#updateStatus_before").html(status_before);
-        	 $("#updateStatus_after").html(status_after);
-        	 
-        	var confirm = "/admin/course/update-status:" + status + "/" + id;
-            var confirmBtnEle = $("#updateStatus_confirm");
-    		confirmBtnEle.attr('href',confirm);
-        };
-</script>
-<!-- ./Update Status -->
+    <!-- UpdateStatus -->
+	<script type="text/javascript" th:src="@{/dist/js/admin-updateStatus.js}"></script>
+	<!-- ./UpdateStatus -->
 </body>
 
 </html>

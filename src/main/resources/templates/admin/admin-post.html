@@ -256,7 +256,10 @@
                                         </tfoot>
                                         <tbody>
                                             <tr th:each="post : ${posts}">
-                                            	<td th:text="${post.id}">Id</td>
+                                            	<td> <span th:text="${post.id}">Id</span> 
+                                            	<a href="#" data-toggle="modal" data-target="#modalPreview" th:onclick="preview(this.id,this.name)"
+                                            	 th:id="'('+${post.id}+') '+${post.name}" th:name="'/contents/' + ${post.contentFile}"> <i class="far fa-eye"></i> </a>
+                                                 </td>
                                             	
                                                 <td th:text="${post.name}">Name</td>
                                                 <td th:text="${post.creatorName}">CreatorName</td>
@@ -265,13 +268,14 @@
                                                 
                                                 <td style="text-align: center;">
                                                 <label th:text="${post.available}"></label>
-                                                <a href="#" data-toggle="modal" data-target="#modalStatus" th:onclick="'updateStatus(this.id,this.name,'+${post.available}+')'"
-                                                th:id="${post.id}" th:name="${post.name}"> 
+                                                <a href="#" data-toggle="modal" data-target="#modalStatus" 
+                                                th:onclick="'updateStatus(this.id,this.name,'+${post.available}+')'"
+                                                th:id="'('+${post.id}+') '+${post.name}" th:name="'/admin/post/update-status:' + ${post.available} + '/' + ${post.id}"> 
                                                 <i class="fas fa-pen-fancy"></i>
                                                 </a></td>
                                                 
-                                               <td style="text-align: center;">
-                                                  <a class="btn btn-primary text-white font-30" th:href="'/admin/post/edit/'+${post.id}"> <span>Edit</span></a>
+                                               <td style="text-align: center;"> 
+                                                  <a class="btn btn-primary text-white font-30" href="#"> <span>Edit</span></a>
                                                </td>
 												
                                             </tr>
@@ -339,6 +343,35 @@
       </div>
     </div>
     <!-- End The Modal - STATUS  -->
+    
+    <!-- The Modal - PREVIEW -->
+    <div class="modal" id="modalPreview">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+    
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 id="preview_title" class="modal-title"> Preview </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+    
+          <!-- Modal body -->
+          <div class="modal-body">
+            	<!-- 3. Post Content --> 
+				<div id="preview_content"></div>
+            <br>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+             <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="far fa-eye-slash"></i> Close</button>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <!-- End The Modal - PREVIEW  -->
+				
     <!-- All Jquery -->
     <!-- ============================================================== -->
      <!-- All Jquery -->
@@ -364,29 +397,44 @@
     <script src="../assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
     <script src="../dist/js/pages/datatable/datatable-basic.init.js"></script>
     <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+    
+    <!-- UpdateStatus -->
+	<script type="text/javascript" th:src="@{/dist/js/admin-updateStatus.js}"></script>
+	<!-- ./UpdateStatus -->
+<!-- Preview -->
+<script>
+function preview(title,file_url){
+	$("#preview_title").html(title);
+	includeHTML(file_url);
+};
 
-<!-- Update Status -->
-<script type="text/javascript">
-        function updateStatus(id,name,status){
-        	var text = '('+ id + ') ' + name;
-        	$("#updateStatus_text").html(text);
-        	
-        	var status_before = "false";
-        	var status_after = "true";
-        	if(status){
-        		status_before = "true";
-        		status_after = "false";
-        	}
-        	
-        	 $("#updateStatus_before").html(status_before);
-        	 $("#updateStatus_after").html(status_after);
-        	 
-        	var confirm = "/admin/post/update-status:" + status + "/" + id;
-            var confirmBtnEle = $("#updateStatus_confirm");
-    		confirmBtnEle.attr('href',confirm);
-        };
-</script>
-<!-- ./Update Status -->
+		function includeHTML(file_url) {
+		  var z, i, elmnt, file, xhttp;
+		  /* Loop through a collection of all HTML elements: */
+		  z = $("#preview_content");
+		  for (i = 0; i < z.length; i++) {
+		    elmnt = z[i];
+		    elmnt.innerHTML = "";
+		    /*search for elements with a certain atrribute:*/
+		    file = file_url;
+		    if (file) {
+		      /* Make an HTTP request using the attribute value as the file name: */
+		      xhttp = new XMLHttpRequest();
+		      xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		        }
+		      }
+		      xhttp.open("GET", file, true);
+		      xhttp.send();
+		      /* Exit the function: */
+		      return;
+		    }
+		  }
+		};
+	</script>
+<!-- ./Preview -->
 </body>
 
 </html>
