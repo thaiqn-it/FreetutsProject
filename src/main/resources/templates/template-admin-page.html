@@ -143,25 +143,28 @@
             </div>
             <div id="category" class="container tab-pane fade"><br>
                 <h3>Category</h3>
-                <p class="text-right hide-all-btn"><a class="btn" href="">Hide all</a></p>
+                <p class="text-right hide-all-btn"><a class="btn" href="#">Hide all</a></p>
                 <div>
-                    <table class="tree table">
+                    <table class="tree table table-dark text-white sm-table">
                         <tbody>
                         <tr class="treegrid-0">
                             <td>All categories</td>
+                            <td style="padding: 8px 8px">
+                                <a href="#formElement" class="btn btn-light float-right tree-btn">Add child</a>
+                            </td>
                         </tr>
                         <th:block th:each="item : ${ALL_CATEGORIES}">
                                 <tr th:if="${item.parentId != null}" th:class="'treegrid-' + ${item.id} + ' treegrid-parent-' + ${item.parentId}">
                                     <td th:text="${item.name}"></td>
                                     <td style="padding: 8px 8px">
-                                        <a href="#formElement" class="btn btn-primary float-right tree-btn">Add child</a>
+                                        <a href="#formElement" class="btn btn-light float-right tree-btn">Add child</a>
                                     </td>
                                     <input type="hidden" class="tree-id" th:value="${item.id}">
                                 </tr>
                                 <tr th:if="${item.parentId == null}" th:class="'treegrid-' + ${item.id} + ' treegrid-parent-0'">
                                     <td th:text="${item.name}"></td>
                                     <td style="padding: 8px 8px">
-                                        <a href="#formElement" class="btn btn-primary float-right tree-btn">Add child</a>
+                                        <a href="#formElement" class="btn btn-light float-right tree-btn">Add child</a>
                                     </td>
                                     <input type="hidden" class="tree-id" th:value="${item.id}">
                                 </tr>
@@ -169,16 +172,23 @@
                         </tbody>
                     </table>
                 </div>
-                <div id="form-category" style="display: none">
+                <div id="form-category" class="border border-dark rounded p-4" style="display: none">
                     <h4>Category Details</h4>
-                    <form id="formElement" action="/admin/category" method="post" th:object="${CATEGORY_DTO}" enctype="multipart/form-data">
-                        <input type="text" id="parentId"  th:field="*{parentId}" readonly/>
-                        <input class="form-control mt-2" type="text" placeholder="Name" th:field="*{name}">
-                        <textarea class="form-control mt-2" rows="4" placeholder="Description" th:field="*{description}">
+                    <form id="formElement" class="was-validated" action="/admin/category" method="post" th:object="${CATEGORY_DTO}" enctype="multipart/form-data">
+                        <input class="form-control mt-2" type="text" id="parentId"  th:field="*{parentId}" readonly/>
+                        <div class="form-group">
+                            <input class="form-control mt-2" type="text" placeholder="Name" th:field="*{name}" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control mt-2" rows="4" placeholder="Description" th:field="*{description}" required>
 
-                        </textarea>
+                            </textarea>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
                         <input class="mt-2" type="file" th:field="*{image}">
-                        <input type="submit" value="Create">
+                        <br/>
+                        <input class="btn btn-primary mt-3" type="submit" value="Create">
                     </form>
                 </div>
             </div>
