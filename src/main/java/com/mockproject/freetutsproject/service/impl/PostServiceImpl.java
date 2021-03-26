@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import com.mockproject.freetutsproject.dto.AbstractDTO;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
@@ -44,11 +45,10 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public PostDTO findById(Long id) {
+	public PostDTO findByIdAndAvailableTrue(Long id){
 		PostEntity entity = this.postRepository.findByIdAndAvailableTrue(id);
 		if (entity != null) {
-			PostDTO dto = postMapper.toDTO(entity);
-			return dto;
+			return postMapper.toDTO(entity);
 		}
 		return null;
 	}
@@ -105,10 +105,25 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<PostDTO> findPostByCategory(CategoryDTO category) {
+	public List<PostDTO> findPostByCategoryAndAvailableTrue(CategoryDTO category) {
 		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
 		List<PostEntity> entityList = postRepository.findByCategoryAndAvailableTrue(categoryEntity);
 		
+		if (!entityList.isEmpty()) {
+			List<PostDTO> dtoList = new ArrayList<PostDTO>();
+			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
+			return dtoList;
+		}
+
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<PostDTO> findPostByCategory(CategoryDTO category) {
+		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
+		List<PostEntity> entityList = postRepository.findByCategory(categoryEntity);
+
 		if (!entityList.isEmpty()) {
 			List<PostDTO> dtoList = new ArrayList<PostDTO>();
 			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
@@ -127,6 +142,15 @@ public class PostServiceImpl implements PostService {
 			List<PostDTO> DTOs = new ArrayList<PostDTO>();
 			entities.forEach(entity -> DTOs.add(postMapper.toDTO(entity)));
 			return DTOs;
+		}
+		return null;
+	}
+
+	@Override
+	public PostDTO findById(Long id) {
+		PostEntity entity = postRepository.findById(id).orElse(null);
+		if (entity != null){
+			return postMapper.toDTO(entity);
 		}
 		return null;
 	}
@@ -155,7 +179,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional (readOnly = true)
 	public List<PostDTO> findTop15PostByCategories(List<CategoryDTO> categories) {
 		List<Long> categoryIds = categories.stream()
-											.map(category -> category.getId())
+											.map(AbstractDTO::getId)
 											.collect(Collectors.toList());
 		
 		List<PostEntity> postEntities = postRepository.findTop15PostByCategoryIdInOrderById(categoryIds);
@@ -170,8 +194,10 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	public void updateStatus(boolean status, PostDTO dto) {
-		PostEntity entity = postMapper.toEntity(dto);
-		entity.setAvailable(!status);
-		postRepository.save(entity);
+		PostEntity entity = postRepository.findById(dto.getId()).orElse(null);
+		if (entity != null) {
+			entity.setAvailable(!status);
+			postRepository.save(entity);
+		}
 	}
 }

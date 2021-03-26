@@ -113,7 +113,7 @@ public class WebController {
 			categoryBreadcrumb.remove(0);
 			
 			// Set relate post
-			List<PostDTO> relatePosts = postService.findPostByCategory(categoryDTO);
+			List<PostDTO> relatePosts = postService.findPostByCategoryAndAvailableTrue(categoryDTO);
 			model.addAttribute("RELATED_POSTS", relatePosts);
 
 			// Set next and previous post

@@ -84,12 +84,12 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	@Override
 	public CategoryEntity toEntity(CategoryDTO dto) {
 		CategoryEntity entity = modelMapper.map(dto, CategoryEntity.class);
-		if (dto.getParentId() != null) {
-			categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
-		}
-		if (dto.getCreatorId() != null) {
-			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
-		}
+//		if (dto.getParentId() != null) {
+//			categoryRepository.findById(dto.getParentId()).ifPresent(entity::setParent);
+//		}
+//		if (dto.getCreatorId() != null) {
+//			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+//		}
 		return entity;
 	}
 

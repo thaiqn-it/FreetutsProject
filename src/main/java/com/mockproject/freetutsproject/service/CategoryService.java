@@ -9,4 +9,6 @@ public interface CategoryService extends AbstractService<CategoryDTO> {
 	CategoryDTO findCategory(String name);
 	void updateStatus(boolean status, CategoryDTO dto);
 	List<CategoryDTO> findBySubCategoriesIsNull();
+	List<CategoryDTO> findByParentId(long id);
+	CategoryDTO findByIdAndAvailableTrue(long id);
 }

@@ -2,7 +2,6 @@ package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -41,7 +40,7 @@ public class CourseEntity extends AbstractEntity{
 	
 	@ManyToOne
 	@JoinColumn (name = "created_by")
-	@CreatedBy
+//	@CreatedBy
 	private AdminEntity creator;
 	
 	@ManyToOne

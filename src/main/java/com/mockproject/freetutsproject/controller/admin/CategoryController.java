@@ -1,7 +1,9 @@
 package com.mockproject.freetutsproject.controller.admin;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
+import com.mockproject.freetutsproject.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,8 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private PostService postService;
 
     @PostMapping("/admin/category")
     public String createCategory(CategoryDTO categoryDTO){
@@ -31,6 +35,8 @@ public class CategoryController {
                                        @PathVariable("id") Long id) {
         CategoryDTO dto = categoryService.findById(id);
         categoryService.updateStatus(status, dto);
+//        updateChildrenStatus(status, dto);
+//        updatePostsStatus(status, dto);
         return "redirect:/admin/category";
     }
 
@@ -39,5 +45,19 @@ public class CategoryController {
         List<CategoryDTO> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
         return "admin/admin-category";
+    }
+
+    private void updateChildrenStatus(boolean status, CategoryDTO dto){
+        List<CategoryDTO> children = categoryService.findByParentId(dto.getId());
+        if (children != null){
+            children.forEach(child -> categoryService.updateStatus(status, child));
+        }
+    }
+
+    private void updatePostsStatus(boolean status, CategoryDTO dto){
+        List<PostDTO> posts = postService.findPostByCategory(dto);
+        if (posts != null){
+            posts.forEach(post -> postService.updateStatus(status, post));
+        }
     }
 }

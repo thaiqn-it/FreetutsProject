@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional(readOnly = true)
 	public CategoryDTO findById(Long id) {
-		CategoryEntity entity = categoryRepository.findByIdAndAvailableTrue(id);
+		CategoryEntity entity = categoryRepository.findById(id).orElse(null);
 		if (entity != null) {
 			return categoryMapper.toDTO(entity);
 		}
@@ -69,6 +69,27 @@ public class CategoryServiceImpl implements CategoryService {
 			return entities.stream()
 							.map(entity -> categoryMapper.toDTO(entity))
 							.collect(Collectors.toList());
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional (readOnly = true)
+	public List<CategoryDTO> findByParentId(long id) {
+		List<CategoryEntity> entities = categoryRepository.findByParentId(id);
+		if (!entities.isEmpty()){
+			return entities.stream()
+					.map(entity -> categoryMapper.toDTO(entity))
+					.collect(Collectors.toList());
+		}
+		return null;
+	}
+
+	@Override
+	public CategoryDTO findByIdAndAvailableTrue(long id) {
+		CategoryEntity entity = categoryRepository.findByIdAndAvailableTrue(id);
+		if (entity != null) {
+			return categoryMapper.toDTO(entity);
 		}
 		return null;
 	}
@@ -105,9 +126,11 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public void updateStatus(boolean status, CategoryDTO dto) {
-		CategoryEntity entity = categoryMapper.toEntity(dto);
+		CategoryEntity oldEntity = categoryRepository.findById(dto.getId()).orElse(null);
+		if (oldEntity != null){
+			oldEntity.setAvailable(!status);
 
-		entity.setAvailable(!status);
-		categoryRepository.save(entity);
+		}
+		categoryRepository.save(oldEntity);
 	}
 }

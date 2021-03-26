@@ -2,7 +2,6 @@ package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -31,10 +30,10 @@ public class CategoryEntity extends AbstractEntity {
 	@OneToMany (mappedBy = "parent")
 	@Where(clause = "available = true")
 	private List<CategoryEntity> subCategories = new ArrayList<CategoryEntity>();
-	
+
+//	@CreatedBy
 	@ManyToOne
 	@JoinColumn (name = "created_by")
-	@CreatedBy
 	private AdminEntity creator;
 	
 	@OneToMany (mappedBy = "category")

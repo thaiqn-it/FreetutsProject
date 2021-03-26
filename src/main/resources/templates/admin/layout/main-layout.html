@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/image-upload-style.css}">
+    <link rel="stylesheet" th:href="@{/dist/css/image-upload-style.css}">
     <th:block th:replace="${styles} ?: ~{}"></th:block>
 </head>
 <body>
@@ -214,21 +214,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- apps -->
 <!-- apps -->
-<script src="../dist/js/app-style-switcher.js"></script>
-<script src="../dist/js/feather.min.js"></script>
+<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+<script th:src="@{/dist/js/feather.min.js}"></script>
 <!-- slimscrollbar scrollbar JavaScript -->
-<script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../dist/js/sparkline/sparkline.js"></script>
+<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+<script th:src="@{/dist/js/sparkline/sparkline.js}"></script>
 <!--Wave Effects -->
 <!-- themejs -->
 <!--Menu sidebar -->
-<script src="../dist/js/sidebarmenu.js"></script>
+<script th:src="@{/dist/js/sidebarmenu.js}"></script>
 <!--Custom JavaScript -->
-<script src="../dist/js/custom.min.js"></script>
+<script th:src="@{/dist/js/custom.min.js}"></script>
 <!--This page plugins -->
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
-<script src="../dist/js/datatable/datatable-basic.init.min.js"></script>
+<script th:src="@{/dist/js/datatable/datatable-basic.init.min.js}"></script>
 <th:block th:replace="${scripts} ?: ~{}"></th:block>
 </body>
 </html>

@@ -10,4 +10,5 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long>{
 	CategoryEntity findOneByName(String name);
 	List<CategoryEntity> findBySubCategoriesIsNullAndAvailableTrue();
 	CategoryEntity findByIdAndAvailableTrue(Long id);
+	List<CategoryEntity> findByParentId(long id);
 }

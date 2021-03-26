@@ -52,12 +52,12 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 	@Override
 	public PostEntity toEntity(PostDTO  dto) {
 		PostEntity entity = modelMapper.map(dto, PostEntity.class);
-		if (dto.getCategoryId() != null) {
-			categoryRepository.findById(dto.getCategoryId()).ifPresent(entity::setCategory);
-		}
-		if (dto.getCreatorId() != null) {
-			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
-		}
+//		if (dto.getCategoryId() != null) {
+//			categoryRepository.findById(dto.getCategoryId()).ifPresent(entity::setCategory);
+//		}
+//		if (dto.getCreatorId() != null) {
+//			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+//		}
 		return entity;
 	}
 

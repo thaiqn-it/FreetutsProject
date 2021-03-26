@@ -85,8 +85,10 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	@Transactional
 	public void updateStatus(boolean status, CourseDTO dto) {
-		CourseEntity entity = courseMapper.toEntity(dto);
-		entity.setAvailable(!status);
-		courseRepository.save(entity);
+		CourseEntity entity = courseRepository.findById(dto.getId()).orElse(null);
+		if (entity != null) {
+			entity.setAvailable(!status);
+			courseRepository.save(entity);
+		}
 	}
 }
