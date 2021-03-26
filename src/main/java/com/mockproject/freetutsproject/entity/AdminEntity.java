@@ -2,10 +2,7 @@ package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +26,6 @@ public class AdminEntity extends AbstractEntity {
 	@OneToMany (mappedBy = "creator")
 	private List<CourseEntity> createdCourses = new ArrayList<CourseEntity>();
 	
-	@OneToMany (mappedBy = "creator")
+	@OneToMany (mappedBy = "creator", cascade = CascadeType.ALL)
 	private List<PostEntity> createdPosts = new ArrayList<PostEntity>();
 }

@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.service.impl;
 
 import com.mockproject.freetutsproject.entity.AdminEntity;
+import com.mockproject.freetutsproject.security.CustomUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,7 +33,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 		Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
 		grantedAuthoritySet.add(new SimpleGrantedAuthority("ADMIN"));
-		return new org.springframework.security.core.userdetails.User(adminEntity.getUsername(), adminEntity.getPassword(),
-				grantedAuthoritySet);
+		return new CustomUser(adminEntity.getUsername(), adminEntity.getPassword(),
+				grantedAuthoritySet, adminEntity.getId(), adminEntity.getFullname());
 	}
 }

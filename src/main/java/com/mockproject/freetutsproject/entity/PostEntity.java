@@ -34,7 +34,7 @@ public class PostEntity extends AbstractEntity {
 
 //	@CreatedBy
 	@ManyToOne
-	@JoinColumn (name = "created_by")
+	@JoinColumn (name = "created_by", updatable = false)
 	private AdminEntity creator;
 	
 	@ManyToOne
