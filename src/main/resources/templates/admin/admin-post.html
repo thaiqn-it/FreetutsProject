@@ -17,11 +17,54 @@
     <li class="nav-item"><h4 class="card-title">Posts</h4></li>
     <li class="nav-item ml-auto">
         <!-- +new -->
-        <a class="btn btn-primary text-white rounded-circle font-13"
+        <a id="btn-add" class="btn btn-primary text-white rounded-circle font-13 hide"
            href="#"> <i class="fas fa-plus"></i> </a>
     </li>
 </ul>
+<div id="add-form" class="border border-dark rounded p-4 pb-5 my-3" style="display: none">
+    <form class="mb-3 was-validated" id="form-post" action="/admin/post" th:object="${POST_DTO}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input class="form-control mb-2" type="text" th:field="*{name}" value="" placeholder="Name" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <input list="categoryList" th:field="*{categoryId}" class="form-control mb-2" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+            <datalist id="categoryList">
+                <option style="width: 100% ; font-size: 15px" th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
+            </datalist>
+        </div>
+        <div class="form-group">
+            <textarea th:field="*{description}" class="form-control mb-2" placeholder="Description" rows="5" required></textarea>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <div class="panel">
+                <div class="button_outer">
+                    <div class="btn_upload">
+                        <input type="file" id="upload_file" th:field="*{image}">
+                        Upload Thumbnail
+                    </div>
+                    <div class="processing_bar"></div>
+                </div>
+            </div>
+            <div class="error_msg"></div>
+            <div class="uploaded_file_view" id="uploaded_view">
+                <span class="file_remove">X</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="content-editor">
+                        <textarea name="content" id="editor" th:field="*{contentFile}">
 
+                        </textarea>
+            </div>
+        </div>
+        <div id="btn-group" class="float-right mb-3">
+            <input id="btn-submit" class="btn btn-primary" style="margin-top: 0px" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
 <div class="table-responsive">
     <table id="multi_col_order"
            class="table table-striped table-bordered display">
@@ -90,29 +133,99 @@
 </div>
 
 <th:block th:replace="/admin/common/___modal :: updateModal"></th:block>
+</body>
 
 <!-- Update Status -->
-<script type="text/javascript">
-    function updateStatus(id,name,status){
-        var text = '('+ id + ') ' + name;
-        $("#updateStatus_text").html(text);
+<th:block id="scripts">
+    <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+    <script type="text/javascript">
+        console.log(1);
+        <!--Install ckeditor-->
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
 
-        var before = "true";
-        var after = "false";
-        if (!status) {
-            before = "false";
-            after = "true";
+                toolbar: {
+                    items: [
+                        'heading',
+                        '|',
+                        'bold',
+                        'italic',
+                        'link',
+                        'fontBackgroundColor',
+                        'fontColor',
+                        'fontFamily',
+                        'fontSize',
+                        'highlight',
+                        '|',
+                        'bulletedList',
+                        'numberedList',
+                        '|',
+                        'outdent',
+                        'indent',
+                        '|',
+                        'imageInsert',
+                        'mediaEmbed',
+                        '|',
+                        'insertTable',
+                        'undo',
+                        'redo',
+                        '|',
+                        'htmlEmbed',
+                        'codeBlock',
+                        'code',
+                        'MathType',
+                        '|'
+                    ]
+                },
+                language: 'vi',
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'imageStyle:full',
+                        'imageStyle:side',
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                licenseKey: '',
+
+
+            })
+            .then(editor => {
+                window.editor = editor;
+
+            })
+            .catch(error => {
+                console.error('Oops, something went wrong!');
+                console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+                console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+                console.error(error);
+            });
+
+        function updateStatus(id,name,status){
+            var text = '('+ id + ') ' + name;
+            $("#updateStatus_text").html(text);
+
+            var before = "true";
+            var after = "false";
+            if (!status) {
+                before = "false";
+                after = "true";
+            }
+
+            $("#updateStatus_before").html(before);
+            $("#updateStatus_after").html(after);
+
+            var confirm = "/admin/post/" + id + "/" + !status;
+            var confirmBtnEle = $("#updateStatus_confirm");
+            confirmBtnEle.attr('href',confirm);
         }
-
-        $("#updateStatus_before").html(before);
-        $("#updateStatus_after").html(after);
-
-        var confirm = "/admin/post/" + id + "/" + !status;
-        var confirmBtnEle = $("#updateStatus_confirm");
-        confirmBtnEle.attr('href',confirm);
-    }
-</script>
-<!-- ./Update Status -->
-</body>
+    </script>
+</th:block>
 
 </html>

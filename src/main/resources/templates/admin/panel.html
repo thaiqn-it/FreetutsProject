@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{::body},
+                                                ~{:: #scripts},
+                                               )}">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel</title>
+</head>
+<body th:insert="template-admin-page">
+
+</body>
+</html>

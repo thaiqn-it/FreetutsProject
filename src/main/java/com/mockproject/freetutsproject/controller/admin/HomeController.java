@@ -32,16 +32,17 @@ public class HomeController {
 
     @GetMapping(value = "/admin/panel")
     public String loadMenu(Model model) {
-        model.addAttribute("POST_DTO",new PostDTO());
-        model.addAttribute("COURSE_DTO",new CourseDTO());
+//        model.addAttribute("POST_DTO",new PostDTO());
+//        model.addAttribute("COURSE_DTO",new CourseDTO());
         model.addAttribute("DISCOUNT",new DiscountDTO());
         model.addAttribute("ADMIN_DTO",new AdminDTO());
-        model.addAttribute("CATEGORY_DTO",new CategoryDTO());
-        model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
-        model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
-        model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
+//        model.addAttribute("CATEGORY_DTO",new CategoryDTO());
+//        model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
+//        model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
 
-        return "template-admin-page";
+//        model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
+
+        return "/admin/panel";
     }
 
     private List<CategoryDTO> sortAsRelationship(List<CategoryDTO> topLevelCategory){
