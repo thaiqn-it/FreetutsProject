@@ -60,8 +60,8 @@
                    href="#"
                    data-toggle="modal"
                    data-target="#modalStatus"
-                   onclick="updateStatus(this.id,this.name,true)"
-                   th:id="${course.id}" th:name="${course.name}"
+                   th:onclick="'updateStatus(this.id,this.name,'+${course.available}+')'"
+                   th:id="'('+${course.id}+') '+${course.name}" th:name="'/admin/course/' + ${course.id} + '/' + ${!course.available}" 
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-check"></i>
                 </a>
@@ -70,8 +70,8 @@
                    href="#"
                    data-toggle="modal"
                    data-target="#modalStatus"
-                   onclick="updateStatus(this.id,this.name,false)"
-                   th:id="${course.id}" th:name="${course.name}"
+                   th:onclick="'updateStatus(this.id,this.name,'+${course.available}+')'"
+                   th:id="'('+${course.id}+') '+${course.name}" th:name="'/admin/course/' + ${course.id} + '/' + ${!course.available}" 
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-times"></i>
                 </a>
@@ -91,28 +91,9 @@
 
 <th:block th:replace="/admin/common/___modal :: updateModal"></th:block>
 
-<!-- Update Status -->
-<script type="text/javascript">
-    function updateStatus(id,name,status){
-        var text = '('+ id + ') ' + name;
-        $("#updateStatus_text").html(text);
-
-        var before = "true";
-        var after = "false";
-        if (!status) {
-            before = "false";
-            after = "true";
-        }
-
-        $("#updateStatus_before").html(before);
-        $("#updateStatus_after").html(after);
-
-        var confirm = "/admin/course/" + id + "/" + !status;
-        var confirmBtnEle = $("#updateStatus_confirm");
-        confirmBtnEle.attr('href',confirm);
-    }
-</script>
-<!-- ./Update Status -->
+    <!-- UpdateStatus -->
+	<script type="text/javascript" th:src="@{/dist/js/admin-updateStatus.js}"></script>
+	<!-- ./UpdateStatus -->
 </body>
 
 </html>

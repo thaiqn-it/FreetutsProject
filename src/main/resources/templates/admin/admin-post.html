@@ -49,7 +49,10 @@
         </tfoot>
         <tbody>
         <tr th:each="post : ${posts}">
-            <td th:text="${post.id}">Id</td>
+            <td> <span th:text="${post.id}">Id</span> 
+          	<a href="#" data-toggle="modal" data-target="#modalPreview" th:onclick="preview(this.id,this.name)"
+          	 th:id="'('+${post.id}+') '+${post.name}" th:name="'/contents/' + ${post.contentFile}"> <i class="far fa-eye">
+          	 </i></a></td>
             <td th:text="${post.name}">Name</td>
             <td th:text="${post.creatorName}">CreatorName</td>
             <td th:text="'(' + ${post.categoryId} + ') ' + ${post.categoryName}">CategoryName</td>
@@ -60,8 +63,8 @@
                    href="#"
                    data-toggle="modal"
                    data-target="#modalStatus"
-                   onclick="updateStatus(this.id,this.name,true)"
-                   th:id="${post.id}" th:name="${post.name}"
+                   th:onclick="'updateStatus(this.id,this.name,'+${post.available}+')'"
+                   th:id="'('+${post.id}+') '+${post.name}" th:name="'/admin/post/' + ${post.id} + '/' + ${!post.available}" 
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-check"></i>
                 </a>
@@ -70,8 +73,8 @@
                    href="#"
                    data-toggle="modal"
                    data-target="#modalStatus"
-                   onclick="updateStatus(this.id,this.name,false)"
-                   th:id="${post.id}" th:name="${post.name}"
+                   th:onclick="'updateStatus(this.id,this.name,'+${post.available}+')'"
+                   th:id="'('+${post.id}+') '+${post.name}" th:name="'/admin/post/' + ${post.id} + '/' + ${!post.available}" 
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-times"></i>
                 </a>
@@ -91,28 +94,44 @@
 
 <th:block th:replace="/admin/common/___modal :: updateModal"></th:block>
 
-<!-- Update Status -->
-<script type="text/javascript">
-    function updateStatus(id,name,status){
-        var text = '('+ id + ') ' + name;
-        $("#updateStatus_text").html(text);
-
-        var before = "true";
-        var after = "false";
-        if (!status) {
-            before = "false";
-            after = "true";
-        }
-
-        $("#updateStatus_before").html(before);
-        $("#updateStatus_after").html(after);
-
-        var confirm = "/admin/post/" + id + "/" + !status;
-        var confirmBtnEle = $("#updateStatus_confirm");
-        confirmBtnEle.attr('href',confirm);
-    }
-</script>
-<!-- ./Update Status -->
+    <!-- UpdateStatus -->
+	<script type="text/javascript" th:src="@{/dist/js/admin-updateStatus.js}"></script>
+	<!-- ./UpdateStatus -->
+	
+	<!-- Preview -->
+	<script>
+	function preview(title,file_url){
+		$("#preview_title").html(title);
+		includeHTML(file_url);
+	};
+	
+			function includeHTML(file_url) {
+			  var z, i, elmnt, file, xhttp;
+			  /* Loop through a collection of all HTML elements: */
+			  z = $("#preview_content");
+			  for (i = 0; i < z.length; i++) {
+			    elmnt = z[i];
+			    elmnt.innerHTML = "";
+			    /*search for elements with a certain atrribute:*/
+			    file = file_url;
+			    if (file) {
+			      /* Make an HTTP request using the attribute value as the file name: */
+			      xhttp = new XMLHttpRequest();
+			      xhttp.onreadystatechange = function() {
+			        if (this.readyState == 4) {
+			          if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+			          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+			        }
+			      }
+			      xhttp.open("GET", file, true);
+			      xhttp.send();
+			      /* Exit the function: */
+			      return;
+			    }
+			  }
+			};
+		</script>
+	<!-- ./Preview -->
 </body>
 
 </html>
