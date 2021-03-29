@@ -54,6 +54,11 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
+	public boolean availableById(Long postId) {
+		return postRepository.existsByIdAndAvailableTrue(postId);
+	}
+
+	@Override
 	@Transactional (readOnly = true)
 	public List<PostDTO> findTop8PostByOrderById() {
 		List<PostEntity> entity = postRepository.findTop8PostByAvailableTrueOrderByIdDesc();
@@ -196,7 +201,7 @@ public class PostServiceImpl implements PostService {
 	public void updateStatus(boolean status, PostDTO dto) {
 		PostEntity entity = postRepository.findById(dto.getId()).orElse(null);
 		if (entity != null) {
-			entity.setAvailable(!status);
+			entity.setAvailable(status);
 			postRepository.save(entity);
 		}
 	}

@@ -1,16 +1,15 @@
 package com.mockproject.freetutsproject.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.entity.CommentEntity;
 import com.mockproject.freetutsproject.mapper.CommentMapper;
 import com.mockproject.freetutsproject.repository.CommentRepository;
 import com.mockproject.freetutsproject.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional

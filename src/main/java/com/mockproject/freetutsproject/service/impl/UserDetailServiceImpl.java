@@ -33,7 +33,8 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
 		Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
 		grantedAuthoritySet.add(new SimpleGrantedAuthority("ADMIN"));
-		return new CustomUser(adminEntity.getUsername(), adminEntity.getPassword(),
-				grantedAuthoritySet, adminEntity.getId(), adminEntity.getFullname());
+		return new CustomUser(adminEntity.getId(), adminEntity.getFullname(),
+								adminEntity.getUsername(), adminEntity.getPassword(),
+								grantedAuthoritySet);
 	}
 }

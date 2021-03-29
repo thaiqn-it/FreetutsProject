@@ -23,7 +23,7 @@ public class CourseController {
         return "redirect:/admin/panel/?success";
     }
 
-    @GetMapping(value = "/admin/course/update-status:{status}/{id}")
+    @GetMapping(value = "/admin/course/{id}/{status}")
     public String updateCourseStatus(@PathVariable("status") boolean status,
                                      @PathVariable("id") Long id) {
         CourseDTO dto = courseService.findById(id);

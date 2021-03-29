@@ -57,51 +57,24 @@
             <td style="text-align: center;">
                 <a th:if="${post.available == true}"
                    class="btn btn-success"
-                   href="javascript:void(0)"
+                   href="#"
                    data-toggle="modal"
-                   th:data-target="'#myModal' + ${post.id}"
+                   data-target="#modalStatus"
+                   onclick="updateStatus(this.id,this.name,true)"
+                   th:id="${post.id}" th:name="${post.name}"
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-check"></i>
                 </a>
                 <a th:if="${post.available == false}"
                    class="btn btn-danger"
-                   href="javascript:void(0)"
+                   href="#"
                    data-toggle="modal"
-                   th:data-target="'#myModal' + ${post.id}"
+                   data-target="#modalStatus"
+                   onclick="updateStatus(this.id,this.name,false)"
+                   th:id="${post.id}" th:name="${post.name}"
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-times"></i>
                 </a>
-
-                <!-- The Modal -->
-                <div class="modal" th:id="'myModal' + ${post.id}">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Update Status</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <span> Update status of </span> <span
-                                    th:text="'(' + ${post.id} + ') ' + ${post.name}"></span>
-                                <br>
-                                <span th:text="${post.available}"> </span> -> <span
-                                    th:text="${!post.available}"> </span>
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <a th:href="'/admin/post/update-status:' + ${post.available} +'/'+ ${post.id}"
-                                   class="btn btn-success">Yes!</a>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
             </td>
 
             <td style="text-align: center;">
@@ -115,6 +88,31 @@
         </tbody>
     </table>
 </div>
+
+<th:block th:replace="/admin/common/___modal :: updateModal"></th:block>
+
+<!-- Update Status -->
+<script type="text/javascript">
+    function updateStatus(id,name,status){
+        var text = '('+ id + ') ' + name;
+        $("#updateStatus_text").html(text);
+
+        var before = "true";
+        var after = "false";
+        if (!status) {
+            before = "false";
+            after = "true";
+        }
+
+        $("#updateStatus_before").html(before);
+        $("#updateStatus_after").html(after);
+
+        var confirm = "/admin/post/" + id + "/" + !status;
+        var confirmBtnEle = $("#updateStatus_confirm");
+        confirmBtnEle.attr('href',confirm);
+    }
+</script>
+<!-- ./Update Status -->
 </body>
 
 </html>

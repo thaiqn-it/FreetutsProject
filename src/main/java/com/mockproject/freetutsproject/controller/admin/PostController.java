@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class PostController {
     @Autowired
-    PostService postService;
+    private PostService postService;
 
     @PostMapping(value = "/admin/post")
     public String createPost(PostDTO postDTO){
@@ -23,7 +23,7 @@ public class PostController {
     }
 
 
-    @GetMapping(value = "/admin/post/update-status:{status}/{id}")
+    @GetMapping(value = "/admin/post/{id}/{status}")
     public String updatePostStatus(@PathVariable("status") boolean status,
                                    @PathVariable("id") Long id) {
         PostDTO dto = postService.findById(id);

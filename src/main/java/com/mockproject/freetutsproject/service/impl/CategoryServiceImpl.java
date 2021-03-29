@@ -128,7 +128,7 @@ public class CategoryServiceImpl implements CategoryService {
 	public void updateStatus(boolean status, CategoryDTO dto) {
 		CategoryEntity oldEntity = categoryRepository.findById(dto.getId()).orElse(null);
 		if (oldEntity != null){
-			oldEntity.setAvailable(!status);
+			oldEntity.setAvailable(status);
 
 		}
 		categoryRepository.save(oldEntity);

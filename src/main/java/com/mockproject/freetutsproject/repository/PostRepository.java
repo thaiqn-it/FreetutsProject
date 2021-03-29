@@ -23,4 +23,6 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 	List<PostEntity> findTop15PostByCategoryIdInOrderById(List<Long> categoryIds);
 
 	List<PostEntity> findByCategory(CategoryEntity category);
+
+	boolean existsByIdAndAvailableTrue(Long id);
 }
