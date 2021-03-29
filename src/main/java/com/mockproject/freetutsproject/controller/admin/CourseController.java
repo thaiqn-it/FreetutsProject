@@ -1,6 +1,7 @@
 package com.mockproject.freetutsproject.controller.admin;
 
 import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class CourseController {
 
     @Autowired
     CourseService courseService;
+
+    @Autowired
+    CategoryService categoryService;
 
     @PostMapping("/admin/course")
     public String createCourse(CourseDTO courseDTO){
@@ -35,6 +39,8 @@ public class CourseController {
     public String loadAdminCourse(Model model) {
         List<CourseDTO> courses = courseService.findAll();
         model.addAttribute("courses", courses);
+        model.addAttribute("COURSE_DTO",new CourseDTO());
+        model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
         return "admin/admin-course";
     }
 }

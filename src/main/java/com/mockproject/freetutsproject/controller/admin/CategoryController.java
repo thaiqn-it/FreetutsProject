@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller (value = "categoryControllerOfAdmin")
@@ -59,7 +60,23 @@ public class CategoryController {
     public String loadAdminCategory(Model model) {
         List<CategoryDTO> categories = categoryService.findAll();
         model.addAttribute("categories", categories);
+        model.addAttribute("CATEGORY_DTO",new CategoryDTO());
+        model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
+
         return "admin/admin-category";
+    }
+
+    private List<CategoryDTO> sortAsRelationship(List<CategoryDTO> topLevelCategory){
+        List<CategoryDTO> result = new ArrayList<>();
+        for (CategoryDTO categoryDTO : topLevelCategory) {
+            result.add(categoryDTO);
+            List<CategoryDTO> subCate = categoryDTO.getSubCategories();
+            if (!subCate.isEmpty()) {
+                // Recursive with sub category list of categoryDTO
+                result.addAll(sortAsRelationship(subCate));
+            }
+        }
+        return result;
     }
 
     private void updateChildrenStatus(boolean status, CategoryDTO dto){
