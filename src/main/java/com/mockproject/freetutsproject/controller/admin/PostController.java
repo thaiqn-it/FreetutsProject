@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Controller
+@Controller (value = "postControllerOfAdmin")
 public class PostController {
     @Autowired
     private PostService postService;

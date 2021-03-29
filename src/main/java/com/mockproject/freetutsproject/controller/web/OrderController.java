@@ -25,6 +25,6 @@ public class OrderController {
         }
         orderService.save(orderDTO);
 
-        return "redirect:web/course/" + orderDTO.getCourseId() + "?success";
+        return "redirect:course/" + orderDTO.getCourseIds().get(0) + "?success";
     }
 }

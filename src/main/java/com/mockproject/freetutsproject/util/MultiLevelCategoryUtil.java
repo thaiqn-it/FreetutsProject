@@ -1,14 +1,13 @@
 package com.mockproject.freetutsproject.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mockproject.freetutsproject.dto.CategoryDTO;
-import com.mockproject.freetutsproject.service.CategoryService;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Component
 public class MultiLevelCategoryUtil {
@@ -52,5 +51,9 @@ public class MultiLevelCategoryUtil {
 		Collections.reverse(categoryList);
 		
 		return categoryList;
+	}
+
+	public boolean isBelongToLapTrinh(List<CategoryDTO> categoryStack) {
+		return categoryStack.get(0).getName().equals("Lập trình");
 	}
 }

@@ -1,15 +1,15 @@
 package com.mockproject.freetutsproject.mapper;
 
+import com.mockproject.freetutsproject.dto.OrderDTO;
+import com.mockproject.freetutsproject.entity.AbstractEntity;
+import com.mockproject.freetutsproject.entity.OrderEntity;
+import com.mockproject.freetutsproject.repository.CourseRepository;
+import com.mockproject.freetutsproject.repository.PaymentMethodRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mockproject.freetutsproject.dto.OrderDTO ;
-import com.mockproject.freetutsproject.entity.CourseEntity;
-import com.mockproject.freetutsproject.entity.OrderEntity;
-import com.mockproject.freetutsproject.entity.PaymentMethodEntity;
-import com.mockproject.freetutsproject.repository.CourseRepository;
-import com.mockproject.freetutsproject.repository.PaymentMethodRepository;
+import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
@@ -25,8 +25,14 @@ public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
 
 	@Override
 	public OrderDTO toDTO(OrderEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		OrderDTO dto = modelMapper.map(entity, OrderDTO.class);
+		if (entity.getCourses() != null){
+			dto.setCourseIds(entity.getCourses()
+									.stream()
+									.map(AbstractEntity::getId)
+									.collect(Collectors.toList()));
+		}
+		return dto;
 	}
 
 	@Override
@@ -34,14 +40,11 @@ public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
 		OrderEntity entity = modelMapper.map(dto, OrderEntity.class);
 
 		entity.setAvailable(true);
+		paymentMethodRepository.findById(dto.getPaymentMethod()).ifPresent(entity::setPaymentMethod);
 
-		PaymentMethodEntity paymentMethodEntity = paymentMethodRepository.findById(dto.getPaymentMethod()).orElse(null);
-		entity.setPaymentMethod(paymentMethodEntity);
-
-		CourseEntity courseEntity = courseRepository.findById(dto.getCourseId()).orElse(null);
-		if (courseEntity != null){
-			entity.getCourses().add(courseEntity);
-		}
+		dto.getCourseIds().forEach(courseId -> courseRepository
+												.findById(courseId)
+												.ifPresent(entity.getCourses()::add));
 		return entity;
 	}
 

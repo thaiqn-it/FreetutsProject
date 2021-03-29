@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller(value ="webCourse")
@@ -30,26 +31,42 @@ public class CourseController {
     @GetMapping(value = "/course/{id}")
     public String viewCourse(@PathVariable("id") String id, Model model) {
         CourseDTO dto = courseService.findById(Long.parseLong(id));
-        model.addAttribute("course", dto);
 
         if (dto != null) {
-            long categoryId = dto.getCategoryId();
-            CategoryDTO category = categoryService.findById(categoryId);
-
-            // Get breadcrumb data
-            List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(category);
-            model.addAttribute("breadcrumb", categoryBreadcrumb);
-
-            // Comment object for comment form
-            CommentDTO commentDTO = new CommentDTO();
-            commentDTO.setCourseId(Long.parseLong(id));
-            model.addAttribute("comment", commentDTO);
-
-            OrderDTO orderDTO = new OrderDTO();
-            orderDTO.setCourseId(Long.parseLong(id));
-            orderDTO.setPrice(dto.getPrice());
-            model.addAttribute("order", orderDTO);
+            model.addAttribute("course", dto);
+            setOtherDataOfPostPage(dto, model);
         }
         return "web/course";
+    }
+
+    private void setOtherDataOfPostPage(CourseDTO dto, Model model){
+        // Get breadcrumb data
+        model.addAttribute("BREADCRUMB", loadCategoryBreadcrumb(dto));
+
+        // Comment object for comment form
+        model.addAttribute("COMMENT", loadCommentDTO(dto.getId()));
+
+        // Load order dto
+        model.addAttribute("ORDER", loadOrderDTO(dto.getId(), dto.getPrice()));
+    }
+
+    private CommentDTO loadCommentDTO(long courseId) {
+        CommentDTO commentDTO = new CommentDTO();
+        commentDTO.setCourseId(courseId);
+        return commentDTO;
+    }
+
+    private OrderDTO loadOrderDTO(long courseId, float price) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setCourseIds(new ArrayList<>());
+        orderDTO.getCourseIds().add(courseId);
+        orderDTO.setPrice(price);
+        return orderDTO;
+    }
+
+    private List<CategoryDTO> loadCategoryBreadcrumb(CourseDTO dto){
+        long categoryId = dto.getCategoryId();
+        CategoryDTO category = categoryService.findById(categoryId);
+        return categoryUtil.getCategoryListBottomUp(category);
     }
 }

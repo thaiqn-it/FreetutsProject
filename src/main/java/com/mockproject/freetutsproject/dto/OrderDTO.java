@@ -2,6 +2,8 @@ package com.mockproject.freetutsproject.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class OrderDTO extends AbstractDTO<OrderDTO> {
 	// Add more fields which use to show on frontend
@@ -19,5 +21,5 @@ public class OrderDTO extends AbstractDTO<OrderDTO> {
 
     private String address;
 
-    private Long courseId;
+    private List<Long> courseIds;
 }

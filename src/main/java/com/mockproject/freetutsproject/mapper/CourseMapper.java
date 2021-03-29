@@ -2,6 +2,7 @@ package com.mockproject.freetutsproject.mapper;
 
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.dto.OrderDTO;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
@@ -27,6 +28,9 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 	@Autowired
 	private AdminRepository adminRepository;
 
+	@Autowired
+	private OrderMapper orderMapper;
+
 	@Override
 	public CourseDTO toDTO(CourseEntity entity) {
 		CourseDTO dto = modelMapper.map(entity, CourseDTO.class);
@@ -44,6 +48,13 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 		if (entity.getComments() != null) {
 			List<CommentDTO> commentDTOs = new ArrayList<CommentDTO>();
 			entity.getComments().forEach(comment -> commentDTOs.add(commentMapper.toDTO(comment)));
+			dto.setComments(commentDTOs);
+		}
+
+		if (entity.getOrders() != null){
+			List<OrderDTO> orderDTOs = new ArrayList<>();
+			entity.getOrders().forEach(order -> orderDTOs.add(orderMapper.toDTO(order)));
+			dto.setListOrders(orderDTOs);
 		}
 		return dto;
 	}

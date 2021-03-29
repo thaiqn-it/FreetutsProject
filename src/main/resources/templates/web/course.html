@@ -64,7 +64,7 @@
     <div id="breadcrumb-bar" th:replace="/web/common/___breadcrumb :: breadcrumb"></div>
 
     <div id="main-content" class="border p-4">
-        <div class="mt-2 p-4">
+        <div>
                 <div>
                     <h2 th:text="${course.name}"></h2>
                 </div>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
         </div>
-        <div class="m-4">
+        <div class="my-4">
             <h2 class="mb-4 border-bottom">Giới thiệu</h2>
             <table class="w-100 table table-bordered">
                 <thead>
@@ -126,13 +126,27 @@
                 </div>
             </div>
         </div>
+
+        <div class="mt-4" th:if="${course.listOrders != null}">
+            <h2>Học viên đã mua khóa học này</h2>
+            <hr>
+            <table class="table table-bordered table-sm">
+                <tbody>
+                    <tr th:each="order : ${course.listOrders}">
+                        <td th:text="${order.name}"></td>
+                        <td th:text="${order.email}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
         <div id="form_register" style=" background: #34495e;  margin: 20px auto" class="my-5 p-4">
             <h2 class="text-center text-light">ĐĂNG KÝ KHÓA HỌC</h2>
             <p class="text-center text-light">###########################</p>
             <div  style="margin-bottom: 0px;">
                 <div>
                     <div></div>
-                    <form id="form-course" action="/order" method="post" th:object="${order}">
+                    <form id="form-course" action="/order" method="post" th:object="${ORDER}">
                         <p>
                             <label style="font-weight: bold; color: #fff">Tên của bạn <span style="color: red">*</span></label><br>
                             <input th:field="*{name}" class="form-control" type="text" required="true" id="name" value="" size="40" placeholder="Tên của bạn (required)">
@@ -219,7 +233,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="courseId" th:field="*{courseId}" th:value="*{courseId}">
+                        <input type="hidden" name="courseId" th:field="*{courseIds}" th:value="*{courseIds}">
                         <input type="hidden" name="price" th:field="*{price}" th:value="*{price}">
                         <p style="text-align: center">
                             <input type="submit" class="btn" style="background: #2ecc71" value="GỬI THÔNG TIN" id="send_message">
@@ -230,7 +244,7 @@
         </div>
     </div>
     
-    <!-- Comment Frame (if need) -->
+    <!-- Comment Frame (if need) -->return 0;
 	<div id="comment-frame" th:replace="/web/common/___comment-frame :: comment-frame"></div>
 </body>
 
@@ -265,6 +279,6 @@
         }
     }
 </script>
-<script th:src="@{/js/comment-box.js}"></script>
+<script th:src="@{/dist/js/comment-box.js}"></script>
 </th:block>
 </html>

@@ -21,4 +21,5 @@ public class CourseDTO extends AbstractDTO<CourseDTO> {
 	private List<CommentDTO> comments;
 	private Long price;
 	private MultipartFile image;
+	private List<OrderDTO> listOrders;
 }

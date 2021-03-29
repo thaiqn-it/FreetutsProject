@@ -2,6 +2,7 @@ package com.mockproject.freetutsproject.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -32,7 +33,7 @@ public class PostEntity extends AbstractEntity {
 	@Column
 	private String contentFile;
 
-//	@CreatedBy
+	@CreatedBy
 	@ManyToOne
 	@JoinColumn (name = "created_by", updatable = false)
 	private AdminEntity creator;

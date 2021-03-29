@@ -1,11 +1,8 @@
 package com.mockproject.freetutsproject.controller.web;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
-import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
-import com.mockproject.freetutsproject.service.CommentService;
-import com.mockproject.freetutsproject.service.CourseService;
 import com.mockproject.freetutsproject.service.PostService;
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import com.mockproject.freetutsproject.util.PagingUtil;
@@ -14,41 +11,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-public class WebController {
+@Controller (value = "categoryControllerOfWeb")
+public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
+
 	@Autowired
 	private MultiLevelCategoryUtil categoryUtil;
-	
+
 	@Autowired
 	private PostService postService;
-
-	@Autowired
-	private CourseService courseService;
-	
-	@Autowired 
-	private CommentService commentService;
-
-	@GetMapping(value = "post/{id}")
-	public String loadPost(@PathVariable("id") String id, Model model) {
-		// Get post
-		PostDTO postDTO = this.postService.findById(Long.parseLong(id));
-		
-		if (postDTO != null) {
-			model.addAttribute("post", postDTO);
-			setOtherDataOfPostPage(postDTO, model);
-		}
-		return "web/post";
-	}
 	
 	@GetMapping (value = "/category/{id}")
 	public String viewCategory(@PathVariable("id") String id, Model model,
@@ -64,86 +42,13 @@ public class WebController {
 		return "web/category";
 	}
 	
-	@PostMapping(value = "/comment/")
-	public String comment(CommentDTO commentDTO) {
-		if (commentDTO.getCourseId() != null) {
-			Long courseId = commentDTO.getCourseId();
-			if (courseService.availableById(courseId)){
-				CommentDTO savedComment = commentService.save(commentDTO);
-				return "redirect:web/course/" + savedComment.getCourseId();
-			}
-		}
-		else if (commentDTO.getPostId() != null) {
-			Long postId = commentDTO.getPostId();
-			if (postService.availableById(postId)) {
-				CommentDTO savedComment = commentService.save(commentDTO);
-				return "redirect:web/post/" + savedComment.getPostId();
-			}
-		}
-		return "error-404";
-	}
-	
-	private void setNextAndPreviousPost(List<PostDTO> relatePosts, Model model, Long currentPostId) {
-		long previousPostId = -1;
-		long nextPostId = -1;
-		if (relatePosts.size() > 1) {
-			for (int i = 0; i < relatePosts.size(); i++) {
-				if(relatePosts.get(i).getId().equals(currentPostId)){
-					if (i == 0) {
-						nextPostId = relatePosts.get(i + 1).getId();
-					} else if (i == relatePosts.size() - 1) {
-						previousPostId = relatePosts.get(i - 1).getId();
-					} else {
-						nextPostId = relatePosts.get(i + 1).getId();
-						previousPostId = relatePosts.get(i - 1).getId();
-					}
-				}
-				}
-		}
-		model.addAttribute("PREVIOUS_POST_ID", previousPostId);
-		model.addAttribute("NEXT_POST_ID", nextPostId);
-	}
-	
-	private void setCommentDto(Model model, Long postId) {
-		// Comment object for comment form
-		CommentDTO commentDTO = new CommentDTO();
-		commentDTO.setPostId(postId);
-		model.addAttribute("comment", commentDTO);
-	}
-	
-	private void setOtherDataOfPostPage(PostDTO postDTO, Model model) {
-		long categoryId = postDTO.getCategoryId();
-		CategoryDTO categoryDTO = categoryService.findById(categoryId);
-		
-		// Set breadcrumb data 
-		List<CategoryDTO> categoryBreadcrumb = categoryUtil.getCategoryListBottomUp(categoryDTO);
-		
-		// If post belong to "Lập trình" category
-		if (isBelongToLapTrinh(categoryBreadcrumb)) {
-			// Remove "Lập trình" since it not accessible
-			categoryBreadcrumb.remove(0);
-			
-			// Set relate post
-			List<PostDTO> relatePosts = postService.findPostByCategoryAndAvailableTrue(categoryDTO);
-			model.addAttribute("RELATED_POSTS", relatePosts);
 
-			// Set next and previous post
-			setNextAndPreviousPost(relatePosts, model, postDTO.getId());
-		}
-		model.addAttribute("BREADCRUMB", categoryBreadcrumb);
-			
-		setCommentDto(model, postDTO.getId());
-	}
-
-	private boolean isBelongToLapTrinh(List<CategoryDTO> categoryStack) {
-		return categoryStack.get(0).getName().equals("Lập trình");
-	}
 
 	private void setOtherDataOfCategoryPage(CategoryDTO dto, Model model) {
 		List<CategoryDTO> categoryStack = categoryUtil.getCategoryListBottomUp(dto);
 		
 		// If post belong to "Lập trình" category
-		if (isBelongToLapTrinh(categoryStack)) {
+		if (categoryUtil.isBelongToLapTrinh(categoryStack)) {
 			// Remove "Lập trình" since it not accessible
 			categoryStack.remove(0);
 			

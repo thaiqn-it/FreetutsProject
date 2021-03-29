@@ -22,9 +22,24 @@ public class HomeController {
 
     @GetMapping(value = "/")
     public String loadHome(Model model){
-        List<NewsBoxDTO> newsBoxes = new ArrayList<>();
         List<CategoryDTO> categoryDTOS = categoryService.loadTopLevelCategories();
 
+        // Load news boxes
+        model.addAttribute("NEWS_BOXES", loadNewsBoxesData(categoryDTOS));
+
+        // Load widget review course
+        model.addAttribute("COURSE_REVIEW", loadWidgetReviewCourseData(34));
+
+        //load owl-carousel coupon
+        model.addAttribute("COUPON", loadOwlCarouselData(38));
+
+        //load exercise
+        model.addAttribute("EXERCISE", loadExerciseData("Bài tập"));
+        return "web/home";
+    }
+
+    private List<NewsBoxDTO> loadNewsBoxesData(List<CategoryDTO> categoryDTOS) {
+        List<NewsBoxDTO> newsBoxes = new ArrayList<>();
         for (int i = 0; i < categoryDTOS.size(); i++) {
             CategoryDTO category = categoryDTOS.get(i);
 
@@ -39,21 +54,17 @@ public class HomeController {
                 }
             }
         }
-        model.addAttribute("NEWS_BOXES",newsBoxes);
-
-        // Load widget review course
-        CategoryDTO category = categoryService.findById((long)34);
-        List<PostDTO> postList = postService.findPostByCategoryAndOrderedById(category,5);
-        model.addAttribute("COURSE_REVIEW",postList);
-
-        //load owl-carousel
-        category = categoryService.findById((long)38);
-        postList = postService.findPostByCategoryAndOrderedById(category,12);
-        model.addAttribute("COUPON",postList);
-
-        //load exercise
-        postList =  postService.findTop20PostByCategoryNameContainingOrderById("Bài tập");
-        model.addAttribute("EXERCISE",postList);
-        return "web/home";
+        return newsBoxes;
+    }
+    private List<PostDTO> loadWidgetReviewCourseData(long id){
+        CategoryDTO category = categoryService.findById(id);
+        return postService.findPostByCategoryAndOrderedById(category,5);
+    }
+    private List<PostDTO> loadOwlCarouselData(long id){
+        CategoryDTO category = categoryService.findById(id);
+        return postService.findPostByCategoryAndOrderedById(category,12);
+    }
+    private List<PostDTO> loadExerciseData(String categoryName){
+        return postService.findTop20PostByCategoryNameContainingOrderById(categoryName);
     }
 }

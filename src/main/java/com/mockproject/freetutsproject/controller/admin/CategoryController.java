@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Controller
+@Controller (value = "categoryControllerOfAdmin")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
@@ -46,7 +46,9 @@ public class CategoryController {
             updateCoursesStatus(status, dto);
         }
         else {
-            updateParent(status, dto);
+            if (dto.getParentId() != null) {
+                updateParent(status, dto);
+            }
             updatePostsStatus(status, dto);
             updateCoursesStatus(status, dto);
         }
