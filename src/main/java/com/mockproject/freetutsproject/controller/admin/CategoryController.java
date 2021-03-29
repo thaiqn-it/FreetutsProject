@@ -40,7 +40,7 @@ public class CategoryController {
                                        @PathVariable("id") Long id) {
         CategoryDTO dto = categoryService.findById(id);
         categoryService.updateStatus(status, dto);
-        if (!status) {
+        if (status) {
             updateChildrenStatus(status, dto);
             updatePostsStatus(status, dto);
             updateCoursesStatus(status, dto);
