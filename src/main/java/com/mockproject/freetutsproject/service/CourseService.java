@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CourseService extends AbstractService<CourseDTO>{
     List<CourseDTO> findTopFiveNewestCourse();
-    void updateStatus(boolean status, CourseDTO dto);
+    CourseDTO updateStatus(boolean status, long id);
     List<CourseDTO> findCoursesByCategory(CategoryDTO categoryDTO);
     boolean availableById(Long courseId);
 }

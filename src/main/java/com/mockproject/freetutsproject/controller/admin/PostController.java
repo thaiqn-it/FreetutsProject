@@ -22,8 +22,9 @@ public class PostController {
 
     @PostMapping(value = "/admin/post")
     public String createPost(PostDTO postDTO){
-        postService.save(postDTO);
-        return "redirect:/admin/panel/?success";
+        PostDTO result = postService.save(postDTO);
+        if (result != null) return "redirect:/admin/post?success";
+        return "redirect:/admin/post?error";
     }
 
 
@@ -31,8 +32,9 @@ public class PostController {
     public String updatePostStatus(@PathVariable("status") boolean status,
                                    @PathVariable("id") Long id) {
         PostDTO dto = postService.findById(id);
-        postService.updateStatus(status, dto);
-        return "redirect:/admin/post";
+        PostDTO result = postService.updateStatus(status, id);
+        if (result != null) return "redirect:/admin/post?success";
+        return "redirect:/admin/post?error";
     }
 
     @GetMapping (value = "/admin/post")

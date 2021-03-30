@@ -23,16 +23,17 @@ public class CourseController {
 
     @PostMapping("/admin/course")
     public String createCourse(CourseDTO courseDTO){
-        courseService.save(courseDTO);
-        return "redirect:/admin/panel/?success";
+        CourseDTO result = courseService.save(courseDTO);
+        if (result != null) return "redirect:/admin/course?success";
+        return "redirect:/admin/course?error";
     }
 
     @GetMapping(value = "/admin/course/{id}/{status}")
     public String updateCourseStatus(@PathVariable("status") boolean status,
                                      @PathVariable("id") Long id) {
-        CourseDTO dto = courseService.findById(id);
-        courseService.updateStatus(status, dto);
-        return "redirect:/admin/course";
+        CourseDTO result = courseService.updateStatus(status, id);
+        if (result != null) return "redirect:/admin/course?success";
+        return "redirect:/admin/course?error";
     }
 
     @GetMapping (value = "/admin/course")

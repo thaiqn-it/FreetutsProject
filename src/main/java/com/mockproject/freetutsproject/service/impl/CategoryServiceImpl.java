@@ -125,12 +125,12 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Override
 	@Transactional
-	public void updateStatus(boolean status, CategoryDTO dto) {
-		CategoryEntity oldEntity = categoryRepository.findById(dto.getId()).orElse(null);
+	public CategoryDTO updateStatus(boolean status, long id) {
+		CategoryEntity oldEntity = categoryRepository.findById(id).orElse(null);
 		if (oldEntity != null){
 			oldEntity.setAvailable(status);
-
+			return categoryMapper.toDTO(categoryRepository.save(oldEntity));
 		}
-		categoryRepository.save(oldEntity);
+		return null;
 	}
 }
