@@ -14,7 +14,7 @@ public class OrderController {
     @PostMapping(value = "/order")
     public String saveOrder(OrderDTO orderDTO){
         // calc price
-        int method = Integer.parseInt(orderDTO.getPaymentMethod().toString());
+        int method = Integer.parseInt(orderDTO.getPaymentMethodId().toString());
         switch (method) {
             case 2 :
                 orderDTO.setPrice(orderDTO.getPrice() + 25000);

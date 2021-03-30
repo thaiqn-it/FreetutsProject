@@ -20,7 +20,7 @@ public class HomeController {
     @Autowired
     private PostService postService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = {"/", "/home"})
     public String loadHome(Model model){
         List<CategoryDTO> categoryDTOS = categoryService.loadTopLevelCategories();
 

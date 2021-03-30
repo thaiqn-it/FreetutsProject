@@ -36,13 +36,16 @@ public class CategoryController {
         return "redirect:/admin/panel/?error";
     }
 
-    @GetMapping(value = "/admin/category/{id}/{status}")
+    @GetMapping(value = { "/admin/category/{id}/{status}", "/admin/category/{id}/{status}/{enableChildren}"})
     public String updateCategoryStatus(@PathVariable("status") boolean status,
-                                       @PathVariable("id") Long id) {
+                                       @PathVariable("id") Long id,
+                                       @PathVariable(value = "enableChildren", required = false) String enableString) {
         CategoryDTO result = categoryService.updateStatus(status, id);
         boolean success = result != null;
         if (success) {
-            updateRelateItems(status, id);
+            boolean enableChildren = enableString != null;
+            updateRelateItems(status, id, enableChildren);
+            return "redirect:/admin/category?success";
         }
         return "redirect:/admin/category?error";
     }
@@ -85,13 +88,16 @@ public class CategoryController {
         }
     }
 
-    private void updateRelateItems(boolean status, long id){
+    private void updateRelateItems(boolean status, long id, boolean enableChildren){
         CategoryDTO dto = categoryService.findById(id);
         if (!status) {
             updateChildrenStatus(status, dto);
         } else {
             if (dto.getParentId() != null) {
                 updateParent(status, dto);
+            }
+            if (enableChildren){
+                updateChildrenStatus(status, dto);
             }
         }
         updatePostsStatus(status, dto);

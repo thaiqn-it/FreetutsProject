@@ -32,6 +32,9 @@ public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
 									.map(AbstractEntity::getId)
 									.collect(Collectors.toList()));
 		}
+		if (entity.getPaymentMethod() != null){
+			dto.setPaymentMethodId(entity.getPaymentMethod().getId());
+		}
 		return dto;
 	}
 
@@ -40,7 +43,7 @@ public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
 		OrderEntity entity = modelMapper.map(dto, OrderEntity.class);
 
 		entity.setAvailable(true);
-		paymentMethodRepository.findById(dto.getPaymentMethod()).ifPresent(entity::setPaymentMethod);
+		paymentMethodRepository.findById(dto.getPaymentMethodId()).ifPresent(entity::setPaymentMethod);
 
 		dto.getCourseIds().forEach(courseId -> courseRepository
 												.findById(courseId)

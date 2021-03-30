@@ -171,7 +171,7 @@
                             <h4 style="text-align: center">CHỌN HÌNH THỨC THANH TOÁN</h4>  <br>
                             <div>
                                 <div>
-                                    <p><strong> <input checked th:field="*{paymentMethod}"type="radio" name="payment_type" id="pay_for_bank" value="1" class="paycheck"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
+                                    <p><strong> <input checked th:field="*{paymentMethodId}"type="radio" name="payment_type" id="pay_for_bank" value="1" class="paycheck"> <label for="pay_for_bank">THANH TOÁN QUA NGÂN HÀNG</label></strong></p>
                                     <div class="paylist p-2" style="display: block; background-color: #d3f4e1">
                                         <ul style="margin-top: 15px">
                                             <li>
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" id="pay_for_post_office" class="paycheck" value="2"> <label for="pay_for_post_office">THANH TOÁN QUA BƯU ĐIỆN</label></strong></p>
+                                    <p><strong> <input th:field="*{paymentMethodId}" type="radio" name="payment_type" id="pay_for_post_office" class="paycheck" value="2"> <label for="pay_for_post_office">THANH TOÁN QUA BƯU ĐIỆN</label></strong></p>
                                     <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
                                         <p>Bạn phải nhập đúng địa chỉ bên dưới vì mình sẽ gửi mã kích hoạt qua đường bưu điện, thanh toán tận nhà.</p>
                                         <p>
@@ -214,14 +214,14 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" id="pay_for_post_paypal" class="paycheck" value="3"> <label for="pay_for_post_paypal">THANH TOÁN QUA PAYPAL</label></strong></p>
+                                    <p><strong> <input th:field="*{paymentMethodId}" type="radio" name="payment_type" id="pay_for_post_paypal" class="paycheck" value="3"> <label for="pay_for_post_paypal">THANH TOÁN QUA PAYPAL</label></strong></p>
                                     <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
                                         <p>Gửi $ đến địa chỉ paypal: cuongwriter@gmail.com.</p>
                                         <p><span style="color: red">Số tiền: <strong style="font-size: 18px" th:with="price=(${course.price} / 23000.0)" th:text="${#numbers.formatDecimal(price, 1, 'COMMA', 2, 'POINT') + '$'}"></strong> giá đã bao gồm phí giao dịch paypal</span></p>
                                     </div>
                                 </div>
                                 <div>
-                                    <p><strong> <input th:field="*{paymentMethod}" type="radio" name="payment_type" value="4" class="paycheck" id="pay_for_momo"> <label for="pay_for_momo">THANH TOÁN QUA VÍ MOMO</label></strong></p>
+                                    <p><strong> <input th:field="*{paymentMethodId}" type="radio" name="payment_type" value="4" class="paycheck" id="pay_for_momo"> <label for="pay_for_momo">THANH TOÁN QUA VÍ MOMO</label></strong></p>
                                     <div class="paylist p-4" style="display: none; background-color: #d3f4e1">
                                         <p>Thanh toán qua ví với số điện thoại: 0979306603.</p>
                                         <p><span style="color: red">Số tiền: <strong style="font-size: 18px"  th:text="${#numbers.formatDecimal(course.price, 1, 'COMMA', 0, 'POINT') + ' đ'}"></strong></span></p>

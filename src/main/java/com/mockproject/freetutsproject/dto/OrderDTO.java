@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 public class OrderDTO extends AbstractDTO<OrderDTO> {
 	// Add more fields which use to show on frontend
-    private Long paymentMethod;
+    private Long paymentMethodId;
 
     private String name;
 
