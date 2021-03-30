@@ -198,11 +198,12 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional
-	public void updateStatus(boolean status, PostDTO dto) {
-		PostEntity entity = postRepository.findById(dto.getId()).orElse(null);
+	public PostDTO updateStatus(boolean status, long id) {
+		PostEntity entity = postRepository.findById(id).orElse(null);
 		if (entity != null) {
 			entity.setAvailable(status);
-			postRepository.save(entity);
+			return postMapper.toDTO(postRepository.save(entity));
 		}
+		return null;
 	}
 }

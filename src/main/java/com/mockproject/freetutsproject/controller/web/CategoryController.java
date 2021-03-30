@@ -32,7 +32,7 @@ public class CategoryController {
 	public String viewCategory(@PathVariable("id") String id, Model model,
 								@RequestParam(value="page", required = false, defaultValue = "1") int page, 
 								@RequestParam(value="limit", required = false, defaultValue = "5") int limit) {
-		CategoryDTO dto = categoryService.findById(Long.parseLong(id));
+		CategoryDTO dto = categoryService.findByIdAndAvailableTrue(Long.parseLong(id));
 
 		if (dto != null) {
 			processPagingOnPostListOfCategory(page, limit, dto);

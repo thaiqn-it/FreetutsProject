@@ -39,21 +39,12 @@ public class CategoryController {
     @GetMapping(value = "/admin/category/{id}/{status}")
     public String updateCategoryStatus(@PathVariable("status") boolean status,
                                        @PathVariable("id") Long id) {
-        CategoryDTO dto = categoryService.findById(id);
-        categoryService.updateStatus(status, dto);
-        if (status) {
-            updateChildrenStatus(status, dto);
-            updatePostsStatus(status, dto);
-            updateCoursesStatus(status, dto);
+        CategoryDTO result = categoryService.updateStatus(status, id);
+        boolean success = result != null;
+        if (success) {
+            updateRelateItems(status, id);
         }
-        else {
-            if (dto.getParentId() != null) {
-                updateParent(status, dto);
-            }
-            updatePostsStatus(status, dto);
-            updateCoursesStatus(status, dto);
-        }
-        return "redirect:/admin/category";
+        return "redirect:/admin/category?error";
     }
 
     @GetMapping (value = "/admin/category")
@@ -83,7 +74,7 @@ public class CategoryController {
         List<CategoryDTO> children = categoryService.findByParentId(dto.getId());
         if (children != null){
             children.forEach(child -> {
-                categoryService.updateStatus(status, child);
+                categoryService.updateStatus(status, child.getId());
                 updatePostsStatus(status, child);
                 updateCoursesStatus(status, child);
 
@@ -94,24 +85,37 @@ public class CategoryController {
         }
     }
 
+    private void updateRelateItems(boolean status, long id){
+        CategoryDTO dto = categoryService.findById(id);
+        if (!status) {
+            updateChildrenStatus(status, dto);
+        } else {
+            if (dto.getParentId() != null) {
+                updateParent(status, dto);
+            }
+        }
+        updatePostsStatus(status, dto);
+        updateCoursesStatus(status, dto);
+    }
+
     private void updatePostsStatus(boolean status, CategoryDTO dto){
         List<PostDTO> posts = postService.findPostByCategory(dto);
         if (posts != null){
-            posts.forEach(post -> postService.updateStatus(status, post));
+            posts.forEach(post -> postService.updateStatus(status, post.getId()));
         }
     }
 
     private void updateCoursesStatus(boolean status, CategoryDTO dto){
         List<CourseDTO> courses = courseService.findCoursesByCategory(dto);
         if (courses != null){
-            courses.forEach(course -> courseService.updateStatus(status, course));
+            courses.forEach(course -> courseService.updateStatus(status, course.getId()));
         }
     }
 
     private void updateParent(boolean status, CategoryDTO categoryDTO){
         CategoryDTO parent = categoryService.findById(categoryDTO.getParentId());
         if (parent != null){
-            categoryService.updateStatus(status, parent);
+            categoryService.updateStatus(status, parent.getId());
             updateCoursesStatus(status, parent);
             updatePostsStatus(status, parent);
 
