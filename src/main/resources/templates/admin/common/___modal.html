@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<th:block th:fragment="updateModal">
+<th:block th:fragment="updateStatusModal">
     <!-- The Modal - STATUS -->
     <div class="modal" id="modalStatus">
         <div class="modal-dialog">
@@ -30,8 +30,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <a id="updateStatus_confirm" class="btn btn-success" href="#">Yes!</a>
-
+                    <a id="updateStatus_confirm" class="btn btn-success" href="#">Yes</a>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                 </div>
 
@@ -39,10 +38,11 @@
         </div>
     </div>
     <!-- End The Modal - STATUS  -->
-    
+</th:block>
+<th:block th:fragment="editDiscountModal">
     <!-- The Modal - PREVIEW -->
     <div class="modal" id="modalPreview">
-      <div class="modal-dialog modal-xl">
+      <div class="modal-dialog modal-xl modal-dialog-centered w-50">
         <div class="modal-content">
     
           <!-- Modal Header -->
@@ -50,19 +50,39 @@
             <h4 id="preview_title" class="modal-title"> Preview </h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
-    
+
           <!-- Modal body -->
           <div class="modal-body">
             	<!-- 3. Post Content --> 
-				<div id="preview_content"></div>
-            <br>
+				<div id="preview_content">
+                    <form id="editDiscountForm" action="/admin/discount/update" class="was-validated p-4" method="post" th:object="${DISCOUNT}">
+                        <input type="hidden" th:field="*{id}" id="editId">
+                        <div class="form-group">
+                            <input id="updateCode" type="text" class="form-control mb-2" placeholder="Code" th:field="*{discountCode}" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                        <div class="form-group">
+                            <input id="updatePercent" type="number" class="form-control mb-2" placeholder="Percent" th:field="*{discountPercent}" min="1" max="100" required>
+                            <div class="invalid-feedback">Please fill out 1-100 in this field.</div>
+                        </div>
+                        <div class="form-group">
+                            <input id="updateWebsite" type="url" class="form-control mb-2" placeholder="Link" th:field="*{discountWebsite}" required>
+                            <div class="invalid-feedback">Please fill out the link in this field.</div>
+                        </div>
+                        <div class="form-group">
+                            <input id="updateProvider" type="text" class="form-control mb-2" placeholder="Provider" th:field="*{provider}" required>
+                            <div class="invalid-feedback">Please fill out this field.</div>
+                        </div>
+                    </form>
+                </div>
           </div>
           
           <!-- Modal footer -->
           <div class="modal-footer">
-             <button type="button" class="btn btn-danger" data-dismiss="modal"> <i class="far fa-eye-slash"></i> Close</button>
-          </div>
-    
+              <div class="button-bar">
+                  <button type="button" class="btn btn-danger mx-2 float-right" data-dismiss="modal"> <i class="far fa-eye-slash"></i> Close</button>
+                  <input form="editDiscountForm" type="submit" class="btn btn-success float-right mx-2" name="Submit" value="Submit">
+              </div>
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ public class DiscountServiceImpl implements DiscountService{
 
 	@Override
 	@Transactional (readOnly = true)
-	public List<DiscountDTO> findAll() {
+	public List<DiscountDTO> findAllAndAvailableTrue() {
 		List<DiscountEntity> entities = discountRepository.findAllByAvailableTrue();
 		return entities.stream()
 				.map(entity -> discountMapper.toDTO(entity))
@@ -35,6 +35,37 @@ public class DiscountServiceImpl implements DiscountService{
 	@Transactional (readOnly = true)
 	public boolean checkCodeExist(String code) {
 		return discountRepository.existsByDiscountCode(code);
+	}
+
+	@Override
+	public DiscountDTO updateStatus(boolean status, long id) {
+		DiscountEntity entity = discountRepository.findById(id).orElse(null);
+		if (entity != null){
+			entity.setAvailable(status);
+			return discountMapper.toDTO(discountRepository.save(entity));
+		}
+		return null;
+	}
+
+	@Override
+	public DiscountDTO updateDiscount(DiscountDTO dto) {
+		DiscountEntity entity = discountRepository.findById(dto.getId()).orElse(null);
+		if(entity != null){
+			entity.setDiscountCode(dto.getDiscountCode());
+			entity.setDiscountPercent(dto.getDiscountPercent());
+			entity.setDiscountWebsite(dto.getDiscountWebsite());
+			entity.setProvider(dto.getProvider());
+			return discountMapper.toDTO(discountRepository.save(entity));
+		}
+		return null;
+	}
+
+	@Override
+	public List<DiscountDTO> findAll() {
+		List<DiscountEntity> entities = discountRepository.findAll();
+		return entities.stream()
+				.map(entity -> discountMapper.toDTO(entity))
+				.collect(Collectors.toList());
 	}
 
 	@Override
