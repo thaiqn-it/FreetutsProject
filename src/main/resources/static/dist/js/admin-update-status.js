@@ -16,3 +16,22 @@ function updateStatus(id, name, status, type){
 	var confirmBtnEle = $("#updateStatus_confirm");
 	confirmBtnEle.attr('href',confirm);
 };
+
+function loadPreview(id, code, percent, website, provider){
+	var text =  code;
+	$("#updateStatus_text").html(text);
+
+	var before = "true";
+	var after = "false";
+	if (!status) {
+		before = "false";
+		after = "true";
+	}
+
+	$("#updateStatus_before").html(before);
+	$("#updateStatus_after").html(after);
+
+	var confirm = "/admin/" + type + "/" + id + "/" + !status;
+	var confirmBtnEle = $("#updateStatus_confirm");
+	confirmBtnEle.attr('href',confirm);
+};

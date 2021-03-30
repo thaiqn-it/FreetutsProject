@@ -8,4 +8,5 @@ public class DiscountDTO extends AbstractDTO<DiscountDTO> {
 	private String discountWebsite;
 	private String provider;
 	private int discountPercent;
+	private Long id;
 }

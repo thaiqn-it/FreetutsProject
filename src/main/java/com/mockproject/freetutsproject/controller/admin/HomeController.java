@@ -34,7 +34,7 @@ public class HomeController {
     public String loadMenu(Model model) {
 //        model.addAttribute("POST_DTO",new PostDTO());
 //        model.addAttribute("COURSE_DTO",new CourseDTO());
-        model.addAttribute("DISCOUNT",new DiscountDTO());
+//        model.addAttribute("DISCOUNT",new DiscountDTO());
         model.addAttribute("ADMIN_DTO",new AdminDTO());
 //        model.addAttribute("CATEGORY_DTO",new CategoryDTO());
 //        model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));

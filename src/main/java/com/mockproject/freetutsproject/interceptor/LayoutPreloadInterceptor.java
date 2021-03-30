@@ -36,7 +36,6 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 
 		// Wont load anything if user access admin page
 		if (!request.getServletPath().contains("/admin")) {
-
 			// Load Header Navigation Category
 			List<CategoryDTO> categories = categoryService.loadTopLevelCategories();
 			request.setAttribute("CATEGORIES", categories);
@@ -51,7 +50,7 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 			request.setAttribute("COURSES", courses);
 
 			// Load Discount code widget
-			List<DiscountDTO> discounts = discountService.findAll();
+			List<DiscountDTO> discounts = discountService.findAllAndAvailableTrue();
 			request.setAttribute("DISCOUNT_CODES", discounts);
 
 			// Load view more frame
