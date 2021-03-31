@@ -93,4 +93,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 		return entity;
 	}
 
+	public void toEntity(CategoryDTO dto, CategoryEntity entity){
+		modelMapper.map(dto, entity);
+	}
 }

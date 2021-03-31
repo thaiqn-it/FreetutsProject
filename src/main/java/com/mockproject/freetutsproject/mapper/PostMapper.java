@@ -61,4 +61,9 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 		return entity;
 	}
 
+	@Override
+	public void toEntity(PostDTO dto, PostEntity entity) {
+
+	}
+
 }

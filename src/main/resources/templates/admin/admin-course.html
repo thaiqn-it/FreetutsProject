@@ -52,7 +52,6 @@
         <div class="form-group float-right">
             <input type="submit" class="btn btn-success mb-2" name="Submit" value="Submit">
         </div>
-
     </form>
 </div>
 <div class="table-responsive">
@@ -62,8 +61,12 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Creator Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Link</th>
+            <th>Learn Method</th>
             <th>(ID) Category Name</th>
+            <th>Creator Name</th>
             <th>Created Date</th>
             <th>Available</th>
             <th>Edit</th>
@@ -73,8 +76,12 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Creator Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Link</th>
+            <th>Learn Method</th>
             <th>(ID) Category Name</th>
+            <th>Creator Name</th>
             <th>Created Date</th>
             <th>Available</th>
             <th>Edit</th>
@@ -84,8 +91,12 @@
         <tr th:each="course : ${courses}">
             <td th:text="${course.id}">Id</td>
             <td th:text="${course.name}">Name</td>
-            <td th:text="${course.creatorName}">CreatorName</td>
+            <td th:text="${course.description}">Description</td>
+            <td th:text="${course.price}">Price</td>
+            <td th:text="${course.courseLink}">Link</td>
+            <td th:text="${course.learnMethod}">Learn Method</td>
             <td th:text="'(' + ${course.categoryId} + ') ' + ${course.categoryName}">(ID)CategoryName</td>
+            <td th:text="${course.creatorName}">CreatorName</td>
             <th th:text="${#dates.format(course.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
             <td style="text-align: center;">
                 <a th:if="${course.available == true}"
@@ -111,7 +122,9 @@
             </td>
 
             <td style="text-align: center;">
-                <a class="btn btn-primary"
+                <a data-toggle="modal"
+                   data-target="#modalPreview"
+                   class="btn-edit btn btn-primary"
                    href="javascript:void(0)"
                    style="width: 40px; height: 40px;">
                     <i class="far fa-edit"></i>
@@ -123,9 +136,34 @@
 </div>
 
 <th:block th:replace="/admin/common/___modal :: updateStatusModal"></th:block>
+<th:block th:replace="/admin/common/___modal :: editCourseModal"></th:block>
 
 </body>
 <th:block id="scripts">
+    <script>
+        $(document).ready(function() {
+            $(".btn-edit").click(function () {
+                var table = $('#multi_col_order').DataTable();
+
+                var selectedRow = $(this).parent().parent();
+                var data = table.row(selectedRow).data();
+                $('#editId').val(data[0]);
+                $('#updateName').val(data[1]);
+                $('#updateDescription').val(data[2]);
+                $('#updatePrice').val(data[3]);
+                $('#updateCourseLink').val(data[4]);
+                $('#updateLearnMethod').val(data[5]);
+
+                // category
+                var updateCategoryId = data[6].substr(1, data[6].indexOf(")") - 1);
+                var options = $("#updateCategoryId").children();
+                for (let i = 0; i < options.length; i++){
+                    if (options[i].value == updateCategoryId) options[i].setAttribute("selected", "");
+                }
+
+            })
+        } );
+    </script>
     <!-- Update Status -->
     <script type="text/javascript" th:src="@{/dist/js/admin-update-status.js}"></script>
     <!-- ./Update Status -->

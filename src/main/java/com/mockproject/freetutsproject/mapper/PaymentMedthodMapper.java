@@ -20,4 +20,9 @@ public class PaymentMedthodMapper implements GenericMapper<PaymentMethodEntity, 
 		return null;
 	}
 
+	@Override
+	public void toEntity(PaymentMethodDTO dto, PaymentMethodEntity entity) {
+
+	}
+
 }

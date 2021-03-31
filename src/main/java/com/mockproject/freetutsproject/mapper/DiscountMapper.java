@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.mapper;
 
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,12 @@ public class DiscountMapper implements GenericMapper<DiscountEntity, DiscountDTO
 	public DiscountEntity toEntity(DiscountDTO  dto) {
 		DiscountEntity entity = modelMapper.map(dto, DiscountEntity.class);
 		return entity;
+	}
+
+	@Override
+	public void toEntity(DiscountDTO dto, DiscountEntity entity) {
+		modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+		modelMapper.map(dto,entity);
 	}
 
 }

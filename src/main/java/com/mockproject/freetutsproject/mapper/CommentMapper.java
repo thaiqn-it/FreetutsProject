@@ -51,4 +51,9 @@ public class CommentMapper implements GenericMapper<CommentEntity, CommentDTO> {
 		return entity;
 	}
 
+	@Override
+	public void toEntity(CommentDTO dto, CommentEntity entity) {
+
+	}
+
 }

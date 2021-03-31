@@ -6,4 +6,5 @@ import com.mockproject.freetutsproject.entity.AbstractEntity;
 public interface GenericMapper <Entity extends AbstractEntity, DTO extends AbstractDTO<DTO>>{
 	DTO toDTO(Entity entity);
 	Entity toEntity(DTO dto);
+	void toEntity(DTO dto, Entity entity);
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller(value ="adminCourse")
@@ -43,5 +44,17 @@ public class CourseController {
         model.addAttribute("COURSE_DTO",new CourseDTO());
         model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
         return "admin/admin-course";
+    }
+
+    @PostMapping("/admin/course/update")
+    public String updateCourse(CourseDTO dto){
+        CourseDTO result = null;
+        try {
+            result = courseService.updateCourse(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (result != null) return "redirect:/admin/course?success";
+        return "redirect:/admin/course?error";
     }
 }

@@ -51,4 +51,9 @@ public class OrderMapper implements GenericMapper<OrderEntity, OrderDTO >{
 		return entity;
 	}
 
+	@Override
+	public void toEntity(OrderDTO dto, OrderEntity entity) {
+
+	}
+
 }

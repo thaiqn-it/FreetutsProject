@@ -51,10 +51,7 @@ public class DiscountServiceImpl implements DiscountService{
 	public DiscountDTO updateDiscount(DiscountDTO dto) {
 		DiscountEntity entity = discountRepository.findById(dto.getId()).orElse(null);
 		if(entity != null){
-			entity.setDiscountCode(dto.getDiscountCode());
-			entity.setDiscountPercent(dto.getDiscountPercent());
-			entity.setDiscountWebsite(dto.getDiscountWebsite());
-			entity.setProvider(dto.getProvider());
+			discountMapper.toEntity(dto,entity);
 			return discountMapper.toDTO(discountRepository.save(entity));
 		}
 		return null;

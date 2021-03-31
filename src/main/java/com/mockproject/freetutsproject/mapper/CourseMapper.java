@@ -3,9 +3,11 @@ package com.mockproject.freetutsproject.mapper;
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.OrderDTO;
+import com.mockproject.freetutsproject.entity.AdminEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -69,6 +71,11 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
 		}
 		return entity;
+	}
+
+	@Override
+	public void toEntity(CourseDTO dto, CourseEntity entity) {
+		modelMapper.map(dto,entity);
 	}
 
 }

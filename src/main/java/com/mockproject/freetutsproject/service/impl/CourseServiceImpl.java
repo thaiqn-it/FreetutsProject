@@ -117,4 +117,18 @@ public class CourseServiceImpl implements CourseService {
     public boolean availableById(Long courseId) {
         return courseRepository.existsByIdAndAvailableTrue(courseId);
     }
+
+    @Override
+    public CourseDTO updateCourse(CourseDTO dto) throws IOException {
+        CourseEntity entity = courseRepository.findById(dto.getId()).orElse(null);
+        if (entity != null){
+            if (dto.getImage() != null){
+                String imageName = fileUtil.writeImageHardDisk(dto.getImage());
+                dto.setThumbnail(imageName);
+            }
+            courseMapper.toEntity(dto, entity);
+            return courseMapper.toDTO(courseRepository.save(entity));
+        }
+        return null;
+    }
 }

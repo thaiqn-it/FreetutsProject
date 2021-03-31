@@ -25,4 +25,9 @@ public class AdminMapper implements GenericMapper<AdminEntity, AdminDTO>{
 		return entity;
 	}
 
+	@Override
+	public void toEntity(AdminDTO dto, AdminEntity entity) {
+
+	}
+
 }
