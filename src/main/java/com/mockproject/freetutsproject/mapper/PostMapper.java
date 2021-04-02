@@ -63,7 +63,7 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 
 	@Override
 	public void toEntity(PostDTO dto, PostEntity entity) {
-
+		modelMapper.map(dto,entity);
 	}
 
 }

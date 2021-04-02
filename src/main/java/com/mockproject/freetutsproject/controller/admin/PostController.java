@@ -1,5 +1,7 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.CourseDTO;
+import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.PostService;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller (value = "postControllerOfAdmin")
@@ -44,5 +47,18 @@ public class PostController {
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("POST_DTO",new PostDTO());
         return "admin/admin-post";
+    }
+    
+    @PostMapping(value = "/admin/post/update")
+    public String updatePost(PostDTO dto){
+    	PostDTO result = null;
+        try {
+        	result = postService.update(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+        if (result != null) return "redirect:/admin/post?success";
+        return "redirect:/admin/post?error";
     }
 }
