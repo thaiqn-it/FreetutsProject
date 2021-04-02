@@ -1,15 +1,11 @@
 package com.mockproject.freetutsproject.dto;
 
-import lombok.Data;
-
 import java.util.Date;
 import java.util.List;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Part;
+import lombok.Data;
 
 @Data
 public class PostDTO extends AbstractDTO<PostDTO> {

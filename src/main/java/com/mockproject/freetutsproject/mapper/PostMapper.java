@@ -1,16 +1,17 @@
 package com.mockproject.freetutsproject.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
@@ -52,12 +53,12 @@ public class PostMapper implements GenericMapper<PostEntity, PostDTO >{
 	@Override
 	public PostEntity toEntity(PostDTO  dto) {
 		PostEntity entity = modelMapper.map(dto, PostEntity.class);
-//		if (dto.getCategoryId() != null) {
-//			categoryRepository.findById(dto.getCategoryId()).ifPresent(entity::setCategory);
-//		}
-//		if (dto.getCreatorId() != null) {
-//			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
-//		}
+		if (dto.getCategoryId() != null) {
+			categoryRepository.findById(dto.getCategoryId()).ifPresent(entity::setCategory);
+		}
+		if (dto.getCreatorId() != null) {
+			adminRepository.findById(dto.getCreatorId()).ifPresent(entity::setCreator);
+		}
 		return entity;
 	}
 

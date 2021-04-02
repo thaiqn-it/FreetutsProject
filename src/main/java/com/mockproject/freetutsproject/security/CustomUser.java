@@ -8,6 +8,10 @@ import java.util.Collection;
 
 @Data
 public class CustomUser extends User {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private Long id;
     private String fullname;
 

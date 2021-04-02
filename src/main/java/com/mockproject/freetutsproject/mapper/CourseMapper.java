@@ -1,19 +1,18 @@
 package com.mockproject.freetutsproject.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.OrderDTO;
-import com.mockproject.freetutsproject.entity.AdminEntity;
 import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
-import org.modelmapper.Conditions;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
