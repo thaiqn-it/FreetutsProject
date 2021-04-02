@@ -8,6 +8,7 @@ import com.mockproject.freetutsproject.entity.CourseEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.repository.CategoryRepository;
+import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -94,6 +95,7 @@ public class CategoryMapper implements GenericMapper<CategoryEntity, CategoryDTO
 	}
 
 	public void toEntity(CategoryDTO dto, CategoryEntity entity){
-		modelMapper.map(dto, entity);
+		modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
+		modelMapper.map(dto,entity);
 	}
 }

@@ -75,6 +75,7 @@ public class CourseMapper implements GenericMapper<CourseEntity, CourseDTO >{
 
 	@Override
 	public void toEntity(CourseDTO dto, CourseEntity entity) {
+		modelMapper.getConfiguration().setPropertyCondition(Conditions.isNotNull());
 		modelMapper.map(dto,entity);
 	}
 
