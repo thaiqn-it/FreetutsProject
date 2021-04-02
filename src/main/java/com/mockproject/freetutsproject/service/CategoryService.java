@@ -2,6 +2,7 @@ package com.mockproject.freetutsproject.service;
 
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface CategoryService extends AbstractService<CategoryDTO> {
@@ -11,4 +12,5 @@ public interface CategoryService extends AbstractService<CategoryDTO> {
 	List<CategoryDTO> findBySubCategoriesIsNull();
 	List<CategoryDTO> findByParentId(long id);
 	CategoryDTO findByIdAndAvailableTrue(long id);
+	CategoryDTO updateCategory(CategoryDTO dto) throws IOException;
 }

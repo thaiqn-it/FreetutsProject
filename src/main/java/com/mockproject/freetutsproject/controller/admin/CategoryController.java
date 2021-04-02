@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +32,9 @@ public class CategoryController {
     public String createCategory(CategoryDTO categoryDTO){
         if (categoryService.findCategory(categoryDTO.getName()) == null){
             categoryService.save(categoryDTO);
-            return "redirect:/admin/panel/?success";
+            return "redirect:/admin/category?success";
         }
-        return "redirect:/admin/panel/?error";
+        return "redirect:/admin/category?error";
     }
 
     @GetMapping(value = { "/admin/category/{id}/{status}", "/admin/category/{id}/{status}/{enableChildren}"})
@@ -60,9 +61,22 @@ public class CategoryController {
         return "admin/admin-category";
     }
 
-    private List<CategoryDTO> sortAsRelationship(List<CategoryDTO> topLevelCategory){
+
+    @PostMapping("/admin/category/update")
+    public String updateCategory(CategoryDTO dto) {
+        CategoryDTO result = null;
+        try {
+            result = categoryService.updateCategory(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (result != null) return "redirect:/admin/category?success";
+        return "redirect:/admin/category?error";
+    }
+
+    private List<CategoryDTO> sortAsRelationship(List<CategoryDTO> topLevelCategories){
         List<CategoryDTO> result = new ArrayList<>();
-        for (CategoryDTO categoryDTO : topLevelCategory) {
+        for (CategoryDTO categoryDTO : topLevelCategories) {
             result.add(categoryDTO);
             List<CategoryDTO> subCate = categoryDTO.getSubCategories();
             if (!subCate.isEmpty()) {

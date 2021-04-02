@@ -53,6 +53,23 @@ public class MultiLevelCategoryUtil {
 		return categoryList;
 	}
 
+	public CategoryDTO getTopCategory(CategoryDTO lastLevelCategory){
+		List<CategoryDTO> categoryList = new ArrayList<CategoryDTO>();
+		categoryList.add(lastLevelCategory);
+
+		for (int i = 0; i < categoryList.size(); i++) {
+			CategoryDTO item = categoryList.get(i);
+			Long parentId = item.getParentId();
+			if (parentId != null) {
+				categoryList.add(categoryService.findById(parentId));
+			}
+			else {
+				return item;
+			}
+		}
+		return null;
+	}
+
 	public boolean isBelongToLapTrinh(List<CategoryDTO> categoryStack) {
 		return categoryStack.get(0).getName().equals("Lập trình");
 	}
