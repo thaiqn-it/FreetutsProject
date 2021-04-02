@@ -1,7 +1,5 @@
 package com.mockproject.freetutsproject.controller.admin;
 
-import com.mockproject.freetutsproject.dto.CourseDTO;
-import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.PostService;
@@ -25,6 +23,7 @@ public class PostController {
 
     @PostMapping(value = "/admin/post")
     public String createPost(PostDTO postDTO){
+		System.out.println(postDTO.getCategoryId());
         PostDTO result = postService.save(postDTO);
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";

@@ -174,7 +174,7 @@ public class PostServiceImpl implements PostService {
 
 			postDTO.setContentFile(fileName);
 			postDTO.setThumbnail(imageName);
-
+			
 			PostEntity entity = postMapper.toEntity(postDTO);
 			return postMapper.toDTO(postRepository.save(entity));
 		} catch (IOException e) {
@@ -216,8 +216,10 @@ public class PostServiceImpl implements PostService {
 				imageName = fileUtil.writeImageHardDisk(dto.getImage());
 				dto.setThumbnail(imageName);
 			}
-			//If the name to Long = error
-			fileName = fileUtil.writeContentToHTMLOnHardDisk(dto.getContentFile(), stringUtil.removeAccent(dto.getName()));
+			
+			PostDTO oldDto = postMapper.toDTO(entity);
+			fileName = fileUtil.updateContentToHTMLOnHardDisk(dto.getContentFile(), dto.getId(),
+					stringUtil.removeAccent(dto.getName()), oldDto.getContentFile());
 			dto.setContentFile(fileName);
 
 			postMapper.toEntity(dto, entity);

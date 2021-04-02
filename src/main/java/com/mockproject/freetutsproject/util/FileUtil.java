@@ -32,6 +32,22 @@ public class FileUtil {
 
 		return fileName;
 	}
+	
+	public String updateContentToHTMLOnHardDisk(String content, Long id, String name, String oldFileName) throws IOException {
+		String fileName = StringUtils.cleanPath(name + "." + id + ".html");
+		Path storage = Paths.get(contentStoragePath);
+		if (Files.notExists(storage)){
+			Files.createDirectories(storage);
+		}
+
+		Path filePath = storage.resolve(fileName);
+		Path oldFilePath = storage.resolve(oldFileName);
+		
+		Files.write(filePath, content.getBytes());
+		Files.delete(oldFilePath);
+
+		return fileName;
+	}
 
 	public String writeImageHardDisk(MultipartFile imagePart) throws IOException {
 		String imageName = StringUtils.cleanPath(imagePart.getOriginalFilename());
