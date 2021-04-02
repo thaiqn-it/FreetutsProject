@@ -135,7 +135,10 @@
             </td>
 
             <td style="text-align: center;">
-                <a class="btn btn-primary"
+                <a
+                   data-toggle="modal"
+                   data-target="#modalPreview"
+                   class="btn-edit btn btn-primary"
                    href="javascript:void(0)"
                    style="width: 40px; height: 40px;">
                     <i class="far fa-edit"></i>
@@ -147,6 +150,7 @@
 </div>
 
 <th:block th:replace="/admin/common/___modal :: updateStatusModal"></th:block>
+<th:block th:replace="/admin/common/___modal :: editCategoryModal"></th:block>
 
 </body>
 <th:block id="scripts">
@@ -166,6 +170,61 @@
         $('.hide-all-btn').click(function (){
             $('.tree').treegrid('collapseAll');
         });
+
+        function bindingButton(){
+            $(".btn-edit").click(function () {
+                $(".modal-body").find('tr').css("background-color","white");
+                $(".modal-body").find('tr').css("color","black");
+                $(".modal-body").find('tr').find('a').css('visibility','visible');
+
+                var table = $('#multi_col_order').DataTable();
+                var selectedRow = $(this).parent().parent();
+                var data = table.row(selectedRow).data();
+                $('#editId').val(data[0]);
+                $('#updateName').val(data[1]);
+                $('#parent').val(data[3]);
+
+                // category
+                idToUpdate = data[0];
+                var classId = '.treegrid-' + idToUpdate;
+
+                $(".modal-body").find(classId).css("background-color","red");
+                $(".modal-body").find(classId).css("color","white");
+                $(".modal-body").find(classId).find('a').css('visibility','hidden')
+                $(".modal-body").find('.tree').treegrid('collapseAll');
+            })
+        }
+        $(document).ready(function() {
+            bindingButton();
+            var table = $('#multi_col_order').DataTable();
+            table
+                .on( 'preDraw', function () {
+                    bindingButton();
+                } )
+                .on( 'draw.dt', function () {
+                    bindingButton();
+                } );
+
+            var newParentId = null;
+            $('.tree-btn').click(function () {
+                if (newParentId != null) {
+                    $(".modal-body").find('.treegrid-' + newParentId).css("background-color","white");
+                    $(".modal-body").find('.treegrid-' + newParentId).css("color","black");
+                }
+
+                var classString = $(this).parent().parent().attr('class');
+                newParentId = classString.substr(9,classString.indexOf(' ')-9);
+                $(".modal-body").find('#parent').val(newParentId);
+
+                var classId = '.treegrid-' + newParentId;
+                $(".modal-body").find(classId).css("background-color","#28a745");
+                $(".modal-body").find(classId).css("color","white");
+            })
+
+            $('.hide-all-btn').click(function (){
+                $('.modal-body').find('.tree').treegrid('collapseAll');
+            });
+        } );
 
     </script>
 
