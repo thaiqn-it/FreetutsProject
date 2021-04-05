@@ -155,21 +155,21 @@
 	<script type="text/javascript" th:src="@{/dist/js/image-upload-script.js}"></script>
     <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
 	<script>
-        $(document).ready(function() {
+        function bindingButton(){
             $(".btn-edit").click(function () {
                 var table = $('#multi_col_order').DataTable();
 
                 var selectedRow = $(this).parent().parent();
                 var data = table.row(selectedRow).data();
-               
-               	$('#editId').val(data[0]);
+
+                $('#editId').val(data[0]);
                 $('#updateName').val(data[1]);
                 $('#updateDescription').val(data[3]);
-                
+
                 var file_url = '/contents/' + data[4];
                 edit(file_url);
             })
-        } );
+        }
     </script>
  	<!-- ./Update Status -->
 

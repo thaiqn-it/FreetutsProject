@@ -199,15 +199,6 @@
             })
         }
         $(document).ready(function() {
-            bindingButton();
-            var table = $('#multi_col_order').DataTable();
-            table
-                .on( 'preDraw', function () {
-                    bindingButton();
-                } )
-                .on( 'draw.dt', function () {
-                    bindingButton();
-                } );
 
             var newParentId = null;
             $('.tree-btn').click(function () {

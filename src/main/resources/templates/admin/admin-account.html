@@ -41,7 +41,7 @@
                    placeholder="Re-password" required onkeyup="checkPasswordMatch()">
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
-        <input type="submit" class="btn btn-success mb-2" name="Submit">
+        <input type="submit" class="btn btn-success mb-2 float-right" style="margin-top: -25px" value="Submit">
     </form>
 </div>
 <div class="table-responsive">
@@ -79,7 +79,11 @@
         $(document).ready(function () {
             $('#multi_col_order').DataTable();
         })
-        
+
+        function  bindingButton(){
+            // TO-DO here
+        }
+
         function checkPasswordMatch() {
             var password = $("#password").get(0);
             var confirm_password = $("#re-password").get(0);

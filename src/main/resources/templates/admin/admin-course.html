@@ -145,7 +145,7 @@
 </body>
 <th:block id="scripts">
     <script>
-        $(document).ready(function() {
+        function bindingButton() {
             $(".btn-edit").click(function () {
                 var table = $('#multi_col_order').DataTable();
 
@@ -166,7 +166,7 @@
                 }
 
             })
-        } );
+        }
     </script>
     <!-- Update Status -->
     <script type="text/javascript" th:src="@{/dist/js/admin-update-status.js}"></script>

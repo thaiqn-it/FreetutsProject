@@ -71,7 +71,7 @@
                 <!-- ============================================================== -->
                 <div class="navbar-brand">
                     <!-- Logo icon -->
-                    <a th:href="@{/admin/home}">
+                    <a th:href="@{/admin/panel}">
                         <b class="logo-icon">
                             <!-- Dark Logo icon -->
                             <img style="width: 80%" src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
@@ -272,8 +272,19 @@
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
 <script th:src="@{/dist/js/datatable/datatable-basic.init.min.js}"></script>
+<th:block th:replace="${scripts} ?: ~{}"></th:block>
 <script>
     $(document).ready(function () {
+        bindingButton();
+        var table = $('#multi_col_order').DataTable();
+        table
+            .on( 'preDraw', function () {
+                bindingButton();
+            } )
+            .on( 'draw.dt', function () {
+                bindingButton();
+            } );
+
         $('#btn-add').click(function() {
             if ($(this).hasClass("hide")) {
                 $('#add-form').show();
@@ -314,6 +325,6 @@
         return "";
     };
 </script>
-<th:block th:replace="${scripts} ?: ~{}"></th:block>
+
 </body>
 </html>
