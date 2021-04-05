@@ -1,10 +1,12 @@
 package com.mockproject.freetutsproject.service.impl;
 
 import com.mockproject.freetutsproject.dto.OrderDTO;
+import com.mockproject.freetutsproject.entity.DiscountEntity;
 import com.mockproject.freetutsproject.entity.OrderEntity;
 import com.mockproject.freetutsproject.mapper.OrderMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,14 +35,26 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	@Transactional (readOnly = true)
 	public List<OrderDTO> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<OrderEntity> entities = orderRepository.findAll();
+		return entities.stream()
+				.map(entity -> orderMapper.toDTO(entity))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	@Transactional (readOnly = true)
 	public OrderDTO findById(Long id) {
 		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public OrderDTO updateStatus(boolean status, long id) {
+		OrderEntity entity = orderRepository.findById(id).orElse(null);
+		if (entity != null){
+			entity.setAvailable(status);
+			return orderMapper.toDTO(orderRepository.save(entity));
+		}
 		return null;
 	}
 }
