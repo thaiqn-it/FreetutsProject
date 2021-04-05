@@ -34,10 +34,10 @@ public class AccountController {
         if (adminService.checkUsernameExist(adminDTO.getUsername())){
             if (adminService.checkPasswordValid(adminDTO)){
                 adminService.save(adminDTO);
-                return "redirect:/admin/account?success";
+                return "redirect:/admin/" + adminDTO.getId() + "?success";
             }
         }
-        return "redirect:/admin/account?error";
+        return "redirect:/admin/" + adminDTO.getId() +  "?error";
     }
 
     @GetMapping(value = "/admin/account")
