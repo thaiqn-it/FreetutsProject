@@ -97,18 +97,23 @@
             <td th:text="${post.creatorName}">CreatorName</td>
             <td th:text="'(' + ${post.categoryId} + ') ' + ${post.categoryName}">CategoryName</td>
             <th th:text="${#dates.format(post.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
-            <td style="text-align: center;">
-                <a th:if="${post.available == true}"
+            <td style="text-align: center;" th:if="${post.available == true}">
+                <p class="d-none">true</p>
+                <a
                    class="btn btn-success"
                    href="#"
                    data-toggle="modal"
                    data-target="#modalStatus"
                    onclick="updateStatus(this.id, this.name, true, 'post')"
                    th:id="${post.id}" th:name="${post.name}"
-                   style="width: 40px; height: 40px;">
+                   style="width: 40px; height: 40px;" >
                     <i class="fas fa-check"></i>
                 </a>
-                <a th:if="${post.available == false}"
+
+            </td>
+            <td style="text-align: center;" th:if="${post.available == false}">
+                <p class="d-none">false</p>
+                <a
                    class="btn btn-danger"
                    href="#"
                    data-toggle="modal"

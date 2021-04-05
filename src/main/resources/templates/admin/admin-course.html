@@ -98,8 +98,9 @@
             <td th:text="'(' + ${course.categoryId} + ') ' + ${course.categoryName}">(ID)CategoryName</td>
             <td th:text="${course.creatorName}">CreatorName</td>
             <th th:text="${#dates.format(course.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
-            <td style="text-align: center;">
-                <a th:if="${course.available == true}"
+            <td style="text-align: center;" th:if="${course.available == true}">
+                <p class="d-none">true</p>
+                <a
                    class="btn btn-success"
                    href="#"
                    data-toggle="modal"
@@ -109,7 +110,10 @@
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-check"></i>
                 </a>
-                <a th:if="${course.available == false}"
+            </td>
+            <td style="text-align: center;" th:if="${course.available == false}">
+                <p class="d-none">false</p>
+                <a
                    class="btn btn-danger"
                    href="#"
                    data-toggle="modal"

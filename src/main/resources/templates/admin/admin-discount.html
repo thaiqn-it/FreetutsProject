@@ -76,8 +76,9 @@
             <td th:text="${discount.discountWebsite}">Website</td>
             <td th:text="${discount.provider}">Provider</td>
 
-            <td style="text-align: center;">
-                <a th:if="${discount.available == true}"
+            <td style="text-align: center;" th:if="${discount.available == true}">
+                <p class="d-none">true</p>
+                <a
                    class="btn btn-success"
                    href="#"
                    data-toggle="modal"
@@ -87,7 +88,10 @@
                    style="width: 40px; height: 40px;">
                     <i class="fas fa-check"></i>
                 </a>
-                <a th:if="${discount.available == false}"
+            </td>
+            <td style="text-align: center;" th:if="${discount.available == false}">
+                <p class="d-none">false</p>
+                <a
                    class="btn btn-danger"
                    href="#"
                    data-toggle="modal"
