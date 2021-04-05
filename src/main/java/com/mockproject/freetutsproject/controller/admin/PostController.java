@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller (value = "postControllerOfAdmin")
@@ -22,6 +23,7 @@ public class PostController {
 
     @PostMapping(value = "/admin/post")
     public String createPost(PostDTO postDTO){
+		System.out.println(postDTO.getCategoryId());
         PostDTO result = postService.save(postDTO);
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";
@@ -43,5 +45,18 @@ public class PostController {
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("POST_DTO",new PostDTO());
         return "admin/admin-post";
+    }
+    
+    @PostMapping(value = "/admin/post/update")
+    public String updatePost(PostDTO dto){
+    	PostDTO result = null;
+        try {
+        	result = postService.update(dto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    	
+        if (result != null) return "redirect:/admin/post?success";
+        return "redirect:/admin/post?error";
     }
 }

@@ -2,8 +2,10 @@ package com.mockproject.freetutsproject.service.impl;
 
 import com.mockproject.freetutsproject.dto.AbstractDTO;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
+import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
+import com.mockproject.freetutsproject.entity.DiscountEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.mapper.CategoryMapper;
 import com.mockproject.freetutsproject.mapper.PostMapper;
@@ -45,7 +47,7 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	@Transactional(readOnly = true)
-	public PostDTO findByIdAndAvailableTrue(Long id){
+	public PostDTO findByIdAndAvailableTrue(Long id) {
 		PostEntity entity = this.postRepository.findByIdAndAvailableTrue(id);
 		if (entity != null) {
 			return postMapper.toDTO(entity);
@@ -59,10 +61,10 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findTop8PostByOrderById() {
 		List<PostEntity> entity = postRepository.findTop8PostByAvailableTrueOrderByIdDesc();
-		if(!entity.isEmpty()){
+		if (!entity.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<>();
 			entity.forEach(postEntity -> postDTOList.add(postMapper.toDTO(postEntity)));
 			return postDTOList;
@@ -71,7 +73,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findPostByCategoryAndOrderedById(CategoryDTO categoryDTO, int limit) {
 		if (!categoryDTO.getPosts().isEmpty()) {
 			List<PostDTO> originalPostList = categoryDTO.getPosts();
@@ -100,7 +102,7 @@ public class PostServiceImpl implements PostService {
 	@Transactional(readOnly = true)
 	public List<PostDTO> findTop20PostByCategoryNameContainingOrderById(String name) {
 		List<PostEntity> entities = postRepository.findTop20PostByAvailableTrueAndCategoryNameContainingOrderById(name);
-		if(!entities.isEmpty()){
+		if (!entities.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<>();
 			entities.forEach(postEntity -> postDTOList.add(postMapper.toDTO(postEntity)));
 			return postDTOList;
@@ -113,7 +115,7 @@ public class PostServiceImpl implements PostService {
 	public List<PostDTO> findPostByCategoryAndAvailableTrue(CategoryDTO category) {
 		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
 		List<PostEntity> entityList = postRepository.findByCategoryAndAvailableTrue(categoryEntity);
-		
+
 		if (!entityList.isEmpty()) {
 			List<PostDTO> dtoList = new ArrayList<PostDTO>();
 			entityList.forEach(entity -> dtoList.add(postMapper.toDTO(entity)));
@@ -124,7 +126,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findPostByCategory(CategoryDTO category) {
 		CategoryEntity categoryEntity = categoryMapper.toEntity(category);
 		List<PostEntity> entityList = postRepository.findByCategory(categoryEntity);
@@ -154,7 +156,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostDTO findById(Long id) {
 		PostEntity entity = postRepository.findById(id).orElse(null);
-		if (entity != null){
+		if (entity != null) {
 			return postMapper.toDTO(entity);
 		}
 		return null;
@@ -166,12 +168,13 @@ public class PostServiceImpl implements PostService {
 		String fileName = null;
 		String imageName = null;
 		try {
-			fileName = fileUtil.writeContentToHTMLOnHardDisk(postDTO.getContentFile(), stringUtil.removeAccent(postDTO.getName()));
+			fileName = fileUtil.writeContentToHTMLOnHardDisk(postDTO.getContentFile(),
+					stringUtil.removeAccent(postDTO.getName()));
 			imageName = fileUtil.writeImageHardDisk(postDTO.getImage());
 
 			postDTO.setContentFile(fileName);
 			postDTO.setThumbnail(imageName);
-
+			
 			PostEntity entity = postMapper.toEntity(postDTO);
 			return postMapper.toDTO(postRepository.save(entity));
 		} catch (IOException e) {
@@ -181,17 +184,13 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	@Transactional (readOnly = true)
+	@Transactional(readOnly = true)
 	public List<PostDTO> findTop15PostByCategories(List<CategoryDTO> categories) {
-		List<Long> categoryIds = categories.stream()
-											.map(AbstractDTO::getId)
-											.collect(Collectors.toList());
-		
+		List<Long> categoryIds = categories.stream().map(AbstractDTO::getId).collect(Collectors.toList());
+
 		List<PostEntity> postEntities = postRepository.findTop15PostByCategoryIdInOrderById(categoryIds);
 		if (!postEntities.isEmpty()) {
-			return postEntities.stream()
-								.map(postEntity -> postMapper.toDTO(postEntity))
-								.collect(Collectors.toList());
+			return postEntities.stream().map(postEntity -> postMapper.toDTO(postEntity)).collect(Collectors.toList());
 		}
 		return null;
 	}
@@ -206,4 +205,25 @@ public class PostServiceImpl implements PostService {
 		}
 		return null;
 	}
-}
+
+	@Override
+	public PostDTO update(PostDTO dto) throws IOException {
+		PostEntity entity = postRepository.findById(dto.getId()).orElse(null);
+		if(entity != null){
+			String fileName = null;
+			String imageName = null;
+			if(dto.getImage() != null) {
+				imageName = fileUtil.writeImageHardDisk(dto.getImage());
+				dto.setThumbnail(imageName);
+			}
+			
+			PostDTO oldDto = postMapper.toDTO(entity);
+			fileName = fileUtil.updateContentToHTMLOnHardDisk(dto.getContentFile(), dto.getId(),
+					stringUtil.removeAccent(dto.getName()), oldDto.getContentFile());
+			dto.setContentFile(fileName);
+
+			postMapper.toEntity(dto, entity);
+			return postMapper.toDTO(postRepository.save(entity));
+		} 
+		return null;
+}}
