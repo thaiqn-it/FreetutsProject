@@ -31,7 +31,6 @@ public class PostController {
     @GetMapping(value = "/admin/post/{id}/{status}")
     public String updatePostStatus(@PathVariable("status") boolean status,
                                    @PathVariable("id") Long id) {
-        PostDTO dto = postService.findById(id);
         PostDTO result = postService.updateStatus(status, id);
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";

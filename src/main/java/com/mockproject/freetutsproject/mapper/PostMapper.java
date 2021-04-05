@@ -1,5 +1,8 @@
 package com.mockproject.freetutsproject.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.CommentDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.PostEntity;
@@ -9,9 +12,6 @@ import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class PostMapper implements GenericMapper<PostEntity, PostDTO >{

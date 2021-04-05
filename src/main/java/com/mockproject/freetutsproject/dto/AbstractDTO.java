@@ -2,8 +2,6 @@ package com.mockproject.freetutsproject.dto;
 
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class AbstractDTO<T> {
 	private Long id;

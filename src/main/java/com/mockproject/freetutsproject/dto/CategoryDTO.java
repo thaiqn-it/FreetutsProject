@@ -1,11 +1,10 @@
 package com.mockproject.freetutsproject.dto;
 
-import lombok.Data;
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
-import java.util.List;
+import lombok.Data;
 
 @Data
 public class CategoryDTO extends AbstractDTO<CategoryDTO> {

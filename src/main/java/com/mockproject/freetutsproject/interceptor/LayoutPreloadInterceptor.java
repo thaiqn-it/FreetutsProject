@@ -1,14 +1,18 @@
 package com.mockproject.freetutsproject.interceptor;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
+import com.mockproject.freetutsproject.security.CustomUser;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
 import com.mockproject.freetutsproject.service.DiscountService;
 import com.mockproject.freetutsproject.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -35,7 +39,7 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 			throws Exception {
 
 		// Wont load anything if user access admin page
-		if (!request.getServletPath().contains("/admin")) {
+		if (!request.getServletPath().contains("admin")) {
 			// Load Header Navigation Category
 			List<CategoryDTO> categories = categoryService.loadTopLevelCategories();
 			request.setAttribute("CATEGORIES", categories);
@@ -55,14 +59,29 @@ public class LayoutPreloadInterceptor implements HandlerInterceptor{
 
 			// Load view more frame
 			List<PostDTO> viewMorePost = postService.findTop8PostByOrderById();
-			;
 			request.setAttribute("VIEW_MORE", viewMorePost);
+		}
+		else if (!request.getServletPath().equals("/admin")) {
+			AdminDTO currentUser = fetchCurrentUser();
+			request.setAttribute("CURRENT_USER", currentUser);
 		}
 
 		return true;
 	}
-	
-	
-	
+
+	private AdminDTO fetchCurrentUser() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null){
+			CustomUser customUser = (CustomUser) authentication.getPrincipal();
+
+			AdminDTO currentAdmin = new AdminDTO();
+			currentAdmin.setFullname(customUser.getFullname());
+			currentAdmin.setId(customUser.getId());
+			currentAdmin.setUsername(customUser.getUsername());
+
+			return currentAdmin;
+		}
+		return null;
+	}
 }
 
