@@ -3,6 +3,7 @@ package com.mockproject.freetutsproject.service;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface PostService extends AbstractService<PostDTO> {
@@ -15,4 +16,5 @@ public interface PostService extends AbstractService<PostDTO> {
 	List<PostDTO> findTop15PostByCategories(List<CategoryDTO> categories);
 	PostDTO findByIdAndAvailableTrue(Long id);
     boolean availableById(Long postId);
+    PostDTO update(PostDTO dto)  throws IOException;
 }
