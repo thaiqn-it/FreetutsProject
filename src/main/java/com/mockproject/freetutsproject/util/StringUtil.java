@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 @Component
 public class StringUtil {
     public String replaceWhitespaceWithMinus(String s){
-        return s.replaceAll(" ", "-");
+        return s.replaceAll("[\\~*/:<>?|\" \\\\]", "-");
     }
 
     public String removeAccent(String s) {
