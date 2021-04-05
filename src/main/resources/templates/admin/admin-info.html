@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- main-fragment(title, styles, body, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{::body},
+                                                ~{:: #scripts},
+                                               )}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Freetuts - Admin</title>
+</head>
+<body>
+<ul class="nav my-2">
+    <li class="nav-item"><h4 class="card-title">Infomation</h4></li>
+</ul>
+<div id="add-form" class="border border-dark rounded p-4 my-3 was-validated" style="display: block">
+    <form action="/admin/change" class="was-validated" method="post" th:object="${ADMIN_DTO}">
+        <input type="hidden" class="form-control mb-2" th:field="*{id}">
+        <input type="text" class="form-control mb-2" placeholder="Username" th:field="*{username}" readonly>
+        <div class="form-group">
+            <input type="text" class="form-control mb-2" placeholder="FullName" th:field="*{fullname}" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control mb-2" id="old-password"
+                   placeholder="Old Password" th:field="*{oldPassword}" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control mb-2" id="password"
+                   placeholder="New Password" th:field="*{password}" required onkeyup="checkPasswordMatch()">
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control mb-2" id="re-password"
+                   placeholder="Re-password" required onkeyup="checkPasswordMatch()">
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <input type="submit" class="btn btn-success mb-2 float-right" style="margin-top: -25px" value="Submit">
+    </form>
+</div>
+</body>
+<th:block id="scripts">
+    <script>
+        function  bindingButton(){
+            // TO-DO here
+        }
+
+        function checkPasswordMatch() {
+            var password = $("#password").get(0);
+            var confirm_password = $("#re-password").get(0);
+            if (password.value != confirm_password.value) {
+                $("#re-password").parent().find('.invalid-feedback').text("Not match");
+                confirm_password.setCustomValidity("Not match");
+            } else {
+                confirm_password.setCustomValidity("");
+            }
+        }
+    </script>
+</th:block>
+</html>

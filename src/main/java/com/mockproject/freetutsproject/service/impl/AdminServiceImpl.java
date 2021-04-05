@@ -7,6 +7,7 @@ import com.mockproject.freetutsproject.mapper.AdminMapper;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminDTO findById(Long id) {
+        AdminEntity entities = adminRepository.findById(id).orElse(null);
+        if (entities != null){
+            return adminMapper.toDTO(entities);
+        }
         return null;
     }
 
@@ -60,5 +65,15 @@ public class AdminServiceImpl implements AdminService {
     @Transactional (readOnly = true)
     public boolean checkUsernameExist(String username) {
         return adminRepository.existsByUsername(username);
+    }
+
+    @Override
+    @Transactional (readOnly = true)
+    public boolean checkPasswordValid(AdminDTO adminDTO) {
+        AdminEntity entity = adminRepository.findById(adminDTO.getId()).orElse(null);
+        if (BCrypt.checkpw(adminDTO.getOldPassword(),entity.getPassword())){
+            return true;
+        }
+        return false;
     }
 }

@@ -4,9 +4,13 @@ import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -25,11 +29,29 @@ public class AccountController {
         return "redirect:/admin/account?error";
     }
 
+    @PostMapping("/admin/change")
+    public String changeInfo(AdminDTO adminDTO){
+        if (adminService.checkUsernameExist(adminDTO.getUsername())){
+            if (adminService.checkPasswordValid(adminDTO)){
+                adminService.save(adminDTO);
+                return "redirect:/admin/account?success";
+            }
+        }
+        return "redirect:/admin/account?error";
+    }
+
     @GetMapping(value = "/admin/account")
     public String loadAccount(Model model) {
         List<AdminDTO> accounts = adminService.findAll();
         model.addAttribute("accounts", accounts);
         model.addAttribute("ADMIN_DTO",new AdminDTO());
         return "admin/admin-account";
+    }
+
+    @GetMapping(value= "admin/{id}")
+    public String loadInfo(Model model , @PathVariable("id") Long id){
+        AdminDTO admin = adminService.findById(id);
+        model.addAttribute("ADMIN_DTO",admin);
+        return "admin/admin-info";
     }
 }
