@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.PostService;
@@ -23,7 +24,6 @@ public class PostController {
 
     @PostMapping(value = "/admin/post")
     public String createPost(PostDTO postDTO){
-		System.out.println(postDTO.getCategoryId());
         PostDTO result = postService.save(postDTO);
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";
@@ -44,6 +44,8 @@ public class PostController {
         model.addAttribute("posts", posts);
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("POST_DTO",new PostDTO());
+        
+        model.addAttribute("AVAILABLE", countAvailable(posts));
         return "admin/admin-post";
     }
     
@@ -58,5 +60,16 @@ public class PostController {
     	
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";
+    }
+    
+    public int countAvailable(List<PostDTO> list) {
+    	int result = 0;
+    	for (PostDTO dto : list) {
+    		if(dto.isAvailable()) {
+    			result++;
+    		}
+		}
+    	
+    	return result;
     }
 }

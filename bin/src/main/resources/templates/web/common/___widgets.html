@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:if="${RELATED_POSTS != null}" class="card md-4 mb-4 border" th:fragment="lesson-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: green; font-size: 17px">
+			Danh Sách Bài Học</h5>
+		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
+			<li class="list-group-item text-left p-2" th:each="item : ${RELATED_POSTS}">
+				<th:block th:if="${item.id != post.id}">
+					<a th:href="'/post/' + ${item.id}" th:text="${item.name}" style="color: black;"> </a>
+				</th:block>
+				<th:block th:if="${item.id == post.id}">
+					<a th:href="'/post/' + ${item.id}" th:text="${item.name}" style="color: orange;"> </a>
+				</th:block>
+			</li>
+		</ul>	
+	</div>
+
+	<div class="card md-4 mb-4 border" th:fragment="review-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: #2f6e91; font-size: 17px">
+			Review khóa học</h5>
+		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none;">
+			<li class="list-group-item text-left p-2" th:each="review : ${COURSE_REVIEW}">
+				<div class="row">
+					<div class="col-3">
+						<img width="80px" height="60px" th:src="@{'/images/' + ${review.thumbnail}}">
+					</div>
+					<div class="col-9">
+						<a th:href="@{'/post/' + ${review.id}}" th:text="${review.name}"></a>
+					</div>
+				</div>
+			</li>
+			<li class="list-group-item text-right p-2">
+				<a href="/category/34">Xem tất cả</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card md-4 mb-4 border" th:fragment="excercise-widget" style="font-size: 17px">
+		<h5 class="card-header text-white text-left font-weight-bold p-2" style="background: #2f6e91;  font-size: 17px">
+			Bài tập</h5>
+		<ul class="list-group mb-0 p-0 rounded-0" style="list-style-type: none; max-height: 400px; overflow-y: scroll">
+			<li class="list-group-item text-left p-2" th:each="exercise : ${EXERCISE}">
+				<a th:href="'/post/' + ${exercise.id}" th:text="${exercise.name}"> </a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="card md-4 border" style="position:sticky; top:0px; font-size: 14px;" th:fragment="discount-widget">
+		<h5 class="card-header text-white text-center font-weight-bold p-2"
+			style="background: #2f6e91; font-size: 17px">MÃ GIẢM GIÁ</h5>
+		<table style="margin-bottom: 0px">
+			<tr class="card-body border text-center" th:each="discount : ${#request.getAttribute('DISCOUNT_CODES')}">
+				<td class="border" th:text="${discount.provider}"></td>
+				<td class="border" th:text="${discount.discountPercent + '%'}"></td>
+				<td class="border"><a th:href="@{${discount.discountWebsite}}">
+						<button type="button" class="btn btn-primary my-2" 
+						th:attr="onclick=|prompt('Copy mã giảm giá, nhớ đọc kỹ hướng dẫn sử dụng nhé bạn.','${discount.discountCode}')|"
+						th:title="${discount.discountCode}" >Lấy Mã</button>
+				</a></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

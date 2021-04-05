@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body th:fragment="breadcrumb">
+<div id="breadcrumb">
+	<div itemscope="" itemtype="https://schema.org/BreadcrumbList">
+	            <span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+	                <a itemprop="item" href="/" title="Trang chủ">
+	                    <span style="color: #F09217" itemprop="name">Home</span>
+	                    <meta itemprop="position" content="1">
+	                </a>
+	            </span>
+		
+		<th:block th:each="item : ${BREADCRUMB}">
+			<!-- In category page (has category object) -->
+			<th:block th:if="${category != null}">
+				<th:block th:if="${item.id != category.id}">
+					>
+			    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+		                <a itemprop="item" th:href="@{'/category/' +  ${item.id} + '?page=1&limit=5'}">
+		                    <span itemprop="name" style="color: #F09217" th:text="${item.name}"></span>
+		                </a>
+		            </span>
+	            </th:block>
+	            <th:block th:if="${item.id == category.id}">
+					>
+			    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+		                <span itemprop="name" th:text="${item.name}"></span>
+		            </span>
+	            </th:block>
+            </th:block>
+            
+            <!-- In post page (doesn't have category object) -->
+            <th:block th:if="${category == null}">
+				>
+		    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+	                <a itemprop="item" th:href="@{'/category/' +  ${item.id} + '?page=1&limit=5'}">
+	                    <span itemprop="name" style="color: #F09217" th:text="${item.name}"></span>
+	                </a>
+	            </span>
+            </th:block>
+            
+	    </th:block>
+	    
+	    <!-- Handle post -->
+	    <th:block th:if="${post != null}">
+			>
+	    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <span itemprop="name" th:text="${post.name}"></span>
+            </span> 
+	    </th:block>
+	   
+	   <!-- Handle course -->
+	   <th:block th:if="${course != null}">
+		    >
+	    	<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+                <span itemprop="name" th:text="${course.name}"></span>
+            </span> 
+	    </th:block>
+	</div>
+</div>
+</body>
+</html> 

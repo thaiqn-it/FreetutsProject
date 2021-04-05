@@ -30,6 +30,7 @@ public class AccountController {
         List<AdminDTO> accounts = adminService.findAll();
         model.addAttribute("accounts", accounts);
         model.addAttribute("ADMIN_DTO",new AdminDTO());
+        
         return "admin/admin-account";
     }
 }

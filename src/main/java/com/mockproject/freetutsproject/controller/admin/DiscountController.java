@@ -2,6 +2,7 @@ package com.mockproject.freetutsproject.controller.admin;
 
 import java.util.List;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.service.DiscountService;
 
@@ -33,6 +34,7 @@ public class DiscountController {
         model.addAttribute("DISCOUNT",new DiscountDTO());
         model.addAttribute("discount",discount);
 
+        model.addAttribute("AVAILABLE", countAvailable(discount));
         return "admin/admin-discount";
     }
 
@@ -50,5 +52,16 @@ public class DiscountController {
         DiscountDTO result = discountService.updateDiscount(dto);
         if(result != null) return "redirect:/admin/discount?success";
         return "redirect:/admin/discount?error";
+    }
+    
+    public int countAvailable(List<DiscountDTO> list) {
+    	int result = 0;
+    	for (DiscountDTO dto : list) {
+    		if(dto.isAvailable()) {
+    			result++;
+    		}
+		}
+    	
+    	return result;
     }
 }

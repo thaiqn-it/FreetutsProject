@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<!-- main-fragment(title, styles, body, scripts) -->
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{admin/layout/main-layout :: main-fragment(
+                                                ~{::title},
+                                                ~{:: #styles},
+                                                ~{::body},
+                                                ~{:: #scripts},
+                                               )}">
+
+<head>
+    <title>Freetuts - Admin</title>
+</head>
+
+<body>
+<ul class="nav my-2">
+    <li class="nav-item"><h4 class="card-title">Posts</h4></li>
+    <li class="nav-item ml-auto">
+        <!-- +new -->
+        <a id="btn-add" class="btn btn-primary text-white rounded-circle font-13 hide"
+           href="#"> <i class="fas fa-plus"></i> </a>
+    </li>
+</ul>
+<div id="add-form" class="border border-dark rounded p-4 pb-5 my-3" style="display: none">
+    <form class="mb-3 was-validated" id="form-post" action="/admin/post" th:object="${POST_DTO}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <input class="form-control mb-2" type="text" pattern="/[^a-z0-9A-Z_\x{00C0}-\x{00FF}\x{1EA0}-\x{1EFF}]/u"
+             th:field="*{name}" value="" placeholder="Name" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <input list="categoryList" th:field="*{categoryId}" class="form-control mb-2" required>
+            <div class="invalid-feedback">Please fill out this field.</div>
+            <datalist id="categoryList">
+                <option style="width: 100% ; font-size: 15px" th:each="item : ${CATEGORIES}"  th:value="${item.id}" th:text="${item.name}"></option>
+            </datalist>
+        </div>
+        <div class="form-group">
+            <textarea th:field="*{description}" class="form-control mb-2" placeholder="Description" rows="5" required></textarea>
+            <div class="invalid-feedback">Please fill out this field.</div>
+        </div>
+        <div class="form-group">
+            <div class="panel">
+                <div class="button_outer">
+                    <div class="btn_upload">
+                        <input type="file" id="upload_file" th:field="*{image}">
+                        Upload Thumbnail
+                    </div>
+                    <div class="processing_bar"></div>
+                </div>
+            </div>
+            <div class="error_msg"></div>
+            <div class="uploaded_file_view" id="uploaded_view">
+                <span class="file_remove">X</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="content-editor">
+                        <textarea name="content" id="contentFile" th:field="*{contentFile}">
+
+                        </textarea>
+            </div>
+        </div>
+        <div id="btn-group" class="float-right mb-3">
+            <input id="btn-submit" class="btn btn-primary" style="margin-top: 0px" type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+<div class="table-responsive">
+    <table id="multi_col_order"
+           class="table table-striped table-bordered display">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Creator Name</th>
+            <th hidden="true">Description</th>
+            <th hidden="true">ContentFile</th>
+            <th>(ID) Category Name</th>
+            <th>Created Date</th>
+            <th>Available</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Creator Name</th>
+            <th hidden="true">Description</th>
+            <th hidden="true">ContentFile</th>
+            <th>(ID) Category Name</th>
+            <th>Created Date</th>
+            <th>Available</th>
+            <th>Edit</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.id}">Id</td>
+            <td th:text="${post.name}">Name</td>
+            <td th:text="${post.creatorName}">CreatorName</td>
+            <td hidden="true" th:text="${post.description}">Description</td>
+            <td hidden="true" th:text="${post.contentFile}">ContentFile</td>
+            <td th:text="'(' + ${post.categoryId} + ') ' + ${post.categoryName}">CategoryName</td>
+            <th th:text="${#dates.format(post.createdDate, 'dd-MM-yyyy')}">CreatedDate</th>
+            <td style="text-align: center;" th:if="${post.available == true}">
+                <p class="d-none">true</p>
+                <a
+                   class="btn btn-success"
+                   href="#"
+                   data-toggle="modal"
+                   data-target="#modalStatus"
+                   onclick="updateStatus(this.id, this.name, true, 'post')"
+                   th:id="${post.id}" th:name="${post.name}"
+                   style="width: 40px; height: 40px;" >
+                    <i class="fas fa-check"></i>
+                </a>
+
+            </td>
+            <td style="text-align: center;" th:if="${post.available == false}">
+                <p class="d-none">false</p>
+                <a
+                   class="btn btn-danger"
+                   href="#"
+                   data-toggle="modal"
+                   data-target="#modalStatus"
+                   onclick="updateStatus(this.id, this.name, false, 'post')"
+                   th:id="${post.id}" th:name="${post.name}"
+                   style="width: 40px; height: 40px;">
+                    <i class="fas fa-times"></i>
+                </a>
+            </td>
+
+            <td style="text-align: center;">
+                <a data-toggle="modal"
+                   data-target="#modalEdit"
+                   class="btn-edit btn btn-primary"
+                   href="javascript:void(0)"
+                   style="width: 40px; height: 40px;">
+                    <i class="far fa-edit"></i>
+                    </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<th:block th:replace="/admin/common/___modal :: updateStatusModal"></th:block>
+<th:block th:replace="/admin/common/___modal :: editPostModal"></th:block>
+</body>
+
+<!-- Update Status -->
+<th:block id="scripts">
+	<script type="text/javascript" th:src="@{/dist/js/image-upload-script.js}"></script>
+    <script type="text/javascript" th:src="@{/ckeditor/build/ckeditor.js}"></script>
+	<script>
+        function bindingButton(){
+            $(".btn-edit").click(function () {
+                var table = $('#multi_col_order').DataTable();
+
+                var selectedRow = $(this).parent().parent();
+                var data = table.row(selectedRow).data();
+
+                $('#editId').val(data[0]);
+                $('#updateName').val(data[1]);
+                $('#updateDescription').val(data[3]);
+
+                var file_url = '/contents/' + data[4];
+                edit(file_url);
+            })
+        }
+    </script>
+ 	<!-- ./Update Status -->
+
+	<!-- Edit Content -->
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	    	ck("contentFile", "");
+	    });
+	    
+		function edit(file_url){
+			clearUpdateEditor();
+			pureHTMLToCkeditor(file_url);
+		};
+		
+		function clearUpdateEditor(){
+			$("#updateEditor").parent().children('.ck-editor').remove();
+		}
+	
+		function pureHTMLToCkeditor(file_url) {
+		  var z, i, elmnt, file, xhttp;
+		  /* Loop through a collection of all HTML elements: */
+		  z = $("#updateEditor");
+		  for (i = 0; i < z.length; i++) {
+		    elmnt = z[i];
+		   
+		    /*search for elements with a certain atrribute:*/
+		    file = file_url;
+		    if (file) {
+		      /* Make an HTTP request using the attribute value as the file name: */
+		      xhttp = new XMLHttpRequest();
+		      xhttp.onreadystatechange = function() {
+		        if (this.readyState == 4) {
+		          if (this.status == 200) {ck("updateEditor", this.responseText);}
+		          if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+		        }
+		      }
+		      xhttp.open("GET", file, true);
+		      xhttp.send();
+		      /* Exit the function: */
+		      return;
+		    }
+		  }
+		};
+			
+	    /* Install ckeditor */
+	    function ck(id, text){
+	    	ClassicEditor.create(document.querySelector('#' + id), {
+	            toolbar: {
+	                items: [
+	                    'heading',
+	                    '|',
+	                    'bold',
+	                    'italic',
+	                    'link',
+	                    'fontBackgroundColor',
+	                    'fontColor',
+	                    'fontFamily',
+	                    'fontSize',
+	                    'highlight',
+	                    '|',
+	                    'bulletedList',
+	                    'numberedList',
+	                    '|',
+	                    'outdent',
+	                    'indent',
+	                    '|',
+	                    'imageInsert',
+	                    'mediaEmbed',
+	                    '|',
+	                    'insertTable',
+	                    'undo',
+	                    'redo',
+	                    '|',
+	                    'htmlEmbed',
+	                    'codeBlock',
+	                    'code',
+	                    'MathType',
+	                    '|'
+	                ]
+	            },
+	            language: 'vi',
+	            image: {
+	                toolbar: [
+	                    'imageTextAlternative',
+	                    'imageStyle:full',
+	                    'imageStyle:side',
+	                ]
+	            },
+	            table: {
+	                contentToolbar: [
+	                    'tableColumn',
+	                    'tableRow',
+	                    'mergeTableCells'
+	                ]
+	            },
+	            licenseKey: '',
+	
+	
+	        })
+	        .then(editor => {
+	            window.editor = editor;
+	            editor.setData(text);
+	        })
+	        .catch(error => {
+	            console.error('Oops, something went wrong!');
+	            console.error('Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:');
+	            console.warn('Build id: vjog32cbpuc8-z46nhsly61jf');
+	            console.error(error);
+	        });
+	        
+	        }
+	</script>
+	<!-- ./Edit Content -->
+    <script type="text/javascript" th:src="@{/dist/js/admin-update-status.js}"></script>
+</th:block>
+
+</html>
