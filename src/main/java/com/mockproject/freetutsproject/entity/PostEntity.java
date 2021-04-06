@@ -5,6 +5,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.validation.Validator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class PostEntity extends AbstractEntity {
 	
 	@Column (columnDefinition = "nvarchar(255)")
 	private String name;
-	
+
 	@Column (columnDefinition = "ntext")
 	private String description;
 	

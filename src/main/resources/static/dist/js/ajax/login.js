@@ -12,7 +12,7 @@ $(document).ready(function () {
                 url: $(this).attr("action"),
                 data: $(this).serialize(),
                 statusCode: {
-                    403: function() {;
+                    401: function() {
                         alertify.notify('Wrong username or password!', 'custom-error', 5);
                     },
                     200: function() {

@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	@Transactional
 	public OrderDTO updateStatus(boolean status, long id) {
 		OrderEntity entity = orderRepository.findById(id).orElse(null);
 		if (entity != null){
