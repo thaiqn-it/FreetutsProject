@@ -45,7 +45,7 @@ public class PostController {
     @GetMapping (value = "/admin/post")
     public String loadAdminPost(Model model) {
         List<PostDTO> posts = postService.findAll();
-        model.addAttribute("posts", posts);
+        model.addAttribute("POSTS", posts);
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("POST_DTO",new PostDTO());
         

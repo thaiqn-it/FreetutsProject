@@ -59,7 +59,7 @@ public class CategoryController {
     @GetMapping (value = "/admin/category")
     public String loadAdminCategory(Model model) {
         List<CategoryDTO> categories = categoryService.findAll();
-        model.addAttribute("categories", categories);
+        model.addAttribute("CATEGORIES", categories);
         model.addAttribute("CATEGORY_DTO",new CategoryDTO());
         model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
 

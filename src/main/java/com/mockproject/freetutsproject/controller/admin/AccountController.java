@@ -40,7 +40,7 @@ public class AccountController {
     @GetMapping(value = "/admin/account")
     public String loadAccount(Model model) {
         List<AdminDTO> accounts = adminService.findAll();
-        model.addAttribute("accounts", accounts);
+        model.addAttribute("ACCOUNTS", accounts);
         model.addAttribute("ADMIN_DTO",new AdminDTO());
         
         return "admin/admin-account";
