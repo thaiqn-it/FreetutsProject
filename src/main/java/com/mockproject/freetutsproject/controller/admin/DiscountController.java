@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.service.DiscountService;
+import com.mockproject.freetutsproject.util.CountUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 public class DiscountController {
 
     @Autowired
-    DiscountService discountService;
+    private DiscountService discountService;
+
+    @Autowired
+    private CountUtil<DiscountDTO> countUtil;
 
     @PostMapping("/admin/discount")
     @ResponseBody
@@ -37,7 +41,7 @@ public class DiscountController {
         model.addAttribute("DISCOUNT", new DiscountDTO());
         model.addAttribute("DISCOUNTS", discounts);
 
-        model.addAttribute("AVAILABLE", countAvailable(discounts));
+        model.addAttribute("AVAILABLE", countUtil.countAvailable(discounts));
         return "admin/admin-discount";
     }
 
@@ -56,9 +60,5 @@ public class DiscountController {
         if (result != null)
             return "redirect:/admin/discount?success";
         return "redirect:/admin/discount?error";
-    }
-
-    private long countAvailable(List<DiscountDTO> discounts) {
-        return discounts.stream().filter(discount -> discount.isAvailable()).count();
     }
 }

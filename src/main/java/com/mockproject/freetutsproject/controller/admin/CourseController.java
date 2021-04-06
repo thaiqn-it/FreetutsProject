@@ -1,9 +1,13 @@
 package com.mockproject.freetutsproject.controller.admin;
 
-import com.mockproject.freetutsproject.dto.AdminDTO;
+import java.io.IOException;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
+import com.mockproject.freetutsproject.util.CountUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,17 +15,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
-import java.util.List;
-
 @Controller(value ="adminCourse")
 public class CourseController {
 
     @Autowired
-    CourseService courseService;
+    private CountUtil<CourseDTO> countUtil;
 
     @Autowired
-    CategoryService categoryService;
+    private CourseService courseService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @PostMapping("/admin/course")
     public String createCourse(CourseDTO courseDTO){
@@ -45,7 +49,7 @@ public class CourseController {
         model.addAttribute("COURSE_DTO",new CourseDTO());
         model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
         
-        model.addAttribute("AVAILABLE", countAvailable(courses));
+        model.addAttribute("AVAILABLE", countUtil.countAvailable(courses));
         return "admin/admin-course";
     }
 
@@ -59,16 +63,5 @@ public class CourseController {
         }
         if (result != null) return "redirect:/admin/course?success";
         return "redirect:/admin/course?error";
-    }
-    
-    public int countAvailable(List<CourseDTO> list) {
-    	int result = 0;
-    	for (CourseDTO dto : list) {
-    		if(dto.isAvailable()) {
-    			result++;
-    		}
-		}
-    	
-    	return result;
     }
 }

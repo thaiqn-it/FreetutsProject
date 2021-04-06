@@ -1,12 +1,17 @@
 package com.mockproject.freetutsproject.controller.admin;
 
-import com.mockproject.freetutsproject.dto.AdminDTO;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
 import com.mockproject.freetutsproject.service.PostService;
+import com.mockproject.freetutsproject.util.CountUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,12 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller (value = "categoryControllerOfAdmin")
 public class CategoryController {
+    @Autowired
+    private CountUtil<CategoryDTO> countUtil;
+
     @Autowired
     private CategoryService categoryService;
 
@@ -59,7 +63,7 @@ public class CategoryController {
         model.addAttribute("CATEGORY_DTO",new CategoryDTO());
         model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
 
-        model.addAttribute("AVAILABLE", countAvailable(categories));
+        model.addAttribute("AVAILABLE", countUtil.countAvailable(categories));
         return "admin/admin-category";
     }
 
@@ -145,16 +149,5 @@ public class CategoryController {
                 updateParent(status, parent);
             }
         }
-    }
-    
-    public int countAvailable(List<CategoryDTO> list) {
-    	int result = 0;
-    	for (CategoryDTO dto : list) {
-    		if(dto.isAvailable()) {
-    			result++;
-    		}
-		}
-    	
-    	return result;
     }
 }

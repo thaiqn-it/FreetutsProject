@@ -1,9 +1,13 @@
 package com.mockproject.freetutsproject.controller.admin;
 
-import com.mockproject.freetutsproject.dto.AdminDTO;
+import java.io.IOException;
+import java.util.List;
+
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.PostService;
+import com.mockproject.freetutsproject.util.CountUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,11 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
-import java.util.List;
-
 @Controller (value = "postControllerOfAdmin")
 public class PostController {
+    @Autowired
+    private CountUtil<PostDTO> countUtil;
+
     @Autowired
     private PostService postService;
 
@@ -45,7 +49,7 @@ public class PostController {
         model.addAttribute("CATEGORIES", categoryService.findBySubCategoriesIsNull());
         model.addAttribute("POST_DTO",new PostDTO());
         
-        model.addAttribute("AVAILABLE", countAvailable(posts));
+        model.addAttribute("AVAILABLE", countUtil.countAvailable(posts));
         return "admin/admin-post";
     }
     
@@ -60,16 +64,5 @@ public class PostController {
     	
         if (result != null) return "redirect:/admin/post?success";
         return "redirect:/admin/post?error";
-    }
-    
-    public int countAvailable(List<PostDTO> list) {
-    	int result = 0;
-    	for (PostDTO dto : list) {
-    		if(dto.isAvailable()) {
-    			result++;
-    		}
-		}
-    	
-    	return result;
     }
 }
