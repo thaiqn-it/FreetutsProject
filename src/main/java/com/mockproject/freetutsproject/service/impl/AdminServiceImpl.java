@@ -2,7 +2,6 @@ package com.mockproject.freetutsproject.service.impl;
 
 import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.entity.AdminEntity;
-import com.mockproject.freetutsproject.entity.CategoryEntity;
 import com.mockproject.freetutsproject.mapper.AdminMapper;
 import com.mockproject.freetutsproject.repository.AdminRepository;
 import com.mockproject.freetutsproject.service.AdminService;
@@ -26,10 +25,10 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public List<AdminDTO> findAll() {
         List<AdminEntity> entities = adminRepository.findAll();
-        if (!entities.isEmpty()){
+        if (!entities.isEmpty()) {
             return entities.stream()
                     .map(entity -> adminMapper.toDTO(entity))
                     .collect(Collectors.toList());
@@ -40,7 +39,7 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminDTO findById(Long id) {
         AdminEntity entities = adminRepository.findById(id).orElse(null);
-        if (entities != null){
+        if (entities != null) {
             return adminMapper.toDTO(entities);
         }
         return null;
@@ -56,22 +55,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public AdminDTO findByUsername(String username) {
         return adminMapper.toDTO(adminRepository.findByUsernameAndAvailableTrue(username));
     }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public boolean checkUsernameExist(String username) {
         return adminRepository.existsByUsername(username);
     }
 
     @Override
-    @Transactional (readOnly = true)
+    @Transactional(readOnly = true)
     public boolean checkPasswordValid(AdminDTO adminDTO) {
         AdminEntity entity = adminRepository.findById(adminDTO.getId()).orElse(null);
-        if (BCrypt.checkpw(adminDTO.getOldPassword(),entity.getPassword())){
+        if (BCrypt.checkpw(adminDTO.getOldPassword(), entity.getPassword())) {
             return true;
         }
         return false;

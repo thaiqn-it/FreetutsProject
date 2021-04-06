@@ -1,14 +1,13 @@
 package com.mockproject.freetutsproject.mapper;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
+import com.mockproject.freetutsproject.entity.AdminEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mockproject.freetutsproject.dto.AdminDTO;
-import com.mockproject.freetutsproject.entity.AdminEntity;
-
 @Component
-public class AdminMapper implements GenericMapper<AdminEntity, AdminDTO>{
+public class AdminMapper implements GenericMapper<AdminEntity, AdminDTO> {
 
 	@Autowired
 	private ModelMapper modelMapper;

@@ -15,7 +15,7 @@ public interface PostRepository extends JpaRepository<PostEntity, Long> {
 	List<PostEntity> findByCategoryAndAvailableTrue(CategoryEntity category);
 	PostEntity findByIdAndAvailableTrue(Long id);
 
-	@Query (value = "SELECT p FROM PostEntity p WHERE p.category.id IN :ids AND available = 1 ORDER BY p.id DESC")
+	@Query (value = "SELECT p FROM PostEntity p WHERE p.category.id IN :ids AND p.available = true ORDER BY p.id DESC")
 	Page<PostEntity> findPostByCategoriesAndOrderedByIdLimitedTo(@Param("ids") List<Long> ids, Pageable pageable);
 
 	List<PostEntity> findTop20PostByAvailableTrueAndCategoryNameContainingOrderById(String name);
