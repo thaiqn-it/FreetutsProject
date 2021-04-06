@@ -42,10 +42,12 @@ public class FileUtil {
 		}
 
 		Path filePath = storage.resolve(fileName);
-		Path oldFilePath = storage.resolve(oldFileName);
-		
 		Files.write(filePath, content.getBytes());
-		Files.delete(oldFilePath);
+
+		if (!oldFileName.equals(fileName)) {
+			Path oldFilePath = storage.resolve(oldFileName);
+			Files.delete(oldFilePath);
+		}
 
 		return fileName;
 	}
