@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.service.CategoryService;
 import com.mockproject.freetutsproject.service.CourseService;
@@ -43,6 +44,8 @@ public class CourseController {
         model.addAttribute("courses", courses);
         model.addAttribute("COURSE_DTO",new CourseDTO());
         model.addAttribute("COURSE_CATEGORIES", categoryService.findCategory("Khóa học").getSubCategories());
+        
+        model.addAttribute("AVAILABLE", countAvailable(courses));
         return "admin/admin-course";
     }
 
@@ -56,5 +59,16 @@ public class CourseController {
         }
         if (result != null) return "redirect:/admin/course?success";
         return "redirect:/admin/course?error";
+    }
+    
+    public int countAvailable(List<CourseDTO> list) {
+    	int result = 0;
+    	for (CourseDTO dto : list) {
+    		if(dto.isAvailable()) {
+    			result++;
+    		}
+		}
+    	
+    	return result;
     }
 }

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- main-fragment(title, styles, body, scripts) -->
-<html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{admin/layout/main-layout :: main-fragment(
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{admin/layout/main-layout :: main-fragment(
                                                 ~{::title},
                                                 ~{:: #styles},
                                                 ~{::body},
@@ -12,64 +11,71 @@
     <meta charset="UTF-8">
     <title>Freetuts - Admin</title>
 </head>
+
 <body>
-<ul class="nav my-2">
-    <li class="nav-item"><h4 class="card-title">Accounts</h4></li>
-    <li class="nav-item ml-auto">
-        <!-- +new -->
-        <a id="btn-add" class="btn btn-primary text-white rounded-circle font-13 hide"
-           href="#"> <i class="fas fa-plus"></i> </a>
-    </li>
-</ul>
-<div id="add-form" class="border border-dark rounded p-4 my-3 was-validated" style="display: none">
-    <form action="/admin/account" class="was-validated" method="post" th:object="${ADMIN_DTO}">
-        <div class="form-group">
-            <input type="text" class="form-control mb-2" placeholder="Username" th:field="*{username}" required>
-            <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control mb-2" placeholder="FullName" th:field="*{fullname}" required>
-            <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control mb-2" id="password"
-                   placeholder="Password" th:field="*{password}" required onkeyup="checkPasswordMatch()">
-            <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control mb-2" id="re-password"
-                   placeholder="Re-password" required onkeyup="checkPasswordMatch()">
-            <div class="invalid-feedback">Please fill out this field.</div>
-        </div>
-        <input type="submit" class="btn btn-success mb-2" value="Submit">
-    </form>
-</div>
-<div class="table-responsive">
-    <table id="multi_col_order"
-           class="table table-striped table-bordered display" style="width:100%">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Full Name</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Full Name</th>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr th:each="account : ${accounts}">
-            <td th:text="${account.id}">Id</td>
-            <td th:text="${account.username}">Username</td>
-            <td th:text="${account.fullname}">Full Name</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+    <ul class="nav my-2">
+        <li class="nav-item">
+            <h4 class="card-title">Accounts
+                <span class="badge bg-primary font-15 text-white font-weight-medium" th:text="${accounts.size}"></span>
+            </h4>
+        </li>
+        <li class="nav-item ml-auto">
+            <!-- +new --> <a id="btn-add" class="btn btn-primary text-white rounded-circle font-13 hide" href="#"> <i
+                    class="fas fa-plus"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div id="add-form" class="border border-dark rounded p-4 my-3 was-validated" style="display: none">
+        <form action="/admin/account" class="was-validated" method="post" th:object="${ADMIN_DTO}">
+            <div class="form-group">
+                <input type="text" class="form-control mb-2" placeholder="Username" th:field="*{username}" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control mb-2" placeholder="FullName" th:field="*{fullname}" required>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control mb-2" id="password" placeholder="Password"
+                    th:field="*{password}" required onkeyup="checkPasswordMatch()">
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control mb-2" id="re-password" placeholder="Re-password" required
+                    onkeyup="checkPasswordMatch()">
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            <input type="submit" class="btn btn-success mb-2 float-right" style="margin-top: -25px" value="Submit">
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table id="multi_col_order" class="table table-striped table-bordered display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <tr th:each="account : ${accounts}">
+                    <td th:text="${account.id}">Id</td>
+                    <td th:text="${account.username}">Username</td>
+                    <td th:text="${account.fullname}">Full Name</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <th:block th:replace="/admin/common/___modal :: updateStatusModal"></th:block>
 
 </body>
 <th:block id="scripts">
@@ -78,7 +84,7 @@
             $('#multi_col_order').DataTable();
         })
 
-        function  bindingButton(){
+        function bindingButton() {
             // TO-DO here
         }
 
@@ -94,4 +100,5 @@
         }
     </script>
 </th:block>
+
 </html>

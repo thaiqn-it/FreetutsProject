@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body th:fragment="viewMore-frame" >
+    <div class="p-2 mt-4" style="background-color: #2f6e91; color: #ffffff;font-weight: bold; font-size: 17px">Xem thêm</div>
+    <div class="row">
+        <div class="col-3 mt-2" th:each="post : ${#request.getAttribute('VIEW_MORE')}">
+            <a th:href="@{'/post/' + ${post.id}}"><img width="100%" th:src="@{'/images/' + ${post.thumbnail}}" alt=""></a>
+            <a th:href="@{'/post/' + ${post.id}}"><div class="w-100 font-weight-bold" th:text="${post.name}"></div></a>
+        </div>
+    </div>
+</body>
+</html>

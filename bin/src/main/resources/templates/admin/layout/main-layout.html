@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"      th:fragment="main-fragment(title, styles, body, scripts)">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{/assets/images/favicon.png}">
+    <title th:replace="${title}">Freetuts - Admin</title>
+    <!-- This page plugin CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <!-- Custom CSS -->
+    <link th:href="@{/dist/css/style.min.css}" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/dist/css/image-upload-style.css}">
+    <!--Alertify-->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <style>
+        .ajs-message.ajs-custom-error {
+            color: #FFFFFF;
+            background-color: #c11818;
+            border-color: #FFFFFF;
+            text-align: center;
+        }
+
+        .ajs-message.ajs-custom-success {
+            color: #FFFFFF;
+            background-color: #13a539 !important;
+            border-color: #FFFFFF;
+            text-align: center;
+        }
+    </style>
+    <th:block th:replace="${styles} ?: ~{}"></th:block>
+</head>
+<body>
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div class="preloader">
+    <div class="lds-ripple">
+        <div class="lds-pos"></div>
+        <div class="lds-pos"></div>
+    </div>
+</div>
+
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+    <!-- ============================================================== -->
+    <!-- Topbar header - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <header class="topbar position-absolute" data-navbarbg="skin6">
+        <nav class="navbar top-navbar navbar-expand-md">
+            <div class="navbar-header" data-logobg="skin6">
+                <!-- This is for the sidebar toggle which is visible on mobile only -->
+                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i
+                        class="ti-menu ti-close"></i></a>
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-brand">
+                    <!-- Logo icon -->
+                    <a th:href="@{/admin/panel}">
+                        <b class="logo-icon">
+                            <!-- Dark Logo icon -->
+                            <img style="width: 80%" src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                            <!-- Light Logo icon -->
+                            <img style="width: 80%" src="../assets/images/logo-icon.png" alt="homepage" class="light-logo"/>
+                        </b>
+                        <!--End Logo icon -->
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Toggle which is visible on mobile only -->
+                <!-- ============================================================== -->
+                <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)"
+                   data-toggle="collapse" data-target="#navbarSupportedContent"
+                   aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
+                        class="ti-more"></i></a>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Logo -->
+            <!-- ============================================================== -->
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <!-- ============================================================== -->
+                <!-- toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+
+                </ul>
+                <!-- ============================================================== -->
+                <!-- Right side toggle and nav items -->
+                <!-- ============================================================== -->
+                <ul class="navbar-nav float-right">
+                    <!-- ============================================================== -->
+                    <!-- User profile -->
+                    <!-- ============================================================== -->
+                    <li class="nav-item dropdown">
+                        <th:block>
+                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                                    <span class="ml-2 d-none d-lg-inline-block">
+                                        <span>Hello,</span>
+                                        <span class="text-dark" th:text="${#request.getAttribute('CURRENT_USER').fullname}"></span>
+                                        <i data-feather="chevron-down"
+                                        class="svg-icon"></i>
+                                    </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY py-2">
+                                <a class="dropdown-item" th:href="@{'/admin/' + ${#request.getAttribute('CURRENT_USER').id}}">
+                                    <i data-feather="user"
+                                    class="svg-icon mr-2 ml-1"></i>
+                                    My Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout" style="width: 100%">
+                                    <i data-feather="power" class="svg-icon mr-2 ml-1"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </th:block>
+                    </li>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- ============================================================== -->
+    <!-- End Topbar header -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <aside class="left-sidebar" data-sidebarbg="skin6">
+        <!-- Sidebar scroll-->
+        <div class="scroll-sidebar" data-sidebarbg="skin6">
+            <!-- Sidebar navigation-->
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <li class="list-divider"></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Course
+								Manager</span></li>
+
+                    <li class="sidebar-item"><a class="sidebar-link" href="#"
+                                                aria-expanded="false"><i data-feather="tag"
+                                                                         class="feather-icon"></i><span
+                            class="hide-menu">Course
+									Ticket </span></a></li>
+                    <li class="list-divider"></li>
+                    <li class="nav-small-cap"><span class="hide-menu">Freetuts
+								Manager</span></li>
+                    <!-- ============================================================== -->
+                    <!-- Categories  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/category" aria-expanded="false"><i
+                            data-feather="folder" class="feather-icon"></i><span
+                            class="hide-menu">Categories </span></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Posts  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/post" aria-expanded="false"><i
+                            data-feather="file-text" class="feather-icon"></i><span
+                            class="hide-menu">Posts </span></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Courses  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/course" aria-expanded="false"><i
+                            data-feather="book-open" class="feather-icon"></i><span
+                            class="hide-menu">Courses </span></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Discount Code  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/discount" aria-expanded="false"><i
+                            data-feather="tag" class="feather-icon"></i><span
+                            class="hide-menu">Discount Code </span></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Discount Code  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/account    " aria-expanded="false"><i
+                            data-feather="user" class="feather-icon"></i><span
+                            class="hide-menu">Account </span></a></li>
+                    <!-- ============================================================== -->
+                    <!-- Discount Code  -->
+                    <!-- ============================================================== -->
+                    <li class="sidebar-item"><a class="sidebar-link"
+                                                href="/admin/order" aria-expanded="false"><i
+                            data-feather="shopping-bag" class="feather-icon"></i><span
+                            class="hide-menu">Order </span></a></li>
+                </ul>
+            </nav>
+            <!-- End Sidebar navigation -->
+        </div>
+        <!-- End Sidebar scroll-->
+    </aside>
+
+
+    <div class="page-wrapper">
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- multi-column ordering -->
+        <div class="row m-3">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body" th:include="${body} ?: ~{}">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Pge Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- footer -->
+    <!-- ============================================================== -->
+    <footer class="footer text-center text-muted">
+        All Rights Reserved by Freetuts. Designed and Developed by <a
+            href="https://freetuts.net">Freetuts</a>.
+    </footer>
+    <!-- ============================================================== -->
+    <!-- End footer -->
+    <!-- ============================================================== -->
+</div>
+
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- apps -->
+<!-- apps -->
+<script th:src="@{/dist/js/app-style-switcher.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js.map"></script>
+<!-- slimscrollbar scrollbar JavaScript -->
+<script th:src="@{/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js}"></script>
+<script th:src="@{/dist/js/sparkline/sparkline.js}"></script>
+<!--Wave Effects -->
+<!-- themejs -->
+<!--Menu sidebar -->
+<script th:src="@{/dist/js/sidebarmenu.js}"></script>
+<!--Custom JavaScript -->
+<script th:src="@{/dist/js/custom.min.js}"></script>
+<!--Alertify-->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<!--This page plugins -->
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script th:src="@{/dist/js/datatable/datatable-basic.init.min.js}"></script>
+<th:block th:replace="${scripts} ?: ~{}"></th:block>
+<script>
+    $(document).ready(function () {
+        bindingButton();
+        var table = $('#multi_col_order').DataTable();
+        table
+            .on( 'preDraw', function () {
+                bindingButton();
+            } )
+            .on( 'draw.dt', function () {
+                bindingButton();
+            } );
+
+        $('#btn-add').click(function() {
+            if ($(this).hasClass("hide")) {
+                $('#add-form').show();
+                $(this).removeClass("hide");
+                $(this).addClass("show");
+                $(this).find('i').remove();
+                $(this).append('<i class="fas fa-angle-up" style="width: 15px; height: 15px"></i>');
+            }
+            else if ($(this).hasClass("show")){
+                $('#add-form').hide();
+                $(this).removeClass("show");
+                $(this).addClass("hide");
+                $(this).find('i').remove();
+                $(this).append('<i class="fas fa-plus" style="width: 15px; height: 15px"></i>');
+            }
+        });
+
+        /*Init alertify*/
+        var isSuccessOrder = CheckPostStatus();
+        if (isSuccessOrder == "success") {
+            alertify.notify('Successfully !', 'custom-success', 5);
+        }
+        if (isSuccessOrder == "error"){
+            alertify.notify('Something wrong !', 'custom-error', 5);
+        }
+    });
+
+    function CheckPostStatus() {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        var sParameterName = sURLVariables[0].split('=');
+        if (sParameterName[0] == "success")
+        {
+            return "success";
+        } else if (sParameterName[0] == "error"){
+            return "error";
+        }
+        return "";
+    };
+</script>
+
+</body>
+</html>

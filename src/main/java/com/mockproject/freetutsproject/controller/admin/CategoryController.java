@@ -1,5 +1,6 @@
 package com.mockproject.freetutsproject.controller.admin;
 
+import com.mockproject.freetutsproject.dto.AdminDTO;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
 import com.mockproject.freetutsproject.dto.CourseDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
@@ -58,6 +59,7 @@ public class CategoryController {
         model.addAttribute("CATEGORY_DTO",new CategoryDTO());
         model.addAttribute("ALL_CATEGORIES", sortAsRelationship(categoryService.loadTopLevelCategories()));
 
+        model.addAttribute("AVAILABLE", countAvailable(categories));
         return "admin/admin-category";
     }
 
@@ -143,5 +145,16 @@ public class CategoryController {
                 updateParent(status, parent);
             }
         }
+    }
+    
+    public int countAvailable(List<CategoryDTO> list) {
+    	int result = 0;
+    	for (CategoryDTO dto : list) {
+    		if(dto.isAvailable()) {
+    			result++;
+    		}
+		}
+    	
+    	return result;
     }
 }

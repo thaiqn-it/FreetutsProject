@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Học lập trình online miễn phí - Freetuts</title>
+</head>
+<body>
+<div th:fragment="header" id="header-main">
+	<div class="container-fluid p-2" id="topbar">
+	    <div class="container">
+	        <a class="text-dark col-sm-3" href="https://tinohost.com/cloud-hosting/?php=213">Hosting từ 9k/tháng</a>
+	        <a class="text-dark" href="https://tinohost.com/servers/cloud-vps/?php=213">VPS từ 139k/tháng</a>
+	    </div>
+	</div>
+    <div class="navbar navbar-expand-md" role="navigation" id="header">
+        <div class="collapse navbar-collapse p-3">
+            <div class="container">
+                    <div class="navbar-brand">
+                        <a href="/"><img src="https://freetuts.net/public/logo/logo.png?rand=5" class="rounded" width="120" height="40"></a>
+                    </div>
+                    <div class="form-inline mt-2 mt-md-0">
+						<form method="get" action="https://www.google.com.vn/search" target="_blank" onsubmit="jQuery('#q1').val('site:freetuts.net ' + jQuery('#q_tmp').val())">
+							<input class="sf" type="text" placeholder="Search ..." value="" onkeypress="" autocomplete="off" id="q_tmp">
+							<input type="hidden" name="q" id="q1" value="site:freetuts.net dad">
+							<button class="button" type="submit"><i class="fas fa-search"></i></button>
+						</form>
+                        <a class="nav-link" href="https://www.facebook.com/freetuts/"><i class="fab fa-facebook-square"></i></a>
+                        <a class="nav-link" href="https://www.youtube.com/channel/UC0jGwW2AfbsGbuY_Z3jtkAg"><i class="fab fa-twitter"></i></a>
+                        <a class="nav-link" href="https://twitter.com/freetuts_net"><i class="fab fa-youtube"></i></a>
+                        <a class="nav-link" href="https://freetuts.net/skype:thehalfheart?call"><i class="fab fa-skype"></i></a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/"><i class="fas fa-home"></i></a>
+                </li>
+                
+                <th:block th:each="category : ${#request.getAttribute('CATEGORIES')}">
+	                <!-- Multicolumn dropdown -->
+	                 <li class="nav-item dropdown" th:if="${category.name == 'Lập trình'}">
+	                    <a class="nav-link" type="button" th:id="'dropdownMenuButton' + ${category.id}" data-toggle="dropdown"
+	                     aria-haspopup="true" aria-expanded="false" th:text="${category.name}" href="#"></a>
+	                    <div class="dropdown-menu dropdown-lv1 dropdown-multicol2" th:attr="aria-labelledby='dropdownMenuButton' + ${category.id}">
+	                        <th:block th:each="subCate : ${category.subCategories}">
+		                        <div class="dropdown-col">
+		                            <a class="dropdown-item" th:href="@{'/category/' + ${subCate.id} +'?page=1&limit=5'}" th:text="${subCate.name}"></a>
+		                            <th:block th:each="subCateChild : ${subCate.subCategories}">
+								    	<a class="dropdown-item" th:href="@{'/category/' + ${subCateChild.id}} + '?page=1&limit=5'" th:text="${subCateChild.name}"></a>
+								    </th:block>
+		                        </div>
+	                        </th:block>
+	                    </div>
+	                </li>
+	                
+	                <!-- Multilevel dropdown -->
+					<li class="nav-item dropdown" th:if="${category.name != 'Lập trình'}">
+					    <a class="nav-link" th:href="@{'/category/' + ${category.id} + '?page=1&limit=5'}" data-toggle="dropdown" th:text="${category.name}"></a>
+					    <ul class="dropdown-menu dropdown-lv1">
+						  <th:block th:each="subCate : ${category.subCategories}">
+						  <li><a class="dropdown-item" th:href="@{'/category/' + ${subCate.id}} + '?page=1&limit=5'" th:text="${subCate.name}"></a>
+							 <ul class="submenu dropdown-menu" th:if="${subCate.subCategories != null and !subCate.subCategories.empty}">
+							 	<th:block th:each="subCateChild : ${subCate.subCategories}">
+							    	<li><a class="dropdown-item" h:href="@{'/category/' + ${subCateChild.id}} + '?page=1&limit=5'" th:text="${subCateChild.name}"></a></li>
+							    </th:block>
+							 </ul>
+						  </li>
+						  </th:block>
+					    </ul>
+					</li>
+				</th:block>
+            </ul>
+    </nav>
+</div>
+</body>
+</html>
