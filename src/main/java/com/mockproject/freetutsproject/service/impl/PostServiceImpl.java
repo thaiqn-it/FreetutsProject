@@ -1,11 +1,15 @@
 package com.mockproject.freetutsproject.service.impl;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import com.mockproject.freetutsproject.dto.AbstractDTO;
 import com.mockproject.freetutsproject.dto.CategoryDTO;
-import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.dto.PostDTO;
 import com.mockproject.freetutsproject.entity.CategoryEntity;
-import com.mockproject.freetutsproject.entity.DiscountEntity;
 import com.mockproject.freetutsproject.entity.PostEntity;
 import com.mockproject.freetutsproject.mapper.CategoryMapper;
 import com.mockproject.freetutsproject.mapper.PostMapper;
@@ -14,15 +18,10 @@ import com.mockproject.freetutsproject.service.PostService;
 import com.mockproject.freetutsproject.util.FileUtil;
 import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import com.mockproject.freetutsproject.util.StringUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

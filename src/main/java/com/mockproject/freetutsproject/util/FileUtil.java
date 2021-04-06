@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.*;
+import java.util.Random;
 
 @Component
 @PropertySource("classpath:fileStorage.properties")
@@ -21,7 +22,7 @@ public class FileUtil {
 	String imageStoragePath;
 
 	public String writeContentToHTMLOnHardDisk(String content, String name) throws IOException {
-		String fileName = StringUtils.cleanPath(name + ".html");
+		String fileName = StringUtils.cleanPath(name  + "-" + generate6Digits() + ".html");
 		Path storage = Paths.get(contentStoragePath);
 		if (Files.notExists(storage)){
 			Files.createDirectories(storage);
@@ -63,5 +64,15 @@ public class FileUtil {
 			}
 		}
 		return imageName;
+	}
+
+	private String generate6Digits(){
+		Random rand = new Random();
+		String result = "";
+		for (int i = 0; i < 6; i++) {
+			result += rand.nextInt(10);
+		}
+
+		return result;
 	}
 }
