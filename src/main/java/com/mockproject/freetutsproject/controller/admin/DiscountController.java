@@ -1,16 +1,18 @@
 package com.mockproject.freetutsproject.controller.admin;
 
-import java.util.List;
-
 import com.mockproject.freetutsproject.dto.DiscountDTO;
 import com.mockproject.freetutsproject.service.DiscountService;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.List;
 
 @Controller
 public class DiscountController {
@@ -19,12 +21,14 @@ public class DiscountController {
     DiscountService discountService;
 
     @PostMapping("/admin/discount")
-     public String createDiscount(DiscountDTO discountDTO){
+    @ResponseBody
+    public DiscountDTO createDiscount(DiscountDTO discountDTO){
         if (!discountService.checkCodeExist(discountDTO.getDiscountCode())){
-            discountService.save(discountDTO);
-            return "redirect:/admin/discount?success";
+            return discountService.save(discountDTO);
         }
-        return "redirect:/admin/discount?error";
+        else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Existed discount code");
+        }
     }
 
     @GetMapping (value = "/admin/discount")

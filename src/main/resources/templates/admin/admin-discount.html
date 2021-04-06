@@ -22,7 +22,7 @@
 </ul>
 
 <div id="add-form" class="my-3 border border-dark rounded" style="display: none">
-    <form action="/admin/discount" class="was-validated p-4" method="post" th:object="${DISCOUNT}">
+    <form id="form-create" action="/admin/discount" class="was-validated p-4 pb-5" method="post" th:object="${DISCOUNT}">
         <div class="form-group">
             <input type="text" class="form-control mb-2" placeholder="Code" th:field="*{discountCode}" required>
             <div class="invalid-feedback">Please fill out this field.</div>
@@ -39,7 +39,7 @@
             <input type="text" class="form-control mb-2" placeholder="Provider" th:field="*{provider}" required>
             <div class="invalid-feedback">Please fill out this field.</div>
         </div>
-        <input type="submit" class="btn btn-success" value="Submit">
+        <input id="btn-create" type="submit" class="btn btn-success mb-2 float-right" value="Submit">
     </form>
 </div>
 
@@ -136,6 +136,8 @@
             })
         }
     </script>
+    <!-- Ajax -->
+    <!-- <script type="text/javascript" th:src="@{/dist/js/ajax/discount.js}"></script> -->
     <!-- Update Status -->
     <script type="text/javascript" th:src="@{/dist/js/admin-update-status.js}"></script>
     <!-- ./Update Status -->

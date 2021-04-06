@@ -23,12 +23,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public CustomSuccessHandler customSuccessHandler(){
+        return new CustomSuccessHandler();
+    }
+
+    @Bean
+    public CustomFailureHandler customFailureHandler(){
+        return new CustomFailureHandler();
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         //login
-        http.formLogin().loginPage("/admin").loginProcessingUrl("/admin").defaultSuccessUrl("/admin/panel")
-                .permitAll();
+        http.formLogin().loginPage("/admin")
+                        .successHandler(customSuccessHandler())
+                        .failureHandler(customFailureHandler())
+                        .permitAll();
 
         //admin pages
         http.authorizeRequests().antMatchers("/admin/**").authenticated();
