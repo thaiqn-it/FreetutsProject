@@ -20,6 +20,7 @@ import com.mockproject.freetutsproject.util.MultiLevelCategoryUtil;
 import com.mockproject.freetutsproject.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,7 +89,7 @@ public class PostServiceImpl implements PostService {
 		List<CategoryDTO> lastLevelCategories = multiLevelCategoryUtil.findAllLastLevelSubCategroies(categoryDTO);
 		List<Long> ids = new ArrayList<>();
 		lastLevelCategories.forEach(category -> ids.add(category.getId()));
-		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids, 5);
+		postEntityList = postRepository.findPostByCategoriesAndOrderedByIdLimitedTo(ids, PageRequest.of(0, limit)).getContent();
 		if (!postEntityList.isEmpty()) {
 			List<PostDTO> postDTOList = new ArrayList<PostDTO>();
 			postEntityList.forEach(entity -> postDTOList.add(postMapper.toDTO(entity)));
@@ -153,6 +154,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public PostDTO findById(Long id) {
 		PostEntity entity = postRepository.findById(id).orElse(null);
 		if (entity != null) {

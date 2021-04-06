@@ -26,14 +26,14 @@ public class CommentController {
             Long courseId = commentDTO.getCourseId();
             if (courseService.availableById(courseId)){
                 CommentDTO savedComment = commentService.save(commentDTO);
-                return "redirect:web/course/" + savedComment.getCourseId();
+                return "redirect:/course/" + savedComment.getCourseId();
             }
         }
         else if (commentDTO.getPostId() != null) {
             Long postId = commentDTO.getPostId();
             if (postService.availableById(postId)) {
                 CommentDTO savedComment = commentService.save(commentDTO);
-                return "redirect:web/post/" + savedComment.getPostId();
+                return "redirect:/post/" + savedComment.getPostId();
             }
         }
         return "error-404";
